@@ -1,0 +1,160 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  /*animation: App-logo-spin infinite 20s linear;*/
+  height: 80px;
+  align-self: center;
+}
+
+.App-header {
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.person-logo {
+  /*animation: App-logo-spin infinite 20s linear;*/
+  padding-top: 20px;
+  height: 60%;
+  width: 60%;
+  align-self: center;
+}
+
+@media only screen and (min-width: 1000px) {
+  .person-logo {
+    /*animation: App-logo-spin infinite 20s linear;*/
+    padding-top: 20px;
+    align-self: center;
+  }
+}
+
+.topnav {
+  width: 100%;
+  /*position: absolute;*/
+  z-index: 99;
+  background-color: #4E5EB3;
+  overflow: hidden;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 11px 11px;
+  text-decoration: none;
+  font-size: 16px;
+  width: 33.3%;
+}
+
+.topnav a:hover {
+  background-color: #6B7BD0;
+  color: white;
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+}
+
+.active {
+  background-color: #4E5EB3;
+  color: black;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create three columns of equal width */
+.columns {
+  float: left;
+  width: 33.3%;
+  padding: 8px;
+}
+
+/* Style the list */
+.person {
+  list-style-type: none;
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+/* Add shadows on hover */
+.person:hover {
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+}
+
+/* Pricing header */
+.person .header {
+  background-color: #eee;
+  color: black;
+  font-size: 25px;
+}
+
+/* List items */
+.person li {
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Grey list item */
+.person .dua {
+  background-color: #eee;
+  font-size: 20px;
+}
+
+.person .dua a:hover {
+  background-color: #6B7BD0;
+  color: white;
+}
+
+/* The "Sign Up" button */
+.button {
+  background-color: #4E5EB3;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.description {
+  height: 250px;
+}
+
+/* Change the width of the three columns to 100% 
+(to stack horizontally on small screens) */
+@media only screen and (max-width: 600px) {
+  .columns {
+    width: 100%;
+  }
+}
+
+a.avatar {
+  border-radius: 100%;
+}
+
+  a.avatar:before {
+    display: none;
+  }
+
+  a.avatar img {
+    border-radius: 100%;
+    width: 100%;
+  }
