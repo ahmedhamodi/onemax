@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './images/onemax.png';
 import person from './images/person.png';
-import nominee from 'nominee.js'
+import Nominee from './nominee.js'
 import './App.css';
 
 class App extends Component {
@@ -17,32 +17,11 @@ class App extends Component {
             <a href="#">Login</a>
           </div>
 
-          <div class="columns">
-            <ul class="person">
-              <li class="header">NAME</li>
-              <img src={person} className="person-logo" alt="logo" />
-              <p class="description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.</p>
-              <li class="dua"><a href="#" class="button">Give Dua</a></li>
-            </ul>
-          </div>
+          <Nominee name="Name of Nominee" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."/>
 
-          <div class="columns">
-            <ul class="person">
-              <li class="header">NAME</li>
-              <img src={person} className="person-logo" alt="logo" />
-              <p class="description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.</p>
-              <li class="dua"><a href="#" class="button">Give Dua</a></li>
-            </ul>
-          </div>
+          <Nominee name="Name of Nominee" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."/>
 
-          <div class="columns">
-            <ul class="person">
-              <li class="header">NAME</li>
-              <img src={person} className="person-logo" alt="logo" />
-              <p class="description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.</p>
-              <li class="dua"><a href="#" class="button">Give Dua</a></li>
-            </ul>
-          </div>
+          <Nominee name="Name of Nominee" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."/>
 
         </body>
 
