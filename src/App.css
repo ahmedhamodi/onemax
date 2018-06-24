@@ -98,7 +98,7 @@
   box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
 }
 
-/* Pricing header */
+/* Person header */
 .person .header {
   background-color: #eee;
   color: black;
@@ -119,16 +119,13 @@
 }
 
 .person .dua a:hover {
-  background-color: #6B7BD0;
-  color: white;
+  background-color: lightgray;
+  color: lightgray;
 }
 
 /* The "Sign Up" button */
 .button {
-  background-color: #4E5EB3;
-  border: none;
-  color: white;
-  padding: 10px 25px;
+  color: black;
   text-align: center;
   text-decoration: none;
   font-size: 18px;

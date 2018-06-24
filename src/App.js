@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
 import logo from './images/onemax.png';
-import person from './images/person.png';
 import Nominee from './nominee.js'
+import axios from 'axios'
+import Popup from 'reactjs-popup'
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      persons: []
+    };
+  }
+
+  componentDidMount() {
+    axios.get('http://fast-cove-41298.herokuapp.com/nominations')
+    .then(res => {
+      const persons = res.data
+      this.setState({ persons });
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -17,11 +34,11 @@ class App extends Component {
             <a href="#">Login</a>
           </div>
 
-          <Nominee name="Name of Nominee" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."/>
+          <Nominee name={ this.state.persons.slice(0,1).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(0,1).map(person => <p>{person.description}</p>)} duas={ this.state.persons.slice(0,1).map(person => <p>{person.duas}</p>)}/>
 
-          <Nominee name="Name of Nominee" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."/>
+          <Nominee name={ this.state.persons.slice(1,2).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(1,2).map(person => <p>{person.description}</p>)} duas={ this.state.persons.slice(1,2).map(person => <p>{person.duas}</p>)}/>
 
-          <Nominee name="Name of Nominee" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."/>
+          <Nominee name={ this.state.persons.slice(2,3).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(2,3).map(person => <p>{person.description}</p>)} duas={ this.state.persons.slice(2,3).map(person => <p>{person.duas}</p>)}/>
 
         </body>
 

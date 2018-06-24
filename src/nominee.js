@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import person from './images/person.png';
+import dua from './images/dua_icon.png';
 import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
 export default class Nominee extends Component {
 	render() {
@@ -13,7 +11,7 @@ export default class Nominee extends Component {
 		      <li class="header">{ this.props.name }</li>
 		      <img src={person} className="person-logo" alt="logo" />
 		      <p class="description">{ this.props.description }</p>
-		      <li class="dua"><a href="#" class="button">Give Dua</a></li>
+		      <li class="dua"><a href="#" class="button"><img src={dua} alt="Give Dua" height="60" width="60" class="dua_button"/>{ this.props.duas }</a></li>
 		    </ul>
 		  </div>
 		);
