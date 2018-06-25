@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Popover, Tooltip, Modal } from 'react-bootstrap';
+import axios from 'axios'
 
 export default class ModalPopup extends Component {
   constructor(props, context) {
@@ -9,7 +10,11 @@ export default class ModalPopup extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: false
+      show: false,
+      name: 'root',
+      description: 'password',
+      country: 'Canada',
+      tags: 'tag',
     };
   }
 
@@ -24,6 +29,14 @@ export default class ModalPopup extends Component {
   toggleModal = () => {
     this.setState({
       show: !this.state.show
+    });
+  }
+
+  submitNom = () => {
+    axios.get('http://fast-cove-41298.herokuapp.com/nominations')
+    .then(res => {
+      const persons = res.data
+      this.setState({ persons });
     });
   }
 
@@ -50,9 +63,12 @@ export default class ModalPopup extends Component {
               </select>
             </p>
             <textarea rows="1" cols="60">Add relevant tags to submission</textarea>
-            <p class="create_nom_popup">Submit Nomination</p>
-            <button onClick={this.toggleModal}>Cancel</button>
+            <p></p>
           </Modal.Body>
+          <Modal.Footer>
+            <button type="button" class="btn btn-danger" onClick={this.toggleModal}>Cancel</button>
+            <button type="button" class="btn btn-success" onClick={this.submitNom}>Submit</button>
+          </Modal.Footer>
         </Modal>
       </div>
     );

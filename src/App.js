@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://fast-cove-41298.herokuapp.com/nominations')
+    axios.get('https://fast-cove-41298.herokuapp.com/nominations')
     .then(res => {
       const persons = res.data
       this.setState({ persons });
