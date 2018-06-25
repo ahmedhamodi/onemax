@@ -10,11 +10,7 @@ export default class ModalPopup extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: false,
-      name: 'root',
-      description: 'password',
-      country: 'Canada',
-      tags: 'tag',
+      show: false
     };
   }
 
@@ -29,14 +25,6 @@ export default class ModalPopup extends Component {
   toggleModal = () => {
     this.setState({
       show: !this.state.show
-    });
-  }
-
-  submitNom = () => {
-    axios.get('http://fast-cove-41298.herokuapp.com/nominations')
-    .then(res => {
-      const persons = res.data
-      this.setState({ persons });
     });
   }
 
@@ -62,7 +50,7 @@ export default class ModalPopup extends Component {
                 <option value="australia">Australia</option>
               </select>
             </p>
-            <textarea rows="1" cols="60">Add relevant tags to submission</textarea>
+            <textarea rows="1" cols="60">Add relevant tags to submission (ex. #community, #charity)</textarea>
             <p></p>
           </Modal.Body>
           <Modal.Footer>

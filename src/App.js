@@ -34,9 +34,9 @@ class App extends Component {
         
         <body>
           <div class="topnav" id="myTopnav" role="navigation">
-            <a href="#" class="active button"><img src={home} alt="Home Button" height="40" width="40" class="navbar_button"/></a>
-            <a href="#" class="active button"><img src={search} alt="Search Button" height="40" width="40" class="navbar_button"/></a>
-            <a href="#" class="active button"><img src={login} alt="Login Button" height="40" width="40" class="navbar_button"/></a>
+            <a href="#" class="button"><img src={home} alt="Home Button" height="40" width="40" class="navbar_button"/></a>
+            <a href="#" class="button"><img src={search} alt="Search Button" height="40" width="40" class="navbar_button"/></a>
+            <a href="#" class="button"><img src={login} alt="Login Button" height="40" width="40" class="navbar_button"/></a>
           </div>
 
           <Nominee name={ this.state.persons.slice(0,1).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(0,1).map(person => <p>{person.description}</p>)} duas={ this.state.persons.slice(0,1).map(person => <p>{person.duas}</p>)}/>
