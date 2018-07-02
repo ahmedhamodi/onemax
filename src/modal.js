@@ -33,13 +33,7 @@ export default class SubmitModal extends Component {
   }
 
   resetDefaults = () => {
-    this.setState({ name: "" })
-    this.setState({ description: "" })
-    this.setState({ country: "Canada" })
-    this.setState({ province: "Alberta" })
-    this.setState({ tags: "" })
-    this.setState({ active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'] })
-    this.setState({ active_prov_label: "Province" })
+    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Province" })
   }
 
   handleClose = () => {
@@ -62,17 +56,13 @@ export default class SubmitModal extends Component {
   handleCountryChange = (e) => {
     this.setState({ country: e.target.value });
     if (e.target.value == "Canada") {
-      this.setState({ active_prov: this.state.can_prov })
-      this.setState({ active_prov_label: "Provinces" })
+      this.setState({ active_prov: this.state.can_prov, active_prov_label: "Provinces" })
     } else if (e.target.value == "United States") {
-      this.setState({ active_prov: this.state.us_prov })
-      this.setState({ active_prov_label: "States" })
+      this.setState({ active_prov: this.state.us_prov, active_prov_label: "States" })
     } else if (e.target.value == "United Kingdom") {
-      this.setState({ active_prov: this.state.uk_prov })
-      this.setState({ active_prov_label: "Provinces" })
+      this.setState({ active_prov: this.state.uk_prov, active_prov_label: "Provinces" })
     } else {
-      this.setState({ active_prov: this.state.aus_prov })
-      this.setState({ active_prov_label: "Provinces" })
+      this.setState({ active_prov: this.state.aus_prov, active_prov_label: "Provinces" })
     }
   }
 
@@ -106,12 +96,7 @@ export default class SubmitModal extends Component {
     data: bodyFormData,
     config: { headers: {'Content-Type': 'multipart/form-data' }}
     })
-    .then(function (response) {
-        //handle success
-        console.log(response);
-    })
     .catch(function (response) {
-        //handle error
         console.log(response);
     });
     this.toggleModal()

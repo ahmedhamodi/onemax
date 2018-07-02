@@ -32,23 +32,20 @@ class App extends Component {
       <div className="App">
 
         <img src={logo} className="App-logo" alt="logo" />
-        
-        <body>
-          <div class="topnav" id="myTopnav" role="navigation">
-            <Navbar image={home} altDescription="Home"/>
-            <Navbar image={search} altDescription="Search"/>
-            <Navbar image={login} altDescription="Login"/>
-          </div>
+  
+        <div className="topnav" id="myTopnav" role="navigation">
+          <Navbar image={home} altDescription="Home"/>
+          <Navbar image={search} altDescription="Search"/>
+          <Navbar image={login} altDescription="Login"/>
+        </div>
 
-          <Nominee name={ this.state.persons.slice(0,1).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(0,1).map(person => <p>{person.description}</p>)} duas={ this.state.persons.slice(0,1).map(person => <p>{person.duas}</p>)}/>
+        <Nominee name={ this.state.persons.slice(0,1).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(0,1).map(person => <p className="description">{person.description}</p>)} duas={ this.state.persons.slice(0,1).map(person => <p>{person.duas}</p>)} id={ this.state.persons.slice(0,1).map(person => <p>{person.id}</p>) }/>
 
-          <Nominee name={ this.state.persons.slice(1,2).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(1,2).map(person => <p>{person.description}</p>)} duas={ this.state.persons.slice(1,2).map(person => <p>{person.duas}</p>)}/>
+        <Nominee name={ this.state.persons.slice(1,2).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(1,2).map(person => <p className="description">{person.description}</p>)} duas={ this.state.persons.slice(1,2).map(person => <p>{person.duas}</p>)} id={ this.state.persons.slice(1,2).map(person => <p>{person.id}</p>) }/>
 
-          <Nominee name={ this.state.persons.slice(2,3).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(2,3).map(person => <p>{person.description}</p>)} duas={ this.state.persons.slice(2,3).map(person => <p>{person.duas}</p>)}/>
+        <Nominee name={ this.state.persons.slice(2,3).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(2,3).map(person => <p className="description">{person.description}</p>)} duas={ this.state.persons.slice(2,3).map(person => <p>{person.duas}</p>)} id={ this.state.persons.slice(2,3).map(person => <p>{person.id}</p>) }/>
 
-          <SubmitModal/>
-
-        </body>
+        <SubmitModal/>
 
       </div>
     );
