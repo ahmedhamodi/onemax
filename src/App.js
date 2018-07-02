@@ -7,7 +7,7 @@ import Nominee from './nominee.js';
 import Navbar from './navbar.js';
 import axios from 'axios';
 import Popup from 'reactjs-popup';
-import ModalPopup from './modal.js';
+import SubmitModal from './modal.js';
 import './App.css';
 
 class App extends Component {
@@ -46,7 +46,7 @@ class App extends Component {
 
           <Nominee name={ this.state.persons.slice(2,3).map(person => <p>{person.name}</p>)} description={ this.state.persons.slice(2,3).map(person => <p>{person.description}</p>)} duas={ this.state.persons.slice(2,3).map(person => <p>{person.duas}</p>)}/>
 
-          <ModalPopup/>
+          <SubmitModal/>
 
         </body>
 
