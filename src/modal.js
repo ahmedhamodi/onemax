@@ -26,8 +26,17 @@ export default class SubmitModal extends Component {
     };
   }
 
+  resetDefaults = () => {
+    this.setState({ name: "" })
+    this.setState({ description: "" })
+    this.setState({ country: "Canada" })
+    this.setState({ province: "Alberta" })
+    this.setState({ tags: "" })
+  }
+
   handleClose = () => {
     this.setState({ show: false });
+    this.resetDefaults()
   }
 
   handleShow = () => {
@@ -58,6 +67,9 @@ export default class SubmitModal extends Component {
     this.setState({
       show: !this.state.show
     });
+    if (this.state.show == false) {
+      this.resetDefaults()
+    }
   }
 
   submitNom = () => {
@@ -81,6 +93,7 @@ export default class SubmitModal extends Component {
         //handle error
         console.log(response);
     });
+    this.toggleModal()
   }
 
   render() {
