@@ -22,7 +22,13 @@ export default class SubmitModal extends Component {
       description: "",
       country: "Canada",
       province: "Alberta",
-      tags: ""
+      tags: "",
+      can_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
+      us_prov: ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'],
+      uk_prov: ["England", "Northern Ireland", "Scotland", "Wales"],
+      aus_prov: ["Central Australia", "New South Wales", "North Australia", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"],
+      active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
+      active_prov_label: "Province"
     };
   }
 
@@ -32,6 +38,8 @@ export default class SubmitModal extends Component {
     this.setState({ country: "Canada" })
     this.setState({ province: "Alberta" })
     this.setState({ tags: "" })
+    this.setState({ active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'] })
+    this.setState({ active_prov_label: "Province" })
   }
 
   handleClose = () => {
@@ -53,6 +61,19 @@ export default class SubmitModal extends Component {
 
   handleCountryChange = (e) => {
     this.setState({ country: e.target.value });
+    if (e.target.value == "Canada") {
+      this.setState({ active_prov: this.state.can_prov })
+      this.setState({ active_prov_label: "Provinces" })
+    } else if (e.target.value == "United States") {
+      this.setState({ active_prov: this.state.us_prov })
+      this.setState({ active_prov_label: "States" })
+    } else if (e.target.value == "United Kingdom") {
+      this.setState({ active_prov: this.state.uk_prov })
+      this.setState({ active_prov_label: "Provinces" })
+    } else {
+      this.setState({ active_prov: this.state.aus_prov })
+      this.setState({ active_prov_label: "Provinces" })
+    }
   }
 
   handleProvinceChange = (e) => {
@@ -139,101 +160,14 @@ export default class SubmitModal extends Component {
                 <option value="Australia">Australia</option>
               </FormControl>
             </FormGroup>
+
             <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Province (CAN)</ControlLabel>
+              <ControlLabel>{ this.state.active_prov_label }</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.province} onChange={this.handleProvinceChange}>
-                <option value="Alberta">Alberta</option>
-                <option value="British Columbia">British Columbia</option>
-                <option value="Manitoba">Manitoba</option>
-                <option value="New Brunswick">New Brunswick</option>
-                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-                <option value="Northwest Territories">Northwest Territories</option>
-                <option value="Nova Scotia">Nova Scotia</option>
-                <option value="Nunavut">Nunavut</option>
-                <option value="Ontario">Ontario</option>
-                <option value="Prince Edward Island">Prince Edward Island</option>
-                <option value="Quebec">Quebec</option>
-                <option value="Saskatchewan">Saskatchewan</option>
-                <option value="Yukon">Yukon</option>
+                {this.state.active_prov.map(prov => <option value={ prov }> { prov } </option>) }
               </FormControl>
             </FormGroup>
-            {/*<FormGroup controlId="formControlsSelect">
-              <ControlLabel>State (US)</ControlLabel>
-              <FormControl componentClass="select" placeholder="select" value={this.state.province} onChange={this.handleProvinceChange}>
-                <option value="Alabama">Alabama</option>
-                <option value="Alaska">Alaska</option>
-                <option value="Arizona">Arizona</option>
-                <option value="Arkansas">Arkansas</option>
-                <option value="California">California</option>
-                <option value="Colorado">Colorado</option>
-                <option value="Connecticut">Connecticut</option>
-                <option value="Delaware">Delaware</option>
-                <option value="Florida">Florida</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Hawaii">Hawaii</option>
-                <option value="Idaho">Idaho</option>
-                <option value="Illinois">Illinois</option>
-                <option value="Indiana">Indiana</option>
-                <option value="Iowa">Iowa</option>
-                <option value="Kansas">Kansas</option>
-                <option value="Kentucky">Kentucky</option>
-                <option value="Louisiana">Louisiana</option>
-                <option value="Maine">Maine</option>
-                <option value="Maryland">Maryland</option>
-                <option value="Massachusetts">Massachusetts</option>
-                <option value="Michigan">Michigan</option>
-                <option value="Minnesota">Minnesota</option>
-                <option value="Mississippi">Mississippi</option>
-                <option value="Missouri">Missouri</option>
-                <option value="Montana">Montana</option>
-                <option value="Nebraska">Nebraska</option>
-                <option value="Nevada">Nevada</option>
-                <option value="New Hampshire">New Hampshire</option>
-                <option value="New Jersey">New Jersey</option>
-                <option value="New Mexico">New Mexico</option>
-                <option value="New York">New York</option>
-                <option value="North Carolina">North Carolina</option>
-                <option value="North Dakota">North Dakota</option>
-                <option value="Ohio">Ohio</option>
-                <option value="Oklahoma">Oklahoma</option>
-                <option value="Oregon">Oregon</option>
-                <option value="Pennsylvania">Pennsylvania</option>
-                <option value="Rhode Island">Rhode Island</option>
-                <option value="South Carolina">South Carolina</option>
-                <option value="South Dakota">South Dakota</option>
-                <option value="Tennessee">Tennessee</option>
-                <option value="Texas">Texas</option>
-                <option value="Utah">Utah</option>
-                <option value="Vermont">Vermont</option>
-                <option value="Virginia">Virginia</option>
-                <option value="Washington">Washington</option>
-                <option value="West Virginia">West Virginia</option>
-                <option value="Wisconsin">Wisconsin</option>
-                <option value="Wyoming">Wyoming</option>
-              </FormControl>
-            </FormGroup>
-            <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Country (UK)</ControlLabel>
-              <FormControl componentClass="select" placeholder="select" value={this.state.province} onChange={this.handleProvinceChange}>
-                <option value="England">England</option>
-                <option value="Northern Ireland">Northern Ireland</option>
-                <option value="Scotland">Scotland</option>
-                <option value="Wales">Wales</option>
-              </FormControl>
-            </FormGroup>
-            <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Province (AUS)</ControlLabel>
-              <FormControl componentClass="select" placeholder="select" value={this.state.province} onChange={this.handleProvinceChange}>
-                <option value="Central Australia">Central Australia</option>
-                <option value="New South Wales">New South Wales</option>
-                <option value="North Australia">North Australia</option>
-                <option value="Queensland">Queensland</option>
-                <option value="South Australia">South Australia</option>
-                <option value="Tasmania">Tasmania</option>
-                <option value="Victoria">Victoria</option>
-                <option value="Western Australia">Western Australia</option>
-              </FormControl>
-            </FormGroup>*/}
+
             <FieldGroup
               id="formControlsText"
               type="text"
