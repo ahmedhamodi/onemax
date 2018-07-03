@@ -25,15 +25,15 @@ export default class SubmitModal extends Component {
       tags: "",
       can_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
       us_prov: ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'],
-      uk_prov: ["England", "Northern Ireland", "Scotland", "Wales"],
+      eng_prov: ["East Midlands", "East of England", "London", "North East", "North West", "South East", "South West", "West Midlands", "Yorkshire and the Humber"],
       aus_prov: ["Central Australia", "New South Wales", "North Australia", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"],
       active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
-      active_prov_label: "Province"
+      active_prov_label: "Provinces"
     };
   }
 
   resetDefaults = () => {
-    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Province" })
+    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces" })
   }
 
   handleClose = () => {
@@ -59,8 +59,8 @@ export default class SubmitModal extends Component {
       this.setState({ active_prov: this.state.can_prov, active_prov_label: "Provinces" })
     } else if (e.target.value == "United States") {
       this.setState({ active_prov: this.state.us_prov, active_prov_label: "States" })
-    } else if (e.target.value == "United Kingdom") {
-      this.setState({ active_prov: this.state.uk_prov, active_prov_label: "Provinces" })
+    } else if (e.target.value == "England") {
+      this.setState({ active_prov: this.state.eng_prov, active_prov_label: "Provinces" })
     } else {
       this.setState({ active_prov: this.state.aus_prov, active_prov_label: "Provinces" })
     }
@@ -140,8 +140,8 @@ export default class SubmitModal extends Component {
               <ControlLabel>Country</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.country} onChange={this.handleCountryChange}>
                 <option value="Canada">Canada</option>
+                <option value="England">England</option>
                 <option value="United States">United States</option>
-                <option value="United Kingdom">United Kingdom</option>
                 <option value="Australia">Australia</option>
               </FormControl>
             </FormGroup>

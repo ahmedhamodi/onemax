@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import person from './images/person.png';
-import DuaButton from './dua_button.js';
+import Dua from './dua.js';
 import dua from './images/dua_icon.png';
 import './index.css';
 
@@ -16,7 +16,7 @@ export default class Nominee extends Component {
 		      <img src={person} className="person-logo" alt="logo" />
 		      { this.props.description }
 		      <li className="dua">
-		      	<DuaButton {...this.props}/>
+		      	<Dua {...this.props}/>
 		      </li>
 		    </ul>
 		  </div>
