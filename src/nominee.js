@@ -5,21 +5,21 @@ import dua from './images/dua_icon.png';
 import './index.css';
 
 export default class Nominee extends Component {
-	render() {
-		console.log(this.props)
-    return (
-			<div className="columns">
-		    <ul className="person">
-		      <li className="header">
-		      	{ this.props.name }
-		      </li>
-		      <img src={person} className="person-logo" alt="logo" />
-		      { this.props.description }
-		      <li className="dua">
-		      	<Dua {...this.props}/>
-		      </li>
-		    </ul>
-		  </div>
-		);
-	}
+  render() {
+    console.log(this.props.name)
+      return (
+        <div className="columns">
+        <ul className="person">
+          <li className="header">
+            { this.props.name }
+          </li>
+          <img src={person} className="person-logo" alt="logo" />
+          { this.props.description }
+          <li className="dua">
+            <Dua duas = { this.props.duas } id = { this.props.id }/>
+          </li>
+        </ul>
+      </div>
+    );
+  }
 }

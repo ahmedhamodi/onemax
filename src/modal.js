@@ -86,15 +86,16 @@ export default class SubmitModal extends Component {
   submitNom = () => {
     var bodyFormData = new FormData();
     bodyFormData.set('name', this.state.name)
+    console.log(this.state.name)
     bodyFormData.set('description', this.state.description)
     bodyFormData.set('country', this.state.country)
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
     axios({
-    method: 'post',
-    url: 'https://fast-cove-41298.herokuapp.com/nominations',
-    data: bodyFormData,
-    config: { headers: {'Content-Type': 'multipart/form-data' }}
+      method: 'post',
+      url: 'https://fast-cove-41298.herokuapp.com/nominations',
+      data: bodyFormData,
+      config: { headers: {'Content-Type': 'multipart/form-data' }}
     })
     .catch(function (response) {
         console.log(response);
