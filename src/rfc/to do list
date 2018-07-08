@@ -1,0 +1,16 @@
+Update UI to show all nominees
+	- top 3 should continue to be visible on the page as they are now
+	- rest of the nominations should be visible below in the horizontal scroll view
+
+Give DUA POST request
+
+Search for Nominee
+	- show bar to be able to select and filter things
+	- select filter
+	- select country
+	- "go"
+	- new page(?) 
+	- horizontal scroll view to show all nominees who match the requirements
+
+Login flow investigation
+Investigation for image upload and storing in the backend
