@@ -32,7 +32,7 @@ export default class LoginAuthentication extends Component {
 
   render() {
     return (
-      <div class="fb-login-button" data-max-rows="1" data-size="small" data-button-type="continue_with" data-use-continue-as="true">Login with Facebook</div>
+      <div className="fb-login-button" data-max-rows="1" data-size="small" data-button-type="continue_with" data-use-continue-as="true">Login with Facebook</div>
     );
   }
 }
