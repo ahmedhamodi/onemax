@@ -8,6 +8,7 @@ import Navbar from './navbar.js';
 import axios from 'axios';
 import Popup from 'reactjs-popup';
 import SubmitModal from './modal.js';
+import LoginAuthentication from './login.js';
 import './App.css';
 
 class App extends Component {
@@ -28,10 +29,13 @@ class App extends Component {
   }
 
   render() {
+    const child = { width: `300em`, height: `100%`}
     return (
       <div className="App">
 
         <img src={logo} className="App-logo" alt="logo" />
+
+        <p align="right"><LoginAuthentication/></p>
   
         <div className="topnav" id="myTopnav" role="navigation">
           <Navbar image={home} altDescription="Home"/>
