@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import './index.css';
 import dua from './images/dua_icon.png';
 import axios from 'axios';

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import person from './images/person.png';
 import Dua from './dua.js';
-import dua from './images/dua_icon.png';
 import './index.css';
 
 export default class Nominee extends Component {

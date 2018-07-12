@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popover, Tooltip, Modal, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
 
 function FieldGroup({ id, label, help, ...props }) {
@@ -55,11 +55,11 @@ export default class SubmitModal extends Component {
 
   handleCountryChange = (e) => {
     this.setState({ country: e.target.value });
-    if (e.target.value == "Canada") {
+    if (e.target.value === "Canada") {
       this.setState({ active_prov: this.state.can_prov, active_prov_label: "Provinces" })
-    } else if (e.target.value == "United States") {
+    } else if (e.target.value === "United States") {
       this.setState({ active_prov: this.state.us_prov, active_prov_label: "States" })
-    } else if (e.target.value == "England") {
+    } else if (e.target.value === "England") {
       this.setState({ active_prov: this.state.eng_prov, active_prov_label: "Provinces" })
     } else {
       this.setState({ active_prov: this.state.aus_prov, active_prov_label: "Provinces" })
@@ -78,7 +78,7 @@ export default class SubmitModal extends Component {
     this.setState({
       show: !this.state.show
     });
-    if (this.state.show == false) {
+    if (this.state.show === false) {
       this.resetDefaults()
     }
   }
