@@ -23,15 +23,15 @@ export default class Dua extends Component {
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/dua',
       data: duaNomineeID,
-      config: { headers: {'Content-Type': 'multipart/form-data'}}
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
     })
-    .then(function (response) {
-      console.log(response);
-      self.setState((prevState) => ({ duas: response.data.duas }))
-    })
-    .catch(function (response) {
-      console.log(response);
-    });
+      .then(function (response) {
+        console.log(response);
+        self.setState((prevState) => ({ duas: response.data.duas }))
+      })
+      .catch(function (response) {
+        console.log(response);
+      });
   }
 
   sleep(time) {
@@ -48,12 +48,12 @@ export default class Dua extends Component {
     return (
       <div>
         <a href="#button" className="button" hidden={!this.props.isLoggedIn}>
-          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.increaseDuas}/>
-          <p> { this.state.duas } </p>
+          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.increaseDuas} />
+          <p> {this.state.duas} </p>
         </a>
         <div hidden={this.props.isLoggedIn}>
-          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.props.promptForLogin}/>
-          <p> { this.state.duas } </p>
+          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.props.promptForLogin} />
+          <p> {this.state.duas} </p>
         </div>
       </div>
     );

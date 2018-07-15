@@ -24,7 +24,7 @@ export default class SubmitModal extends Component {
       province: "Alberta",
       tags: "",
       can_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
-      us_prov: ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'],
+      us_prov: ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
       eng_prov: ["East Midlands", "East of England", "London", "North East", "North West", "South East", "South West", "West Midlands", "Yorkshire and the Humber"],
       aus_prov: ["Central Australia", "New South Wales", "North Australia", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"],
       active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
@@ -102,19 +102,19 @@ export default class SubmitModal extends Component {
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
       data: bodyFormData,
-      config: { headers: {'Content-Type': 'multipart/form-data' }}
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
     })
-    .catch(function (response) {
+      .catch(function (response) {
         console.log(response);
-    });
+      });
     this.toggleModal()
   }
 
   render() {
     return (
       <div>
-          <button onClick={this.toggleModal} class="btn btn-primary">
-            Submit Nomination
+        <button onClick={this.toggleModal} class="btn btn-primary">
+          Submit Nomination
           </button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>
@@ -155,9 +155,9 @@ export default class SubmitModal extends Component {
             </FormGroup>
 
             <FormGroup controlId="formControlsSelect">
-              <ControlLabel>{ this.state.active_prov_label }</ControlLabel>
+              <ControlLabel>{this.state.active_prov_label}</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.province} onChange={this.handleProvinceChange}>
-                {this.state.active_prov.map(prov => <option value={ prov }> { prov } </option>) }
+                {this.state.active_prov.map(prov => <option value={prov}> {prov} </option>)}
               </FormControl>
             </FormGroup>
 
