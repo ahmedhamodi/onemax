@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popover, Tooltip, Modal, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
 
 function FieldGroup({ id, label, help, ...props }) {
@@ -24,7 +24,7 @@ export default class SubmitModal extends Component {
       province: "Alberta",
       tags: "",
       can_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
-      us_prov: ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'],
+      us_prov: ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
       eng_prov: ["East Midlands", "East of England", "London", "North East", "North West", "South East", "South West", "West Midlands", "Yorkshire and the Humber"],
       aus_prov: ["Central Australia", "New South Wales", "North Australia", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"],
       active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
@@ -55,11 +55,11 @@ export default class SubmitModal extends Component {
 
   handleCountryChange = (e) => {
     this.setState({ country: e.target.value });
-    if (e.target.value == "Canada") {
+    if (e.target.value === "Canada") {
       this.setState({ active_prov: this.state.can_prov, active_prov_label: "Provinces" })
-    } else if (e.target.value == "United States") {
+    } else if (e.target.value === "United States") {
       this.setState({ active_prov: this.state.us_prov, active_prov_label: "States" })
-    } else if (e.target.value == "England") {
+    } else if (e.target.value === "England") {
       this.setState({ active_prov: this.state.eng_prov, active_prov_label: "Provinces" })
     } else {
       this.setState({ active_prov: this.state.aus_prov, active_prov_label: "Provinces" })
@@ -75,11 +75,16 @@ export default class SubmitModal extends Component {
   }
 
   toggleModal = () => {
-    this.setState({
-      show: !this.state.show
-    });
-    if (this.state.show == false) {
-      this.resetDefaults()
+    if (this.props.isLoggedIn) {
+      this.setState({
+        show: !this.state.show
+      });
+      if (this.state.show === false) {
+        this.resetDefaults()
+      }
+    } else {
+      this.props.promptForLogin();
+      this.resetDefaults();
     }
   }
 
@@ -91,24 +96,25 @@ export default class SubmitModal extends Component {
     bodyFormData.set('country', this.state.country)
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
+    bodyFormData.set('userID', this.props.userID)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
       data: bodyFormData,
-      config: { headers: {'Content-Type': 'multipart/form-data' }}
+      config: { headers: { 'Content-Type': 'multipart/form-data' } }
     })
-    .catch(function (response) {
+      .catch(function (response) {
         console.log(response);
-    });
+      });
     this.toggleModal()
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.toggleModal}>
+        <button onClick={this.toggleModal} class="btn btn-primary">
           Submit Nomination
-        </button>
+          </button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
@@ -148,9 +154,9 @@ export default class SubmitModal extends Component {
             </FormGroup>
 
             <FormGroup controlId="formControlsSelect">
-              <ControlLabel>{ this.state.active_prov_label }</ControlLabel>
+              <ControlLabel>{this.state.active_prov_label}</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.province} onChange={this.handleProvinceChange}>
-                {this.state.active_prov.map(prov => <option value={ prov }> { prov } </option>) }
+                {this.state.active_prov.map(prov => <option value={prov}> {prov} </option>)}
               </FormControl>
             </FormGroup>
 

@@ -29,6 +29,7 @@
     "react-responsive-navbar": "^1.0.11",
     "react-scripts": "1.1.4",
     "react-scroll-horizontal": "^1.5.0",
+    "react-toastify": "^4.1.0",
     "react-transition-group": "^2.3.1",
     "reactjs-popup": "^1.1.1",
     "reactstrap": "^6.1.0"
@@ -38,5 +39,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "eslint": "^5.1.0"
   }
 }
