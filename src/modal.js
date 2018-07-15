@@ -89,7 +89,6 @@ export default class SubmitModal extends Component {
   }
 
   submitNom = () => {
-    console.log(this.props.userID)
     var bodyFormData = new FormData();
     bodyFormData.set('name', this.state.name)
     console.log(this.state.name)
