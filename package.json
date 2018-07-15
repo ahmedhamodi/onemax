@@ -21,17 +21,22 @@
     "raf": "^3.4.0",
     "react": "^16.0.0",
     "react-bootstrap": "^0.32.1",
+    "react-cookie": "^2.2.0",
     "react-dom": "^16.0.0",
     "react-dropzone": "^4.2.11",
     "react-facebook-login": "^4.0.1",
+    "react-hint": "^3.1.0",
     "react-motion": "^0.5.2",
+    "react-notifications": "^1.4.3",
     "react-popper": "^0.10.4",
     "react-responsive-navbar": "^1.0.11",
     "react-scripts": "1.1.4",
     "react-scroll-horizontal": "^1.5.0",
+    "react-toastify": "^4.1.0",
     "react-transition-group": "^2.3.1",
     "reactjs-popup": "^1.1.1",
-    "reactstrap": "^6.1.0"
+    "reactstrap": "^6.1.0",
+    "rebass": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

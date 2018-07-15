@@ -46,10 +46,16 @@ export default class Dua extends Component {
 
   render() {
     return (
-      <a href="#button" className="button">
-        <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.increaseDuas}/>
-        <p> { this.state.duas } </p>
-      </a>
+      <div>
+        <a href="#button" className="button" hidden={!this.props.isLoggedIn}>
+          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.increaseDuas}/>
+          <p> { this.state.duas } </p>
+        </a>
+        <div hidden={this.props.isLoggedIn}>
+          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.props.promptForLogin}/>
+          <p> { this.state.duas } </p>
+        </div>
+      </div>
     );
   }
 }

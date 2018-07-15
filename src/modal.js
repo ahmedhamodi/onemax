@@ -75,15 +75,21 @@ export default class SubmitModal extends Component {
   }
 
   toggleModal = () => {
-    this.setState({
-      show: !this.state.show
-    });
-    if (this.state.show === false) {
-      this.resetDefaults()
+    if (this.props.isLoggedIn) {
+      this.setState({
+        show: !this.state.show
+      });
+      if (this.state.show === false) {
+        this.resetDefaults()
+      }
+    } else {
+      this.props.promptForLogin();
+      this.resetDefaults();
     }
   }
 
   submitNom = () => {
+    console.log(this.props.userID)
     var bodyFormData = new FormData();
     bodyFormData.set('name', this.state.name)
     console.log(this.state.name)
@@ -91,6 +97,7 @@ export default class SubmitModal extends Component {
     bodyFormData.set('country', this.state.country)
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
+    bodyFormData.set('userID', this.props.userID)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
@@ -106,9 +113,9 @@ export default class SubmitModal extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.toggleModal}>
-          Submit Nomination
-        </button>
+          <button onClick={this.toggleModal} class="btn btn-primary">
+            Submit Nomination
+          </button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
