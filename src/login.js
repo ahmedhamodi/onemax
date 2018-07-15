@@ -24,6 +24,7 @@ export default class LoginAuthentication extends Component {
         console.log("Commencing facebook login!");
     }
     responseFacebook = response => {
+      if (response.userID) {
         this.props.onLogin(response);
         this.setState({
             isLoggedIn: true,
@@ -33,6 +34,9 @@ export default class LoginAuthentication extends Component {
             email: response.email,
             picture: response.picture.data.url
         });
+      } else {
+        console.log('facebook login cancelled!')
+      }
     }
 
     render() {
