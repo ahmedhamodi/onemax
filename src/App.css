@@ -30,6 +30,19 @@
   align-self: center;
 }
 
+.nominee_name {
+  text-align: left;
+  float: left;
+  display: inline;
+  width: 87%;
+}
+
+.nominee_flag {
+  float: left;
+  display: inline;
+  width: 13%;
+}
+
 @media only screen and (min-width: 1000px) {
   .person-logo {
     /*animation: App-logo-spin infinite 20s linear;*/
@@ -137,6 +150,7 @@
 
 /* Person header */
 .person .header {
+  height: 55px;
   background-color: #eee;
   color: black;
   font-size: 25px;

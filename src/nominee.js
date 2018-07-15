@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import person from './images/person.png';
 import Dua from './dua.js';
+import canada_flag from './images/canada_flag.png';
+import america_flag from './images/america_flag.png';
+import england_flag from './images/england_flag.png';
+import australia_flag from './images/australia_flag.png';
 import './index.css';
 
 export default class Nominee extends Component {
@@ -10,7 +14,8 @@ export default class Nominee extends Component {
       <div className="columns">
         <ul className="person">
           <li className="header">
-            { this.props.name }
+            <p className="nominee_name">{ this.props.name }</p>
+            <img className="nominee_flag" src={canada_flag} alt="logo" />
           </li>
           <img src={person} className="person-logo" alt="logo" />
           { this.props.description }
