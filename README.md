@@ -18,3 +18,6 @@ Shout out to this amazing group of people for bring this project to light.
 
 ### Release Information
 The current release date is set for July 23rd, but that deadline is flexible as we continue to work to improve the project and meet our deadlines.
+
+### Development
+To get the Facebook Authentication working, we need to be hosted on a certified HTTPS website. Fortunately, the Heroku app we host on does cerification management for us. However, for development on local environments, we need to toggle the environment variable for `HTTPS` to `true`. Default is `false`.
