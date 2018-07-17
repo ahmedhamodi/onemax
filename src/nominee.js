@@ -20,7 +20,7 @@ export default class Nominee extends Component {
           <img src={person} className="person-logo" alt="logo" />
           { this.props.description }
           <li className="dua">
-            <Dua duas = { this.props.duas } id = { this.props.id } isLoggedIn = {this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} />
+            <Dua duas = { this.props.duas } id = { this.props.id } isLoggedIn = {this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
           </li>
         </ul>
       </div>
