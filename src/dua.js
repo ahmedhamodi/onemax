@@ -10,19 +10,21 @@ export default class Dua extends Component {
 
     this.state = {
       duas: "",
-      id: ""
+      id: "",
+      userId: ""
     };
   }
 
   increaseDuas = () => {
     var self = this;
-    var duaNomineeID = new FormData();
-    duaNomineeID.set('nominee_id', this.state.id[0].props.children)
+    var duaRequest = new FormData();
+    duaRequest.set('nominee_id', this.state.id[0].props.children)
+    duaRequest.set('nominated_by', this.state.userId)
     console.log(this.state.id[0].props.children)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/dua',
-      data: duaNomineeID,
+      data: duaRequest,
       config: { headers: { 'Content-Type': 'multipart/form-data' } }
     })
       .then(function (response) {
@@ -40,7 +42,7 @@ export default class Dua extends Component {
 
   componentDidMount() {
     this.sleep(500).then(() => {
-      this.setState((prevState) => ({ duas: this.props.duas, id: this.props.id }));
+      this.setState((prevState) => ({ duas: this.props.duas, id: this.props.id, userId: this.props.userId }));
     })
   }
 
