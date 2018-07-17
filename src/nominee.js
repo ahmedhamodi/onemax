@@ -9,7 +9,6 @@ import './index.css';
 
 export default class Nominee extends Component {
   render() {
-    console.log(this.props.name)
     return (
       <div className="columns">
         <ul className="person">

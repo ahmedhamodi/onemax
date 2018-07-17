@@ -19,7 +19,7 @@ export default class Dua extends Component {
     var self = this;
     var duaRequest = new FormData();
     duaRequest.set('nominee_id', this.state.id[0].props.children)
-    duaRequest.set('nominated_by', this.state.userId[0].props.children)
+    duaRequest.set('nominated_by', this.state.userId)
     console.log(this.state.id[0].props.children)
     axios({
       method: 'post',
