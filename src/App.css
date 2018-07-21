@@ -1,16 +1,30 @@
+.body {
+  background: #faf6ff
+}
+
 .App {
   text-align: center;
 }
 
+.Main-Nav {
+  height: '55px';
+  background: white;
+}
+
+.Main-Nav-Header {
+  padding-top: 5px;
+}
+
 .App-logo {
   /*animation: App-logo-spin infinite 20s linear;*/
-  height: 80px;
-  align-self: center;
+  height: 50px;
+  align-self: bottom;
+  padding: 0;
 }
 
 .App-header {
   height: 150px;
-  padding: 20px;
+  padding: 0px;
   color: white;
 }
 
@@ -34,13 +48,11 @@
   text-align: left;
   float: left;
   display: inline;
-  width: 87%;
 }
 
 .nominee_flag {
-  float: left;
+  float: right;
   display: inline;
-  width: 13%;
 }
 
 @media only screen and (min-width: 1000px) {
@@ -55,7 +67,7 @@
   width: 100%;
   /*position: absolute;*/
   z-index: 99;
-  background-color: #4E5EB3;
+  background-color: rgb(142, 159, 245);
   overflow: hidden;
 }
 
@@ -136,11 +148,12 @@
 /* Style the list */
 .person {
   list-style-type: none;
-  border: 1px solid #eee;
+  border: 1px solid #eee5f8;
   margin: 0;
   padding: 0;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2)
 }
 
 /* Add shadows on hover */
@@ -151,27 +164,35 @@
 /* Person header */
 .person .header {
   height: 55px;
-  background-color: #eee;
+  background-color: white;
   color: black;
-  font-size: 25px;
+  font-size: 20px;
+  text-align: 'left';
+  padding-top: 13px;
+  padding-left: 9px;
+  padding-right: 9px;
 }
 
 /* List items */
 .person li {
   border-bottom: 1px solid #eee;
-  padding: 10px;
   text-align: center;
 }
 
 /* Grey list item */
 .person .dua {
-  background-color: #eee;
-  font-size: 20px;
+  background-color: white;
+  font-size: 15px;
+  font: Helvetica;
+  border-color: #eee5f8;
 }
 
-.person .dua a:hover {
-  background-color: lightgray;
-  color: lightgray;
+/* .person .dua a:hover {
+  box-shadow: 0 8px 12px 0 #79589F;
+} */
+
+.person.content {
+  background-color: white;
 }
 
 /* The "Sign Up" button */
@@ -179,7 +200,16 @@
   color: black;
   text-align: center;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 14px;
+}
+
+.btn.btn-primary.submit-nomination {
+  background-color: #79589F;
+  border-color: #79589F;
+}
+
+.btn.btn-primary.submit-nomination:hover {
+  background-color: #5d407f;
 }
 
 .description {
@@ -188,7 +218,7 @@
 
 /* Change the width of the three columns to 100% 
 (to stack horizontally on small screens) */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 769px) {
   .columns {
     width: 100%;
   }

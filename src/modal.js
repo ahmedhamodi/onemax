@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
 import axios from 'axios';
 
 function FieldGroup({ id, label, help, ...props }) {
@@ -112,8 +112,8 @@ export default class SubmitModal extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.toggleModal} class="btn btn-primary">
-          Submit Nomination
+        <button onClick={this.toggleModal} class="btn btn-primary submit-nomination">
+        <Glyphicon glyph="glyphicon glyphicon-plus" /> Submit Nomination
           </button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>

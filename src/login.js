@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import FacebookLogin from 'react-facebook-login';
+import {Image} from 'react-bootstrap';
 
 export default class LoginAuthentication extends Component {
 
@@ -31,25 +32,21 @@ export default class LoginAuthentication extends Component {
     let fbContent;
     if (this.state.isLoggedIn) {
       fbContent = (
-        <div style={{
-          width: 'fit-content',
-          background: '#4c69ba',
-          padding: '5px 10px'
-        }}>
+        <div>
+          <div style={{
+            display: 'inline-block',
+            paddingRight: '5px',
+            paddingBlockEnd: '15px',
+            color: 'black'
+          }}>
+            <b>{this.state.name}</b>
+          </div>
           <div style={{
             display: 'inline-block'
           }}>
-            <img src={this.state.picture} alt={this.state.name} style={{
-              borderRadius: '50%',
+            <Image src={this.state.picture} alt={this.state.name} circle style={{
               width: '35px'
             }} />
-          </div>
-          <div style={{
-            display: 'inline-block',
-            paddingLeft: '5px',
-            color: 'white'
-          }}>
-            <b>{this.state.name}</b>
           </div>
         </div>
       )
@@ -60,6 +57,9 @@ export default class LoginAuthentication extends Component {
         size="small"
         fields="name,email,picture"
         callback={this.responseFacebook}
+        cssClass="btn btn-primary"
+        icon="fa-facebook"
+        textButton=" Login"
       />
       );
     }
