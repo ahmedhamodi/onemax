@@ -10,14 +10,19 @@ import './index.css';
 export default class Nominee extends Component {
   render() {
     return (
-      <div className="columns">
+      <div className="columns" style={{
+        position: 'relative',
+        top: '80px'
+      }}>
         <ul className="person">
           <li className="header">
             <p className="nominee_name">{ this.props.name }</p>
             <img className="nominee_flag" src={canada_flag} alt="logo" />
           </li>
-          <img src={person} className="person-logo" alt="logo" />
-          { this.props.description }
+          <div className='person content'>
+            <img src={person} className="person-logo" alt="logo" />
+            { this.props.description }
+          </div>
           <li className="dua">
             <Dua duas = { this.props.duas } id = { this.props.id } isLoggedIn = {this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
           </li>

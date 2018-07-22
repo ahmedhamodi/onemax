@@ -1,36 +1,34 @@
 import React, { Component } from 'react';
-import logo from './images/onemax.png';
-import home from './images/home_icon.png';
-import search from './images/search_icon.png';
-import login from './images/login_icon.png';
 import Nominee from './nominee.js';
-import Navbar from './navbar.js';
 import axios from 'axios';
-import SubmitModal from './modal.js';
-import LoginAuthentication from './login.js';
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import NavBarNew from './navbarnew';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.onLogin = this.onLogin.bind(this);
+    this.updateLogin = this.updateLogin.bind(this);
     this.promptForLogin = this.promptForLogin.bind(this);
 
     this.state = {
       persons: [],
       name: 'old',
       isLoggedIn: false,
+      userID: '',
+      picture: '',
+      searchTerm: ''
     };
   }
 
-  onLogin = (response) => {
+  updateLogin = (response) => {
     this.setState({
       isLoggedIn: true,
       name: response.name,
-      userID: response.userID
+      userID: response.userID,
+      picture: response.picture
     });
   }
 
@@ -44,7 +42,6 @@ class App extends Component {
         const persons = res.data
         this.setState({ persons });
       });
-
   }
 
   render() {
@@ -52,27 +49,18 @@ class App extends Component {
       <div className="App">
         <ToastContainer autoClose={3000} />
 
-        <div align="right">
-          <LoginAuthentication onLogin={this.onLogin} />
+        <div className='container'>
+          <NavBarNew persons = {this.state.persons} isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />
         </div>
 
-        <img src={logo} className="App-logo" alt="logo" />
+        <div className='container'>
+          <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(0, 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(0, 1).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(0, 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(0, 1).map(person => <p>{person.id}</p>)} />
 
-        <div className="topnav" id="myTopnav" role="navigation">
-          <Navbar image={home} altDescription="Home" />
-          <Navbar image={search} altDescription="Search" />
-          <Navbar image={login} altDescription="Login" />
+          <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(1, 2).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(1, 2).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(1, 2).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(1, 2).map(person => <p>{person.id}</p>)} />
+
+          <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(2, 3).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(2, 3).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(2, 3).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(2, 3).map(person => <p>{person.id}</p>)} />
         </div>
-
-        <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(0, 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(0, 1).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(0, 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(0, 1).map(person => <p>{person.id}</p>)} />
-
-        <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(1, 2).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(1, 2).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(1, 2).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(1, 2).map(person => <p>{person.id}</p>)} />
-
-        <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(2, 3).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(2, 3).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(2, 3).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(2, 3).map(person => <p>{person.id}</p>)} />
-
-        <SubmitModal isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} userID={this.state.userID} />
-
-      </div>
+      </div >
     );
   }
 }

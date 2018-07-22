@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
-import dua from './images/dua_icon.png';
+import dua from './images/dua-hands-normal.png';
+import duaonmouseover from './images/dua-hands-onmouseover.png';
 import axios from 'axios';
 
 export default class Dua extends Component {
@@ -50,7 +51,7 @@ export default class Dua extends Component {
     return (
       <div>
         <a href="#button" className="button" hidden={!this.props.isLoggedIn}>
-          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.increaseDuas} />
+          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.increaseDuas} onMouseOver={e => (e.currentTarget.src = duaonmouseover)} onMouseOut={e => (e.currentTarget.src = dua)}/>
           <p> {this.state.duas} </p>
         </a>
         <div hidden={this.props.isLoggedIn}>
