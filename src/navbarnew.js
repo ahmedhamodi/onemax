@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import SubmitModal from './modal.js';
 import { Nav, Navbar, FormGroup, FormControl, Button, Glyphicon, InputGroup} from 'react-bootstrap';
-import SearchBar from './searchbar.js';
+{/*import SearchBar from './searchbar.js';*/}
 
 
 export default class NavbarNew extends Component {
@@ -55,7 +55,7 @@ export default class NavbarNew extends Component {
                                     <Button><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
                                 </InputGroup.Button>
                                 </InputGroup>
-                                <SearchBar persons = {this.props.persons} />
+                                {/*<SearchBar persons = {this.props.persons} />*/}
                             </FormGroup>
                             
                         </Navbar.Form>
