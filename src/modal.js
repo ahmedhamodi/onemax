@@ -28,7 +28,8 @@ export default class SubmitModal extends Component {
       eng_prov: ["East Midlands", "East of England", "London", "North East", "North West", "South East", "South West", "West Midlands", "Yorkshire and the Humber"],
       aus_prov: ["Central Australia", "New South Wales", "North Australia", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"],
       active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
-      active_prov_label: "Provinces"
+      active_prov_label: "Provinces",
+      image: ""
     };
   }
 
@@ -88,15 +89,23 @@ export default class SubmitModal extends Component {
     }
   }
 
+  addFile = (event: any): void => {
+    console.log(event.target.files[0]);
+    this.state.image = event.target.files[0]
+  }
+
   submitNom = () => {
     var bodyFormData = new FormData();
     bodyFormData.set('name', this.state.name)
     console.log(this.state.name)
+    console.log(this.state.image)
     bodyFormData.set('description', this.state.description)
     bodyFormData.set('country', this.state.country)
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
     bodyFormData.set('userID', this.props.userID)
+    bodyFormData.set('file', this.state.image)
+    bodyFormData.set('user', this.props.userID)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
@@ -137,12 +146,18 @@ export default class SubmitModal extends Component {
               value={this.state.description}
               onChange={this.handleDescChange}
             />
-            <FieldGroup
-              id="formControlsFile"
-              type="file"
-              label="Picture"
-              help="Submit a picture of the person you wish to nominate."
-            />
+
+            <FormGroup>
+                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><ControlLabel bsStyle="success">Add file</ControlLabel></h3>
+                    <FormControl
+                        id="fileUpload"
+                        type="file"
+                        accept=".png"
+                        onChange={this.addFile}
+                    />
+                </ControlLabel>
+            </FormGroup>            
+
             <FormGroup controlId="formControlsSelect">
               <ControlLabel>Country</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.country} onChange={this.handleCountryChange}>
