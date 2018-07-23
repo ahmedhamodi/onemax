@@ -90,7 +90,6 @@ export default class SubmitModal extends Component {
   }
 
   addFile = (event: any): void => {
-    console.log(event.target.files[0]);
     this.state.image = event.target.files[0]
   }
 
