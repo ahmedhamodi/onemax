@@ -46,7 +46,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.persons)
     return (
       <div className="App">
         <Router>

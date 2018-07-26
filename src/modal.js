@@ -91,7 +91,6 @@ export default class SubmitModal extends Component {
   submitNom = () => {
     var bodyFormData = new FormData();
     bodyFormData.set('name', this.state.name)
-    console.log(this.state.name)
     bodyFormData.set('description', this.state.description)
     bodyFormData.set('country', this.state.country)
     bodyFormData.set('province', this.state.province)
