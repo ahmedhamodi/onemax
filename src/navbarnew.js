@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import LoginAuthentication from './login.js';
-import logonobg from './images/onemax-nobg.png';
-import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Nav, Navbar, FormGroup, FormControl, Button, Glyphicon, InputGroup } from 'react-bootstrap';
+import LoginAuthentication from './login.js';
 import SubmitModal from './modal.js';
-import { Nav, Navbar, FormGroup, FormControl, Button, Glyphicon, InputGroup} from 'react-bootstrap';
-{/*import SearchBar from './searchbar.js';*/}
+import 'react-toastify/dist/ReactToastify.css';
+import logonobg from './images/onemax-nobg.png';
 
 
 export default class NavbarNew extends Component {
@@ -14,35 +14,43 @@ export default class NavbarNew extends Component {
 
         this.state = {
             loginString: '',
-            profilePicture: this.props.picture
+            profilePicture: this.props.picture,
+            searchValue: ''
         };
+    }
+
+    handleSearchInput = (event) => {
+        this.setState({searchValue: event.target.value})
     }
 
     onLogin = (response) => {
         this.setState({
-          isLoggedIn: true,
-          name: response.name,
-          userID: response.userID,
-          picture: response.picture
+            isLoggedIn: true,
+            name: response.name,
+            userID: response.userID,
+            picture: response.picture
         });
         this.props.updateLogin(response);
     }
 
     promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
         position: toast.POSITION.TOP_LEFT
-      });
+    });
+
 
     render() {
         return (
             <Navbar fixedTop collapseOnSelect className="Main-Nav">
 
                 <Navbar.Header className='Main-Nav-Header'>
-                    <Navbar.Brand>
-                        <img src={logonobg} className="App-logo" alt="logo" /> 
-                    </Navbar.Brand>
+                    <Link to="/">
+                        <Navbar.Brand>
+                            <img src={logonobg} className="App-logo" alt="logo" />
+                        </Navbar.Brand>
+                    </Link>
                     <Navbar.Toggle />
                 </Navbar.Header>
-                
+
                 <Navbar.Collapse>
                     <Nav style={{
                         paddingTop: '4px'
@@ -50,14 +58,15 @@ export default class NavbarNew extends Component {
                         <Navbar.Form pullLeft>
                             <FormGroup bsSize="normal">
                                 <InputGroup>
-                                <FormControl type="text" placeholder="Search for Nominees"/>
-                                <InputGroup.Button>
-                                    <Button><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
-                                </InputGroup.Button>
+                                    <FormControl type="text" placeholder="Search for Nominees" value={this.state.searchValue} onChange={this.handleSearchInput} onKeyPress={this.handleSearchEnterKey}/>
+                                    <InputGroup.Button>
+                                        <Link to={'/search/' + this.state.searchValue}>
+                                            <Button><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
+                                        </Link>
+                                    </InputGroup.Button>
                                 </InputGroup>
-                                {/*<SearchBar persons = {this.props.persons} />*/}
                             </FormGroup>
-                            
+
                         </Navbar.Form>
                         <Nav pullLeft style={{
                             paddingTop: '8px',
@@ -67,10 +76,10 @@ export default class NavbarNew extends Component {
                         </Nav>
                     </Nav>
                     <Nav pullRight style={{
-                            width: 'fit-content',
-                            paddingTop: '12px'
+                        width: 'fit-content',
+                        paddingTop: '12px'
                     }}>
-                        <LoginAuthentication onLogin={this.onLogin} /> 
+                        <LoginAuthentication onLogin={this.onLogin} />
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

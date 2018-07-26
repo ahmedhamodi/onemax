@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import Nominee from './nominee.js';
-import axios from 'axios';
-import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
-
-import NavBarNew from './navbarnew';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import axios from 'axios';
+import NavBarNew from './navbarnew.js';
+import Person from './person.js';
+import Home from './home.js';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -47,19 +48,23 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ToastContainer autoClose={3000} />
+        <Router>
+          <div>
+            <ToastContainer autoClose={3000} />
 
-        <div className='container'>
-          <NavBarNew persons = {this.state.persons} isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />
-        </div>
+            <div className='container'>
+              <NavBarNew persons={this.state.persons} isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />
+            </div>
 
-        <div className='container'>
-          <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(0, 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(0, 1).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(0, 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(0, 1).map(person => <p>{person.id}</p>)} />
+            <div>
+              <Route exact path="/" render={() => <Home isLoggedIn={true} userID={this.state.userID} />} />
+              <Route exact path="/search" component={Home} />
+              <Route path="/search/:name" render={(params) => <Person isLoggedIn={true} userID={this.state.userID} params={params}/>} />
+            </div>
+            
+          </div>
+        </Router>
 
-          <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(1, 2).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(1, 2).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(1, 2).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(1, 2).map(person => <p>{person.id}</p>)} />
-
-          <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(2, 3).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(2, 3).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(2, 3).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(2, 3).map(person => <p>{person.id}</p>)} />
-        </div>
       </div >
     );
   }

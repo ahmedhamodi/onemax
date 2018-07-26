@@ -1,0 +1,62 @@
+import React, { Component } from 'react';
+import axios from 'axios';
+import { Glyphicon } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Nominee from './nominee.js';
+
+class Person extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            persons: [],
+            search: '',
+            found: false
+        }
+    }
+
+    componentDidMount() {
+        const name = this.props.params.match.params.name;
+        var bodyFormData = new FormData();
+        bodyFormData.set('tags', name)
+        axios({
+            method: 'post',
+            url: 'https://fast-cove-41298.herokuapp.com/search',
+            data: bodyFormData
+        })
+            .then(res => {
+                const persons = res.data
+                if(res.data.length !== 0) {
+                    this.setState({ persons, found: true, search: name });
+                }
+                
+            });
+    }
+
+
+    render() {
+        return (
+            <div>
+                <h2 hidden={this.state.found} style={{
+                    position: 'relative',
+                    top: '50px'
+                }}>
+                    No nominees found. Please try again!
+                </h2>
+                <div hidden={!this.state.found} className='container'>
+                <Nominee userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(0, 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(0, 1).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(0, 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(0, 1).map(person => <p>{person.id}</p>)} />
+                </div>
+                <Link to='/'>
+                    <button className="btn btn-primary submit-nomination" style={{
+                        position: 'relative',
+                        top: '120px'
+                    }}>
+                        <Glyphicon glyph="glyphicon glyphicon-arrow-left" /> Back home
+                    </button>
+                </Link>
+            </div>
+        );
+    }
+}
+
+export default Person;
