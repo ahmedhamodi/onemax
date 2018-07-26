@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Nominee from './nominee.js';
+import Nominees from './nominee.js';
 import axios from 'axios';
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -45,6 +45,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.persons)
     return (
       <div className="App">
         <ToastContainer autoClose={3000} />
@@ -54,11 +55,7 @@ class App extends Component {
         </div>
 
         <div className='container'>
-          <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(0, 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(0, 1).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(0, 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(0, 1).map(person => <p>{person.id}</p>)} />
-
-          <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(1, 2).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(1, 2).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(1, 2).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(1, 2).map(person => <p>{person.id}</p>)} />
-
-          <Nominee userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(2, 3).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(2, 3).map(person => <p className="description">{person.description}</p>)} duas={this.state.persons.slice(2, 3).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(2, 3).map(person => <p>{person.id}</p>)} />
+          <Nominees userId={this.state.userID} isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons} />
         </div>
       </div >
     );

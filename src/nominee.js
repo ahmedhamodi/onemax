@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
 import person from './images/person.png';
 import Dua from './dua.js';
-import canada_flag from './images/canada_flag.png';
-import america_flag from './images/america_flag.png';
-import england_flag from './images/england_flag.png';
-import australia_flag from './images/australia_flag.png';
+import canada_flag from './images/Canada.png';
+import america_flag from './images/America.png';
+import england_flag from './images/England.png';
+import australia_flag from './images/Australia.png';
 import './index.css';
 
-export default class Nominee extends Component {
+export default class Nominees extends Component {
   render() {
+    return (
+      <body>
+        {this.props.nominees.map((x, i) =>
+          <Nominee userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p className="description">{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
+      </body>
+    );
+  }
+}
+
+class Nominee extends Component {
+  render() {
+    const images = {
+      Canada: './images/Canada.png',
+      America: './images/America.png',
+      England: './images/England.png',
+      Australia: './images/Australia.png'
+    }
+    var icon = (this.props.country) ? images[this.props.country] : null;
     return (
       <div className="columns" style={{
         position: 'relative',
