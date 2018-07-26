@@ -27,6 +27,7 @@
     "react-motion": "^0.5.2",
     "react-popper": "^0.10.4",
     "react-responsive-navbar": "^1.0.11",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-scroll-horizontal": "^1.5.0",
     "react-toastify": "^4.1.0",

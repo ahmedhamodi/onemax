@@ -20,6 +20,7 @@
   height: 50px;
   align-self: bottom;
   padding: 0;
+  top: 5px;
 }
 
 .App-header {
@@ -204,7 +205,7 @@
 }
 
 .btn.btn-primary.submit-nomination {
-  background-color: #79589F;
+  background-color: #471e98;
   border-color: #79589F;
 }
 
