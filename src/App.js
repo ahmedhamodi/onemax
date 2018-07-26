@@ -46,6 +46,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.persons)
     return (
       <div className="App">
         <Router>
@@ -59,9 +60,9 @@ class App extends Component {
             <div>
               <Route exact path="/" render={() => <Home isLoggedIn={true} userID={this.state.userID} />} />
               <Route exact path="/search" component={Home} />
-              <Route path="/search/:name" render={(params) => <Person isLoggedIn={true} userID={this.state.userID} params={params}/>} />
+              <Route path="/search/:name" render={(params) => <Person isLoggedIn={true} userID={this.state.userID} params={params} />} />
             </div>
-            
+
           </div>
         </Router>
 
