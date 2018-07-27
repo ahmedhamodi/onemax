@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import person from './images/person.png';
+import { toast } from 'react-toastify';
 import Dua from './dua.js';
 import canada_flag from './images/Canada.png';
 import america_flag from './images/America.png';
@@ -8,6 +9,11 @@ import australia_flag from './images/Australia.png';
 import './index.css';
 
 export default class Nominees extends Component {
+
+  promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
+    position: toast.POSITION.TOP_LEFT
+  });
+
   render() {
     return (
       <body>
