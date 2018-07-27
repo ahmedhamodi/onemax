@@ -57,9 +57,9 @@ class App extends Component {
             </div>
 
             <div>
-              <Route exact path="/" render={() => <Home isLoggedIn={true} userID={this.state.userID} />} />
+              <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} />} />
               <Route exact path="/search" component={Home} />
-              <Route path="/search/:name" render={(params) => <Person isLoggedIn={true} userID={this.state.userID} params={params} />} />
+              <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} params={params} />} />
             </div>
 
           </div>
