@@ -100,7 +100,7 @@ export default class SubmitModal extends Component {
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
     bodyFormData.set('userID', this.props.userID)
-    bodyFormData.set('file', this.props.image)
+    bodyFormData.set('file', this.state.image)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
