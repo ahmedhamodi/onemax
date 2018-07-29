@@ -45,7 +45,7 @@ class Person extends Component {
           <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons} />
         </div>
         <Link to='/'>
-          <button className="btn btn-primary submit-nomination" style={{
+          <button className="action-button" style={{
             position: 'relative',
             top: '120px'
           }}>

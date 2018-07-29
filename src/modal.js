@@ -111,9 +111,9 @@ export default class SubmitModal extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.toggleModal} class="btn btn-primary submit-nomination">
-        <Glyphicon glyph="glyphicon glyphicon-plus" /> Submit Nomination
-          </button>
+        <button onClick={this.toggleModal} class="action-button">
+          <Glyphicon glyph="glyphicon glyphicon-plus" /> Submit Nomination
+        </button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
