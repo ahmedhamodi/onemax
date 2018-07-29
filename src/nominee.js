@@ -10,15 +10,16 @@ import './index.css';
 
 export default class Nominees extends Component {
 
+  state = {
+    showNoms: false
+  }
+
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
     position: toast.POSITION.TOP_LEFT
   });
 
   displayNoms = () => {
-    console.log(this.props.nominees)
-    console.log(this.props.nominees.length)
-    {this.props.nominees.slice(3, this.props.nominees.length).map((x, i) =>
-      <Nominee userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p className="description">{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
+    this.setState({ showNoms: true })
   }
 
   render() {
@@ -26,19 +27,25 @@ export default class Nominees extends Component {
       <body>
         {this.props.nominees.slice(0,3).map((x, i) =>
           <Nominee userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p className="description">{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
-        
-        <div id="hiddenNoms">
-          {this.props.nominees.slice(3, this.props.nominees.length).map((x, i) =>
-            <Nominee userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p className="description">{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
-        </div>
 
-        <div id="showNoms">
-          <button onClick={$('#hiddenNoms').show(); $('#showNoms').hide(); return false;} class="btn btn-primary submit-nomination">
-            View More Nominees
-          </button>
+        <div>
+          <div onClick={this.displayNoms} >
+            {this.state.showNoms ? <RestOfNoms nominees={this.props.nominees.slice(3, this.props.nominees.length)} /> : <button class="btn btn-primary submit-nomination">View More Nominees</button>}
+          </div>
         </div>
       </body>
     );
+  }
+}
+
+class RestOfNoms extends Component {
+  render() {
+    return (
+      <body>
+        {this.props.nominees.map((x, i) =>
+          <Nominee userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p className="description">{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
+      </body>
+    )
   }
 }
 
