@@ -88,6 +88,10 @@ export default class SubmitModal extends Component {
     }
   }
 
+  addFile = (event: any): void => {
+    this.state.image = event.target.files[0]
+  }
+
   submitNom = () => {
     var bodyFormData = new FormData();
     bodyFormData.set('name', this.state.name)
@@ -96,6 +100,7 @@ export default class SubmitModal extends Component {
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
     bodyFormData.set('userID', this.props.userID)
+    bodyFormData.set('file', this.props.image)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
@@ -136,12 +141,13 @@ export default class SubmitModal extends Component {
               value={this.state.description}
               onChange={this.handleDescChange}
             />
-            <FieldGroup
-              id="formControlsFile"
-              type="file"
-              label="Picture"
-              help="Submit a picture of the person you wish to nominate."
-            />
+
+            <FormGroup>
+                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><ControlLabel bsStyle="success">Add file</ControlLabel></h3>
+                    <input type="file" onChange={this.addFile} />
+                </ControlLabel>
+            </FormGroup>            
+
             <FormGroup controlId="formControlsSelect">
               <ControlLabel>Country</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.country} onChange={this.handleCountryChange}>
