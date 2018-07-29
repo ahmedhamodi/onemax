@@ -50,6 +50,35 @@ class RestOfNoms extends Component {
 }
 
 class Nominee extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      flag: ''
+    }
+  }
+
+  componentDidMount() {
+    console.log(this.props.country[0].props.children);
+    const country = this.props.country[0].props.children;
+    if(this.props.country[0].props.children === "Australia") {
+      this.setState({
+        flag: australia_flag
+      });
+    } else if (this.props.country[0].props.children === "United States") {
+      this.setState({
+        flag: america_flag
+      });
+    } else if (this.props.country[0].props.children === "England") {
+      this.setState({
+        flag: england_flag
+      });
+    } else {
+      this.setState({
+        flag: canada_flag
+      });
+    }
+  }
+
   render() {
     const images = {
       Canada: './images/Canada.png',
@@ -65,7 +94,7 @@ class Nominee extends Component {
         <ul className="person">
           <li className="header">
             <p className="nominee_name">{ this.props.name }</p>
-            <img className="nominee_flag" src={canada_flag} alt="logo" />
+            <img className="nominee_flag" src={this.state.flag} alt="logo" />
           </li>
           <div className='person content'>
             <img src={person} className="person-logo" alt="logo" />
