@@ -30,7 +30,7 @@ export default class Nominees extends Component {
 
         <div>
           <div onClick={this.displayNoms} >
-            {this.state.showNoms ? <RestOfNoms nominees={this.props.nominees.slice(3, this.props.nominees.length)} /> : <button class="btn btn-primary submit-nomination">View More Nominees</button>}
+            {this.state.showNoms ? <RestOfNoms nominees={this.props.nominees.slice(3, this.props.nominees.length)} /> : <button class="action-button">View More Nominees</button>}
           </div>
         </div>
       </body>

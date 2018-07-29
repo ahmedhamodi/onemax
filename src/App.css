@@ -204,7 +204,7 @@
   font-size: 14px;
 }
 
-.viewNoms {
+.action-button {
   -moz-appearance: none;
   -webkit-appearance: none;
   -ms-appearance: none;
@@ -215,14 +215,14 @@
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   background-color: transparent;
   border-radius: 0.35em;
-  border: solid 3px #80C1E1;
-  color: #787878 !important;
+  border: solid 3px #79589F;
+  color: #471e98 !important;
   cursor: pointer;
   display: inline-block;
   font-weight: 400;
-  height: 3.15em;
-  height: calc(2.75em + 6px);
-  line-height: 2.75em;
+  height: 2.5em;
+  height: calc(2em + 6px);
+  line-height: 2em;
   min-width: 10em;
   padding: 0 1.5em;
   text-align: center;
@@ -230,13 +230,9 @@
   white-space: nowrap;
 }
 
-.btn.btn-primary.submit-nomination {
-  background-color: #471e98;
-  border-color: #79589F;
-}
-
-.btn.btn-primary.submit-nomination:hover {
+.action-button:hover {
   background-color: #5d407f;
+  color: white !important;
 }
 
 .description {
