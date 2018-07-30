@@ -60,7 +60,8 @@ class Nominee extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      flag: ''
+      flag: '',
+      image: person
     }
   }
 
@@ -83,10 +84,16 @@ class Nominee extends Component {
         flag: canada_flag
       });
     }
+
+    const image = this.props.image[0].props.children
+    if (image != "") {
+      this.setState({
+        image: image
+      });
+    }
   }
 
   render() {
-
     const images = {
       Canada: './images/Canada.png',
       America: './images/America.png',
@@ -104,7 +111,7 @@ class Nominee extends Component {
             <img className="nominee_flag" src={this.state.flag} alt="logo" />
           </li>
           <div className='person content'>
-            <img src={this.props.image} className="person-logo" alt="logo" />
+            <img src={this.state.image} className="person-logo" alt="logo" />
             { this.props.description }
           </div>
           <li className="dua">
