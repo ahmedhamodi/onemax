@@ -58,17 +58,16 @@ class Nominee extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.country[0].props.children);
     const country = this.props.country[0].props.children;
-    if(this.props.country[0].props.children === "Australia") {
+    if(country === "Australia") {
       this.setState({
         flag: australia_flag
       });
-    } else if (this.props.country[0].props.children === "United States") {
+    } else if (country === "United States") {
       this.setState({
         flag: america_flag
       });
-    } else if (this.props.country[0].props.children === "England") {
+    } else if (country === "England") {
       this.setState({
         flag: england_flag
       });
