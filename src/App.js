@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import PropTypes from "prop-types";
+import Joyride from 'react-joyride';
 import axios from 'axios';
 import NavBarNew from './navbarnew.js';
 import Person from './person.js';
@@ -20,9 +22,45 @@ class App extends Component {
       isLoggedIn: false,
       userID: '',
       picture: '',
-      searchTerm: ''
+      searchTerm: '',
+      run: false,
+      steps: [
+        {
+          target: '.btn.btn-primary',
+          content: 'This if my awesome feature!',
+          placement: 'bottom',
+        },
+        {
+          target: '.search',
+          content: 'This if my awesome feature!',
+          placement: 'bottom',
+        }
+      ]
     };
   }
+
+  static propTypes = {
+    joyride: PropTypes.shape({
+      callback: PropTypes.func
+    })
+  };
+
+  static defaultProps = {
+    joyride: {}
+  };
+
+  handleJoyrideCallback = data => {
+    const { joyride } = this.props;
+    const { type } = data;
+
+    if (typeof joyride.callback === "function") {
+      joyride.callback(data);
+    } else {
+      console.group(type);
+      console.log(data); //eslint-disable-line no-console
+      console.groupEnd();
+    }
+  };
 
   updateLogin = (response) => {
     this.setState({
@@ -38,6 +76,7 @@ class App extends Component {
   });
 
   componentDidMount() {
+    this.setState({ run: true });
     axios.get('https://fast-cove-41298.herokuapp.com/nominations')
       .then(res => {
         const persons = res.data
@@ -51,6 +90,15 @@ class App extends Component {
         <Router>
           <div>
             <ToastContainer autoClose={3000} />
+
+            <Joyride
+              continuous
+              showProgress
+              disableOverlay={false}
+              steps={this.state.steps}
+              run={this.state.run}
+              callback={this.handleJoyrideCallback}
+            />
 
             <div className='container'>
               <NavBarNew persons={this.state.persons} isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />

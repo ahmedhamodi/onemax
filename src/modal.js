@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
+import ReactCrop, { makeAspectCrop } from 'react-image-crop'
+import 'react-image-crop/dist/ReactCrop.css'
 import axios from 'axios';
 
 function FieldGroup({ id, label, help, ...props }) {
@@ -11,6 +13,44 @@ function FieldGroup({ id, label, help, ...props }) {
     </FormGroup>
   );
 }
+
+/**
+ * @param {File} image - Image File Object
+ * @param {Object} pixelCrop - pixelCrop Object provided by react-image-crop
+ * @param {String} fileName - Name of the returned file in Promise
+ */
+function getCroppedImg(image, pixelCrop, fileName) {
+
+  const canvas = document.createElement('canvas');
+  canvas.width = pixelCrop.width;
+  canvas.height = pixelCrop.height;
+  const ctx = canvas.getContext('2d');
+
+  ctx.drawImage(
+    image,
+    pixelCrop.x,
+    pixelCrop.y,
+    pixelCrop.width,
+    pixelCrop.height,
+    0,
+    0,
+    pixelCrop.width,
+    pixelCrop.height
+  );
+
+  // As Base64 string
+  const base64Image = canvas.toDataURL('image/jpeg');
+  return base64Image;
+
+  // As a blob
+  // return new Promise((resolve, reject) => {
+  //   canvas.toBlob(file => {
+  //     file.name = fileName;
+  //     resolve(file);
+  //   }, 'image/jpeg');
+  // });
+}
+
 
 export default class SubmitModal extends Component {
   constructor(props, context) {
@@ -28,7 +68,11 @@ export default class SubmitModal extends Component {
       eng_prov: ["East Midlands", "East of England", "London", "North East", "North West", "South East", "South West", "West Midlands", "Yorkshire and the Humber"],
       aus_prov: ["Central Australia", "New South Wales", "North Australia", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"],
       active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
-      active_prov_label: "Provinces"
+      active_prov_label: "Provinces",
+      image: '',
+      crop: {
+        aspect: 1/1
+      }
     };
   }
 
@@ -88,8 +132,42 @@ export default class SubmitModal extends Component {
     }
   }
 
-  addFile = (event: any): void => {
-    this.state.image = event.target.files[0]
+  addFile = e => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader()
+      reader.addEventListener(
+        'load',
+        () =>
+          this.setState({
+            image: reader.result,
+          }),
+        false
+      )
+      reader.readAsDataURL(e.target.files[0])
+    }
+  }
+
+  onImageLoaded = image => {
+    console.log('onCropComplete', image)
+  }
+
+  onCropComplete = crop => {
+    console.log('onCropComplete', crop);
+    console.log(this.state.image);
+    const { image } = this.state;
+    this.setState({
+      crop: makeAspectCrop({
+        x: 20,
+        y: 5,
+        aspect: 1,
+        height: 50,
+      }, image.naturalWidth / image.naturalHeight),
+      disabled: false,
+    });
+  }
+
+  onCropChange = crop => {
+    this.setState({ crop })
   }
 
   submitNom = () => {
@@ -143,10 +221,21 @@ export default class SubmitModal extends Component {
             />
 
             <FormGroup>
-                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><ControlLabel bsStyle="success">Add file</ControlLabel></h3>
-                    <input type="file" onChange={this.addFile} />
-                </ControlLabel>
-            </FormGroup>            
+              <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><ControlLabel bsStyle="success">Add file</ControlLabel></h3>
+                <input type="file" onChange={this.addFile} />
+              </ControlLabel>
+            </FormGroup>
+
+            {this.state.image && (
+              <ReactCrop
+                src={this.state.image}
+                crop={this.state.crop}
+                onImageLoaded={this.onImageLoaded}
+                onComplete={this.onCropComplete}
+                onChange={this.onCropChange}
+                crop={this.state.crop}
+              />
+            )}
 
             <FormGroup controlId="formControlsSelect">
               <ControlLabel>Country</ControlLabel>
