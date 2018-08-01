@@ -116,7 +116,7 @@ export default class SubmitModal extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.toggleModal} class="action-button">
+        <button onClick={this.toggleModal} className="action-button">
           <Glyphicon glyph="glyphicon glyphicon-plus" /> Submit Nomination
         </button>
 
@@ -175,8 +175,8 @@ export default class SubmitModal extends Component {
             />
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" class="btn btn-danger" onClick={this.toggleModal}>Cancel</button>
-            <button type="button" class="btn btn-success" onClick={this.submitNom}>Submit</button>
+            <button type="button" className="btn btn-danger" onClick={this.toggleModal}>Cancel</button>
+            <button type="button" className="btn btn-success" onClick={this.submitNom}>Submit</button>
           </Modal.Footer>
         </Modal>
       </div>
