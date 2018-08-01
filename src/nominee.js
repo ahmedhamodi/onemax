@@ -33,14 +33,14 @@ export default class Nominees extends Component {
 
   render() {
     return (
-      <body>
+      <div className="pageBody">
         {this.props.nominees.slice(0,3).map((x, i) =>
           <Nominee userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} image={this.props.nominees.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
         
         <div onClick={this.displayNoms} >
           {this.state.showNoms ? <RestOfNoms userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.props.nominees.slice(3, this.props.nominees.length)} /> : this.displayViewButton()}
         </div>
-      </body>
+      </div>
     );
   }
 }
@@ -48,10 +48,10 @@ export default class Nominees extends Component {
 class RestOfNoms extends Component {
   render() {
     return (
-      <body>
+      <div className="pageBody">
         {this.props.nominees.map((x, i) =>
           <Nominee userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i+1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
-      </body>
+      </div>
     )
   }
 }
