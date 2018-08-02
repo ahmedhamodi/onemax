@@ -14,6 +14,7 @@ function FieldGroup({ id, label, help, ...props }) {
   );
 }
 
+const max_description = 400
 
 export default class SubmitModal extends Component {
   constructor(props, context) {
@@ -37,12 +38,12 @@ export default class SubmitModal extends Component {
         aspect: 1 / 1
       },
       croppedImg: "",
-      chars_left: 250
+      chars_left: max_description
     };
   }
 
   resetDefaults = () => {
-    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces", "image": "", "croppedImg": "", chars_left: 250 })
+    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces", "image": "", "croppedImg": "", chars_left: max_description })
   }
 
   handleClose = () => {
@@ -62,7 +63,7 @@ export default class SubmitModal extends Component {
 
     this.setState({ 
       description: e.target.value,
-      chars_left: 250 - e.target.value.length
+      chars_left: max_description - e.target.value.length
     });
   }
 

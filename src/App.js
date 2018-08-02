@@ -25,28 +25,6 @@ class App extends Component {
     };
   }
 
-  static propTypes = {
-    joyride: PropTypes.shape({
-      callback: PropTypes.func
-    })
-  };
-
-  static defaultProps = {
-    joyride: {}
-  };
-
-  handleJoyrideCallback = data => {
-    const { joyride } = this.props;
-    const { type } = data;
-
-    if (typeof joyride.callback === "function") {
-      joyride.callback(data);
-    } else {
-      console.group(type);
-      console.log(data); //eslint-disable-line no-console
-      console.groupEnd();
-    }
-  };
 
   updateLogin = (response) => {
     this.setState({
