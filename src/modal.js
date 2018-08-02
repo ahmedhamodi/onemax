@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
-// import ReactCrop, { makeAspectCrop } from 'react-image-crop'
-// import 'react-image-crop/dist/ReactCrop.css'
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import axios from 'axios';
