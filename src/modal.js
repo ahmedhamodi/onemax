@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
+import Cropper from 'react-cropper';
+import 'cropperjs/dist/cropper.css';
 import axios from 'axios';
 
 function FieldGroup({ id, label, help, ...props }) {
@@ -11,6 +13,8 @@ function FieldGroup({ id, label, help, ...props }) {
     </FormGroup>
   );
 }
+
+const max_description = 400
 
 export default class SubmitModal extends Component {
   constructor(props, context) {
@@ -28,12 +32,18 @@ export default class SubmitModal extends Component {
       eng_prov: ["East Midlands", "East of England", "London", "North East", "North West", "South East", "South West", "West Midlands", "Yorkshire and the Humber"],
       aus_prov: ["Central Australia", "New South Wales", "North Australia", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"],
       active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
-      active_prov_label: "Provinces"
+      active_prov_label: "Provinces",
+      image: '',
+      crop: {
+        aspect: 1 / 1
+      },
+      croppedImg: "",
+      chars_left: max_description
     };
   }
 
   resetDefaults = () => {
-    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces" })
+    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces", "image": "", "croppedImg": "", chars_left: max_description })
   }
 
   handleClose = () => {
@@ -50,7 +60,11 @@ export default class SubmitModal extends Component {
   }
 
   handleDescChange = (e) => {
-    this.setState({ description: e.target.value });
+
+    this.setState({ 
+      description: e.target.value,
+      chars_left: max_description - e.target.value.length
+    });
   }
 
   handleCountryChange = (e) => {
@@ -88,8 +102,27 @@ export default class SubmitModal extends Component {
     }
   }
 
-  addFile = (event: any): void => {
-    this.state.image = event.target.files[0]
+  addFile = e => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader()
+      reader.addEventListener(
+        'load',
+        () =>
+          this.setState({
+            image: reader.result,
+          }),
+        false
+      )
+      reader.readAsDataURL(e.target.files[0])
+    }
+  }
+
+  _crop() {
+    // image in dataUrl
+    //console.log(this.refs.cropper.getCroppedCanvas().toDataURL()
+    this.setState({
+      croppedImg: this.refs.cropper.getCroppedCanvas().toDataURL()
+    });
   }
 
   submitNom = () => {
@@ -100,7 +133,7 @@ export default class SubmitModal extends Component {
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
     bodyFormData.set('userID', this.props.userID)
-    bodyFormData.set('file', this.state.image)
+    bodyFormData.set('file', this.state.croppedImg)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
@@ -133,20 +166,34 @@ export default class SubmitModal extends Component {
               value={this.state.name}
               onChange={this.handleNameChange}
             />
-            <FieldGroup
-              id="formControlsText"
-              type="text"
-              label="Description"
-              placeholder="Enter a description about the person you wish to nominate. (Max 250 characters)"
-              value={this.state.description}
-              onChange={this.handleDescChange}
-            />
+
+            <FormGroup controlId="formControlsTextarea">
+              <ControlLabel>Description</ControlLabel>
+              <FormControl componentClass="textarea" placeholder="Enter a description about the person you wish to nominate. (Max 250 characters)"
+                value={this.state.description}
+                onChange={this.handleDescChange}
+                maxLength="250"
+              />
+              <div pullright>Characters Left: {this.state.chars_left}</div>
+            </FormGroup>
 
             <FormGroup>
-                <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><ControlLabel bsStyle="success">Add file</ControlLabel></h3>
-                    <input type="file" onChange={this.addFile} />
-                </ControlLabel>
-            </FormGroup>            
+              <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><ControlLabel bsStyle="success">Add file</ControlLabel></h3>
+                <input type="file" onChange={this.addFile} />
+              </ControlLabel>
+            </FormGroup>
+
+            <Cropper
+              ref='cropper'
+              src={this.state.image}
+              style={{ height: 400, width: '100%' }}
+              // Cropper.js options
+              aspectRatio={1 / 1}
+              guides={false}
+              crop={this._crop.bind(this)} />
+
+            {this.state.croppedImg !== '' ? <div><h4>Preview:</h4> <img src={this.state.croppedImg} style={{ height: 400 }} /></div> : null}
+
 
             <FormGroup controlId="formControlsSelect">
               <ControlLabel>Country</ControlLabel>

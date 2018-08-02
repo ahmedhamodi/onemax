@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import PropTypes from "prop-types";
 import axios from 'axios';
 import NavBarNew from './navbarnew.js';
 import Person from './person.js';
@@ -24,6 +25,7 @@ class App extends Component {
     };
   }
 
+
   updateLogin = (response) => {
     this.setState({
       isLoggedIn: true,
@@ -38,6 +40,7 @@ class App extends Component {
   });
 
   componentDidMount() {
+    this.setState({ run: true });
     axios.get('https://fast-cove-41298.herokuapp.com/nominations')
       .then(res => {
         const persons = res.data
