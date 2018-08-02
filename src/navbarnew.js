@@ -39,7 +39,7 @@ export default class NavbarNew extends Component {
 
   render() {
     return (
-      <Navbar fixedTop collapseOnSelect className="Main-Nav">
+      <Navbar fixedTop className="Main-Nav">
 
         <Navbar.Header className='Main-Nav-Header'>
           <Link to="/">

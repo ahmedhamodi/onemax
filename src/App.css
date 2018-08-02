@@ -3,7 +3,8 @@
 }
 
 .pageBody {
-  background: #faf6ff
+  background: #faf6ff;
+  padding-top: 30px;
 }
 
 .App {
