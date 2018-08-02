@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
-import ReactCrop, { makeAspectCrop } from 'react-image-crop'
-import 'react-image-crop/dist/ReactCrop.css'
+// import ReactCrop, { makeAspectCrop } from 'react-image-crop'
+// import 'react-image-crop/dist/ReactCrop.css'
+import Cropper from 'react-cropper';
+import 'cropperjs/dist/cropper.css';
 import axios from 'axios';
 
 function FieldGroup({ id, label, help, ...props }) {
@@ -12,43 +14,6 @@ function FieldGroup({ id, label, help, ...props }) {
       {help && <HelpBlock>{help}</HelpBlock>}
     </FormGroup>
   );
-}
-
-/**
- * @param {File} image - Image File Object
- * @param {Object} pixelCrop - pixelCrop Object provided by react-image-crop
- * @param {String} fileName - Name of the returned file in Promise
- */
-function getCroppedImg(image, pixelCrop, fileName) {
-
-  const canvas = document.createElement('canvas');
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
-  const ctx = canvas.getContext('2d');
-
-  ctx.drawImage(
-    image,
-    pixelCrop.x,
-    pixelCrop.y,
-    pixelCrop.width,
-    pixelCrop.height,
-    0,
-    0,
-    pixelCrop.width,
-    pixelCrop.height
-  );
-
-  // As Base64 string
-  const base64Image = canvas.toDataURL('image/jpeg');
-  return base64Image;
-
-  // As a blob
-  // return new Promise((resolve, reject) => {
-  //   canvas.toBlob(file => {
-  //     file.name = fileName;
-  //     resolve(file);
-  //   }, 'image/jpeg');
-  // });
 }
 
 
@@ -71,13 +36,14 @@ export default class SubmitModal extends Component {
       active_prov_label: "Provinces",
       image: '',
       crop: {
-        aspect: 1/1
-      }
+        aspect: 1 / 1
+      },
+      croppedImg: ""
     };
   }
 
   resetDefaults = () => {
-    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces" })
+    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces", "image": "", "croppedImg": "" })
   }
 
   handleClose = () => {
@@ -154,20 +120,19 @@ export default class SubmitModal extends Component {
   onCropComplete = crop => {
     console.log('onCropComplete', crop);
     console.log(this.state.image);
-    const { image } = this.state;
-    this.setState({
-      crop: makeAspectCrop({
-        x: 20,
-        y: 5,
-        aspect: 1,
-        height: 50,
-      }, image.naturalWidth / image.naturalHeight),
-      disabled: false,
-    });
   }
 
   onCropChange = crop => {
     this.setState({ crop })
+  }
+
+  _crop() {
+    // image in dataUrl
+    // console.log(this.state.image)
+    //console.log(this.refs.cropper.getCroppedCanvas().toDataURL()
+    this.setState({
+      croppedImg: this.refs.cropper.getCroppedCanvas().toDataURL()
+    });
   }
 
   submitNom = () => {
@@ -178,7 +143,7 @@ export default class SubmitModal extends Component {
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
     bodyFormData.set('userID', this.props.userID)
-    bodyFormData.set('file', this.state.image)
+    bodyFormData.set('file', this.state.croppedImg)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
@@ -226,7 +191,7 @@ export default class SubmitModal extends Component {
               </ControlLabel>
             </FormGroup>
 
-            {this.state.image && (
+            {/* {this.state.image && (
               <ReactCrop
                 src={this.state.image}
                 crop={this.state.crop}
@@ -235,7 +200,19 @@ export default class SubmitModal extends Component {
                 onChange={this.onCropChange}
                 crop={this.state.crop}
               />
-            )}
+            )} */}
+
+            <Cropper
+              ref='cropper'
+              src={this.state.image}
+              style={{ height: 400, width: '100%' }}
+              // Cropper.js options
+              aspectRatio={1 / 1}
+              guides={false}
+              crop={this._crop.bind(this)} />
+
+            {this.state.croppedImg !== '' ? <div><h4>Preview:</h4> <img src={this.state.croppedImg} style={{ height: 400 }} /></div> : null }
+
 
             <FormGroup controlId="formControlsSelect">
               <ControlLabel>Country</ControlLabel>
