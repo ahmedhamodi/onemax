@@ -38,12 +38,13 @@ export default class SubmitModal extends Component {
       crop: {
         aspect: 1 / 1
       },
-      croppedImg: ""
+      croppedImg: "",
+      chars_left: 250
     };
   }
 
   resetDefaults = () => {
-    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces", "image": "", "croppedImg": "" })
+    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces", "image": "", "croppedImg": "", chars_left: 250 })
   }
 
   handleClose = () => {
@@ -60,7 +61,11 @@ export default class SubmitModal extends Component {
   }
 
   handleDescChange = (e) => {
-    this.setState({ description: e.target.value });
+
+    this.setState({ 
+      description: e.target.value,
+      chars_left: 250 - e.target.value.length
+    });
   }
 
   handleCountryChange = (e) => {
@@ -113,22 +118,8 @@ export default class SubmitModal extends Component {
     }
   }
 
-  onImageLoaded = image => {
-    console.log('onCropComplete', image)
-  }
-
-  onCropComplete = crop => {
-    console.log('onCropComplete', crop);
-    console.log(this.state.image);
-  }
-
-  onCropChange = crop => {
-    this.setState({ crop })
-  }
-
   _crop() {
     // image in dataUrl
-    // console.log(this.state.image)
     //console.log(this.refs.cropper.getCroppedCanvas().toDataURL()
     this.setState({
       croppedImg: this.refs.cropper.getCroppedCanvas().toDataURL()
@@ -176,31 +167,22 @@ export default class SubmitModal extends Component {
               value={this.state.name}
               onChange={this.handleNameChange}
             />
-            <FieldGroup
-              id="formControlsText"
-              type="text"
-              label="Description"
-              placeholder="Enter a description about the person you wish to nominate. (Max 250 characters)"
-              value={this.state.description}
-              onChange={this.handleDescChange}
-            />
+
+            <FormGroup controlId="formControlsTextarea">
+              <ControlLabel>Description</ControlLabel>
+              <FormControl componentClass="textarea" placeholder="Enter a description about the person you wish to nominate. (Max 250 characters)"
+                value={this.state.description}
+                onChange={this.handleDescChange}
+                maxLength="250"
+              />
+              <div pullright>Characters Left: {this.state.chars_left}</div>
+            </FormGroup>
 
             <FormGroup>
               <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><ControlLabel bsStyle="success">Add file</ControlLabel></h3>
                 <input type="file" onChange={this.addFile} />
               </ControlLabel>
             </FormGroup>
-
-            {/* {this.state.image && (
-              <ReactCrop
-                src={this.state.image}
-                crop={this.state.crop}
-                onImageLoaded={this.onImageLoaded}
-                onComplete={this.onCropComplete}
-                onChange={this.onCropChange}
-                crop={this.state.crop}
-              />
-            )} */}
 
             <Cropper
               ref='cropper'
@@ -211,7 +193,7 @@ export default class SubmitModal extends Component {
               guides={false}
               crop={this._crop.bind(this)} />
 
-            {this.state.croppedImg !== '' ? <div><h4>Preview:</h4> <img src={this.state.croppedImg} style={{ height: 400 }} /></div> : null }
+            {this.state.croppedImg !== '' ? <div><h4>Preview:</h4> <img src={this.state.croppedImg} style={{ height: 400 }} /></div> : null}
 
 
             <FormGroup controlId="formControlsSelect">

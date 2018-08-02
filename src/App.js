@@ -25,16 +25,16 @@ class App extends Component {
       searchTerm: '',
       run: false,
       steps: [
-        {
-          target: '.btn.btn-primary',
-          content: 'This if my awesome feature!',
-          placement: 'bottom',
-        },
-        {
-          target: '.search',
-          content: 'This if my awesome feature!',
-          placement: 'bottom',
-        }
+        // {
+        //   target: '.btn.btn-primary',
+        //   content: 'This if my awesome feature!',
+        //   placement: 'bottom',
+        // },
+        // {
+        //   target: '.search',
+        //   content: 'This if my awesome feature!',
+        //   placement: 'bottom',
+        // }
       ]
     };
   }
