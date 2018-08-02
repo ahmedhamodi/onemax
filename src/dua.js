@@ -29,7 +29,7 @@ export default class Dua extends Component {
     })
       .then(function (response) {
         self.setState((prevState) => ({ duas: response.data.duas }))
-      })
+      })  
       .catch(function (response) {
         console.log(response);
       });

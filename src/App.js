@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PropTypes from "prop-types";
-import Joyride from 'react-joyride';
 import axios from 'axios';
 import NavBarNew from './navbarnew.js';
 import Person from './person.js';
@@ -22,20 +21,7 @@ class App extends Component {
       isLoggedIn: false,
       userID: '',
       picture: '',
-      searchTerm: '',
-      run: false,
-      steps: [
-        // {
-        //   target: '.btn.btn-primary',
-        //   content: 'This if my awesome feature!',
-        //   placement: 'bottom',
-        // },
-        // {
-        //   target: '.search',
-        //   content: 'This if my awesome feature!',
-        //   placement: 'bottom',
-        // }
-      ]
+      searchTerm: ''
     };
   }
 
@@ -90,15 +76,6 @@ class App extends Component {
         <Router>
           <div>
             <ToastContainer autoClose={3000} />
-
-            <Joyride
-              continuous
-              showProgress
-              disableOverlay={false}
-              steps={this.state.steps}
-              run={this.state.run}
-              callback={this.handleJoyrideCallback}
-            />
 
             <div className='container'>
               <NavBarNew persons={this.state.persons} isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />
