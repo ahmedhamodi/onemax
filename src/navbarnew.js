@@ -76,7 +76,6 @@ export default class NavbarNew extends Component {
           </Nav>
 
           <Nav pullRight style={{
-            width: 'fit-content',
             paddingTop: '12px'
           }}>
             <LoginAuthentication onLogin={this.onLogin} />
