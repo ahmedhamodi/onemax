@@ -1,16 +1,33 @@
-Update UI to show all nominees
-	- top 3 should continue to be visible on the page as they are now
-	- rest of the nominations should be visible below in the horizontal scroll view
+# OneMAX Tasks
+### 1 BUGS:
+- 1.1 BUG: UI looks weird in Firefox. Fix UI and test app on Chrome, Firefox, Safari and Edge
+- 1.2 BUG: Unable to perform another search when on the search page
+- 1.3 BUG: Search is currently case-sensitive. Need to make sure that it isn’t
+- 1.4 BUG: Search API results returns duplicates if search string is in 2 fields
+- 1.5 BUG: Search returns nominees sorted by `id` instead of `Duas`
+- 1.6 BUG: Login does not work on mobile
+- 1.7 BUG: Nominee name forces name string, flag and nominee component to overflow and mess up the UI. Need to make it so that there is no overflow
+- 1.8 BUG: Mobile view breaks the top nav-bar
+- 1.9 BUG: Warning in browser console for nominee component:
+        - Warning: Each child in an array or iterator should have a unique "key" prop.
+Check the render method of `Dua`. It was passed a child from Nominees. See https://fb.me/react-warning-keys for more information.
+    in p (at nominee.js:38)
+        - index.js:2178 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
+    in p (at nominee.js:38)
 
-Give DUA POST request
+### 2 FEATURES:
+- 2.1 Integrate frontend to uploaded images, fix any styling bugs or overflows that result because of this
+- 2.2 Add a limit of 250 characters for description length on the frontend
+- 2.3 Add image crop functionality when submitting nominee
+- 2.4 Add a startup tour to walk user through the app and a jumbotron with the collage of words and app purpose
 
-Search for Nominee
-	- show bar to be able to select and filter things
-	- select filter
-	- select country
-	- "go"
-	- new page(?) 
-	- horizontal scroll view to show all nominees who match the requirements
+### BONUS
+- 3.1 Sort nominees by trending, top and date
+- 3.2 Add ability to edit or delete a nominee by the user who submitted the nominee
+- 3.3 Add views per country
+- 3.4 Think about how the white space for each nominee would look best
+- 3.5 Search to be used as a filter
 
-Login flow investigation
-Investigation for image upload and storing in the backend
+Arsalan: 1.2, 2.2, 2.3, 2.4 and 1.6
+Ahmed: 1.1, 1.7, 1.8 and 1.9
+Saman: 1.3, 1.4, 1.5 and 2.1
