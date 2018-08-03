@@ -12,27 +12,31 @@ export default class Dua extends Component {
     this.state = {
       duas: "",
       id: "",
-      userId: ""
+      userId: "",
+      isButtonDisabled: false
     };
   }
 
   increaseDuas = () => {
     var self = this;
-    var duaRequest = new FormData();
-    duaRequest.set('nominee_id', this.state.id[0].props.children)
-    duaRequest.set('nominated_by', this.props.userId)
-    axios({
-      method: 'post',
-      url: 'https://fast-cove-41298.herokuapp.com/dua',
-      data: duaRequest,
-      config: { headers: { 'Content-Type': 'multipart/form-data' } }
-    })
-      .then(function (response) {
-        self.setState((prevState) => ({ duas: response.data.duas }))
-      })  
-      .catch(function (response) {
-        console.log(response);
-      });
+    if(!this.state.isButtonDisabled) {
+      var duaRequest = new FormData();
+      duaRequest.set('nominee_id', this.state.id[0].props.children)
+      duaRequest.set('nominated_by', this.props.userId)
+      axios({
+        method: 'post',
+        url: 'https://fast-cove-41298.herokuapp.com/dua',
+        data: duaRequest,
+        config: { headers: { 'Content-Type': 'multipart/form-data' } }
+      })
+        .then(function (response) {
+          self.setState((prevState) => ({ duas: response.data.duas, isButtonDisabled: true }))
+          setTimeout(() => self.setState({ isButtonDisabled: false }), 1000);
+        })  
+        .catch(function (response) {
+          console.log(response);
+        }); 
+    }
   }
 
   sleep(time) {
