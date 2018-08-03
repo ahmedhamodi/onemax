@@ -46,7 +46,7 @@ export default class NavbarNew extends Component {
         <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} />} />
         <Route exact path="/search" component={Home} />
         <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} params={params} />} />
-        
+
         <Navbar fixedTop className="Main-Nav">
           <Navbar.Header className='Main-Nav-Header'>
             <Link to="/">
