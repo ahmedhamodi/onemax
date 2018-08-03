@@ -133,11 +133,7 @@ export default class SubmitModal extends Component {
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
     bodyFormData.set('userID', this.props.userID)
-    if(this.state.croppedImg === "") {
-      bodyFormData.set('file', this.state.croppedImg)
-    } else {
-      bodyFormData.set('file', this.state.image)
-    }
+    bodyFormData.set('file', this.state.croppedImg)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
