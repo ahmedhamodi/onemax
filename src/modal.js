@@ -169,10 +169,10 @@ export default class SubmitModal extends Component {
 
             <FormGroup controlId="formControlsTextarea">
               <ControlLabel>Description</ControlLabel>
-              <FormControl componentClass="textarea" placeholder="Enter a description about the person you wish to nominate. (Max 250 characters)"
+              <FormControl componentClass="textarea" placeholder="Enter a description about the person you wish to nominate. (Max 400 characters)"
                 value={this.state.description}
                 onChange={this.handleDescChange}
-                maxLength="250"
+                maxLength={max_description}
               />
               <div pullright>Characters Left: {this.state.chars_left}</div>
             </FormGroup>
