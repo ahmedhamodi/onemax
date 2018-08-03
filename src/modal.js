@@ -153,32 +153,32 @@ export default class SubmitModal extends Component {
           <Glyphicon glyph="glyphicon glyphicon-plus" /> Submit Nomination
         </button>
 
-        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal dialogClassName="submit_modal" show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Submit Nomination Form</Modal.Title>
+            <Modal.Title><h3><b>Submit Nomination Form</b></h3></Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <FieldGroup
+            <h4><FieldGroup
               id="formControlsText"
               type="text"
               label="Name"
               placeholder="Enter the name of the person you wish to nominate."
               value={this.state.name}
               onChange={this.handleNameChange}
-            />
+            /></h4>
 
             <FormGroup controlId="formControlsTextarea">
-              <ControlLabel>Description</ControlLabel>
+              <h4><ControlLabel>Description</ControlLabel></h4>
               <FormControl componentClass="textarea" placeholder="Enter a description about the person you wish to nominate. (Max 400 characters)"
                 value={this.state.description}
                 onChange={this.handleDescChange}
                 maxLength={max_description}
               />
-              <div pullright>Characters Left: {this.state.chars_left}</div>
+              <div className="chars_left">Characters Left: {this.state.chars_left}</div>
             </FormGroup>
 
             <FormGroup>
-              <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h3><ControlLabel bsStyle="success">Add file</ControlLabel></h3>
+              <ControlLabel htmlFor="fileUpload" style={{ cursor: "pointer" }}><h4><ControlLabel bsStyle="success"><br/>Submit Picture</ControlLabel></h4>
                 <input type="file" onChange={this.addFile} />
               </ControlLabel>
             </FormGroup>
@@ -186,17 +186,17 @@ export default class SubmitModal extends Component {
             <Cropper
               ref='cropper'
               src={this.state.image}
-              style={{ height: 400, width: '100%' }}
+              style={{ 'max-height': 400, width: '100%' }}
               // Cropper.js options
               aspectRatio={1 / 1}
               guides={false}
               crop={this._crop.bind(this)} />
 
-            {this.state.croppedImg !== '' ? <div><h4>Preview:</h4> <img src={this.state.croppedImg} alt={this.state.image} style={{ height: 400 }} /></div> : null}
+            {this.state.croppedImg !== '' ? <div><h5><br/><br/><b>Preview:</b></h5> <img src={this.state.croppedImg} alt={this.state.image} style={{ height: 400 }} /></div> : null}
 
 
             <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Country</ControlLabel>
+              <h4><ControlLabel>Country</ControlLabel></h4>
               <FormControl componentClass="select" placeholder="select" value={this.state.country} onChange={this.handleCountryChange}>
                 <option value="Canada">Canada</option>
                 <option value="England">England</option>
@@ -206,20 +206,20 @@ export default class SubmitModal extends Component {
             </FormGroup>
 
             <FormGroup controlId="formControlsSelect">
-              <ControlLabel>{this.state.active_prov_label}</ControlLabel>
+              <h4><ControlLabel>{this.state.active_prov_label}</ControlLabel></h4>
               <FormControl componentClass="select" placeholder="select" value={this.state.province} onChange={this.handleProvinceChange}>
                 {this.state.active_prov.map(prov => <option value={prov}> {prov} </option>)}
               </FormControl>
             </FormGroup>
 
-            <FieldGroup
+            <h4><FieldGroup
               id="formControlsText"
               type="text"
               label="Tags"
               placeholder="Add relevant tags to submission (ex. #community, #charity)"
               value={this.state.tags}
               onChange={this.handleTagsChange}
-            />
+            /></h4>
           </Modal.Body>
           <Modal.Footer>
             <button type="button" className="btn btn-danger" onClick={this.toggleModal}>Cancel</button>
