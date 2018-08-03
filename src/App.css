@@ -2,6 +2,16 @@
   background: #faf6ff
 }
 
+.pageBody {
+  background: #faf6ff;
+  padding-top: 30px;
+}
+
+.well {
+  background-color: white;
+  border-width: 0px;
+}
+
 .App {
   text-align: center;
 }
@@ -37,7 +47,8 @@
 }
 
 .person-logo {
-  padding-top: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   height: 200px;
   width: 200px;
   align-self: center;

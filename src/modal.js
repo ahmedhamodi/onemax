@@ -153,7 +153,7 @@ export default class SubmitModal extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.toggleModal} class="action-button">
+        <button onClick={this.toggleModal} className="action-button">
           <Glyphicon glyph="glyphicon glyphicon-plus" /> Submit Nomination
         </button>
 
@@ -173,10 +173,10 @@ export default class SubmitModal extends Component {
 
             <FormGroup controlId="formControlsTextarea">
               <ControlLabel>Description</ControlLabel>
-              <FormControl componentClass="textarea" placeholder="Enter a description about the person you wish to nominate. (Max 250 characters)"
+              <FormControl componentClass="textarea" placeholder="Enter a description about the person you wish to nominate. (Max 400 characters)"
                 value={this.state.description}
                 onChange={this.handleDescChange}
-                maxLength="250"
+                maxLength={max_description}
               />
               <div pullright>Characters Left: {this.state.chars_left}</div>
             </FormGroup>
@@ -226,8 +226,8 @@ export default class SubmitModal extends Component {
             />
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" class="btn btn-danger" onClick={this.toggleModal}>Cancel</button>
-            <button type="button" class="btn btn-success" onClick={this.submitNom}>Submit</button>
+            <button type="button" className="btn btn-danger" onClick={this.toggleModal}>Cancel</button>
+            <button type="button" className="btn btn-success" onClick={this.submitNom}>Submit</button>
           </Modal.Footer>
         </Modal>
       </div>

@@ -51,7 +51,6 @@ class Person extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if(nextProps.params.match.params.name !== null) {
-      console.log(nextProps.params.match.params.name)
       if (this.state.search !== nextProps.params.match.params.name && this.state.allowSearch === true) {
         return true;
       } else {
@@ -69,7 +68,7 @@ class Person extends Component {
           position: 'relative',
           top: '50px'
         }}>
-          No nominees found. Please try again!
+          No nominees found when searching for <b>"{this.state.search}"</b>. Please try again!
         </h2>
         <div hidden={!this.state.found} className='container'>
           <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons} />
