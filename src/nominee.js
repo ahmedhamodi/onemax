@@ -23,7 +23,6 @@ export default class Nominees extends Component {
   }
 
   displayViewButton = () => {
-    console.log(this.props.nominees.length)
     if (this.props.nominees.length > 3) {
       return (<button class="action-button">View More Nominees</button>)
     } else {
@@ -86,7 +85,7 @@ class Nominee extends Component {
     }
 
     const image = this.props.image[0].props.children
-    if (image != "") {
+    if (image !== "") {
       this.setState({
         image: image
       });
@@ -94,13 +93,6 @@ class Nominee extends Component {
   }
 
   render() {
-    const images = {
-      Canada: './images/Canada.png',
-      America: './images/America.png',
-      England: './images/England.png',
-      Australia: './images/Australia.png'
-    }
-    var icon = (this.props.country) ? images[this.props.country] : null;
     return (
       <div className="columns" style={{
         position: 'relative'

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import PropTypes from "prop-types";
+import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import NavBarNew from './navbarnew.js';
-import Person from './person.js';
-import Home from './home.js';
 import './App.css';
 
 class App extends Component {
@@ -24,7 +21,6 @@ class App extends Component {
       searchTerm: ''
     };
   }
-
 
   updateLogin = (response) => {
     this.setState({
@@ -59,11 +55,11 @@ class App extends Component {
               <NavBarNew persons={this.state.persons} isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />
             </div>
 
-            <div>
+            {/* <div>
               <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} />} />
               <Route exact path="/search" component={Home} />
               <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} params={params} />} />
-            </div>
+            </div> */}
 
           </div>
         </Router>

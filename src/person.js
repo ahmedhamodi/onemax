@@ -11,12 +11,12 @@ class Person extends Component {
     this.state = {
       persons: [],
       search: '',
-      found: false
+      found: false,
+      allowSearch: true
     }
   }
 
-  componentDidMount() {
-    const name = this.props.params.match.params.name;
+  processSearch(name) {
     var bodyFormData = new FormData();
     bodyFormData.set('tags', name)
     axios({
@@ -25,11 +25,41 @@ class Person extends Component {
       data: bodyFormData
     })
       .then(res => {
-        const persons = res.data
-        if(res.data.length !== 0) {
-          this.setState({ persons, found: true, search: name });
+        const persons = res.data;
+        if (res.data.length !== 0) {
+          this.setState({ persons, found: true, search: name, allowSearch: false });
+        } else {
+          this.setState({ search: name, persons: [], found: false, allowSearch: false });
         }
+      })
+      .catch(error => {
+        console.error('Error performing search: ', error);
+        this.setState({ search: '', persons: [], found: false, allowSearch: false })
       });
+      setTimeout(() => this.setState({ allowSearch: true }), 1000);
+  }
+
+  componentDidMount() {
+    let name = this.props.params.match.params.name;
+    this.processSearch(name);
+  }
+
+  componentDidUpdate() {
+    let name = this.props.params.match.params.name;
+    this.processSearch(name);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps.params.match.params.name !== null) {
+      console.log(nextProps.params.match.params.name)
+      if (this.state.search !== nextProps.params.match.params.name && this.state.allowSearch === true) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   render() {

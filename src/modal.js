@@ -61,7 +61,7 @@ export default class SubmitModal extends Component {
 
   handleDescChange = (e) => {
 
-    this.setState({ 
+    this.setState({
       description: e.target.value,
       chars_left: max_description - e.target.value.length
     });
@@ -133,7 +133,11 @@ export default class SubmitModal extends Component {
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
     bodyFormData.set('userID', this.props.userID)
-    bodyFormData.set('file', this.state.croppedImg)
+    if(this.state.croppedImg === "") {
+      bodyFormData.set('file', this.state.croppedImg)
+    } else {
+      bodyFormData.set('file', this.state.image)
+    }
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/nominations',
@@ -192,7 +196,7 @@ export default class SubmitModal extends Component {
               guides={false}
               crop={this._crop.bind(this)} />
 
-            {this.state.croppedImg !== '' ? <div><h4>Preview:</h4> <img src={this.state.croppedImg} style={{ height: 400 }} /></div> : null}
+            {this.state.croppedImg !== '' ? <div><h4>Preview:</h4> <img src={this.state.croppedImg} alt={this.state.image} style={{ height: 400 }} /></div> : null}
 
 
             <FormGroup controlId="formControlsSelect">
