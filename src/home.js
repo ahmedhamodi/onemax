@@ -32,13 +32,13 @@ class Home extends Component {
     return (
       <div className='container'>
         <Panel id="collapsible-panel-example-1" expanded={this.state.open} style={{
-          backgroundColor: "#faf6ff", 
+          backgroundColor: "white", 
           paddingTop: "30px"
         }}>
           <Panel.Collapse>
             <Panel.Body>
               <Jumbotron style={{
-                backgroundColor: "#faf6ff"
+                backgroundColor: "white"
               }}>
                 <p>
                   <img width="100%" alt="900x500" src={collage} />
