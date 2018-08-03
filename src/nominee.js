@@ -6,6 +6,7 @@ import canada_flag from './images/Canada.png';
 import america_flag from './images/America.png';
 import england_flag from './images/England.png';
 import australia_flag from './images/Australia.png';
+import { Well } from 'react-bootstrap';
 import './index.css';
 
 export default class Nominees extends Component {
@@ -112,7 +113,7 @@ class Nominee extends Component {
           </li>
           <div className='person content'>
             <img src={this.state.image} className="person-logo" alt="logo" />
-            { this.props.description }
+            <Well bsSize="large" className="well">{ this.props.description }</Well>
           </div>
           <li className="dua">
             <Dua duas = { this.props.duas } id = { this.props.id } isLoggedIn = {this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
