@@ -30,11 +30,17 @@ export default class Dua extends Component {
         config: { headers: { 'Content-Type': 'multipart/form-data' } }
       })
         .then(function (response) {
-          self.setState((prevState) => ({ duas: response.data.duas, isButtonDisabled: true }))
-          setTimeout(() => self.setState({ isButtonDisabled: false }), 1000);
+          var duas;
+          if(response.data.duas < 0) {
+            duas = 0
+          } else {
+            duas = response.data.duas
+          }
+          self.setState((prevState) => ({ duas: duas, isButtonDisabled: true }))
+          setTimeout(() => self.setState({ isButtonDisabled: false }), 5000);
         })  
         .catch(function (response) {
-          console.log(response);
+          console.error(response);
         }); 
     }
   }
