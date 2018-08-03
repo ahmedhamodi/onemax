@@ -55,12 +55,6 @@ class App extends Component {
               <NavBarNew persons={this.state.persons} isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />
             </div>
 
-            {/* <div>
-              <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} />} />
-              <Route exact path="/search" component={Home} />
-              <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} params={params} />} />
-            </div> */}
-
           </div>
         </Router>
 
