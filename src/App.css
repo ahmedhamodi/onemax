@@ -198,6 +198,7 @@
 .person.content {
   background-color: white;
   height: 500px;
+  clear:both
 }
 
 /* The "Sign Up" button */
