@@ -33,7 +33,7 @@ export default class SubmitModal extends Component {
       eng_prov: ["East Midlands", "East of England", "London", "North East", "North West", "South East", "South West", "West Midlands", "Yorkshire and the Humber"],
       aus_prov: ["Central Australia", "New South Wales", "North Australia", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia"],
       active_prov: ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory'],
-      active_prov_label: "Provinces",
+      active_prov_label: "Provinces *",
       image: '',
       crop: {
         aspect: 1 / 1
@@ -44,7 +44,7 @@ export default class SubmitModal extends Component {
   }
 
   resetDefaults = () => {
-    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces", "image": "", "croppedImg": "", chars_left: max_description })
+    this.setState({ name: "", description: "", country: "Canada", province: "Alberta", tags: "", active_prov: this.state.can_prov, active_prov_label: "Provinces *", "image": "", "croppedImg": "", chars_left: max_description })
   }
 
   handleClose = () => {
@@ -71,13 +71,13 @@ export default class SubmitModal extends Component {
   handleCountryChange = (e) => {
     this.setState({ country: e.target.value });
     if (e.target.value === "Canada") {
-      this.setState({ active_prov: this.state.can_prov, active_prov_label: "Provinces", province: "Alberta" })
+      this.setState({ active_prov: this.state.can_prov, active_prov_label: "Provinces *", province: "Alberta" })
     } else if (e.target.value === "United States") {
-      this.setState({ active_prov: this.state.us_prov, active_prov_label: "States", province: "Alabama" })
+      this.setState({ active_prov: this.state.us_prov, active_prov_label: "States *", province: "Alabama" })
     } else if (e.target.value === "England") {
-      this.setState({ active_prov: this.state.eng_prov, active_prov_label: "Provinces", province: "East Midlands" })
+      this.setState({ active_prov: this.state.eng_prov, active_prov_label: "Provinces *", province: "East Midlands" })
     } else {
-      this.setState({ active_prov: this.state.aus_prov, active_prov_label: "Provinces", province: "Central Australia" })
+      this.setState({ active_prov: this.state.aus_prov, active_prov_label: "Provinces *", province: "Central Australia" })
     }
   }
 
