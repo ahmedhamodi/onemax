@@ -61,7 +61,7 @@ export default class SubmitModal extends Component {
 
   handleDescChange = (e) => {
 
-    this.setState({ 
+    this.setState({
       description: e.target.value,
       chars_left: max_description - e.target.value.length
     });
@@ -192,7 +192,7 @@ export default class SubmitModal extends Component {
               guides={false}
               crop={this._crop.bind(this)} />
 
-            {this.state.croppedImg !== '' ? <div><h4>Preview:</h4> <img src={this.state.croppedImg} style={{ height: 400 }} /></div> : null}
+            {this.state.croppedImg !== '' ? <div><h4>Preview:</h4> <img src={this.state.croppedImg} alt={this.state.image} style={{ height: 400 }} /></div> : null}
 
 
             <FormGroup controlId="formControlsSelect">
