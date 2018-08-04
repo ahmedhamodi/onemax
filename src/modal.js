@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import axios from 'axios';
@@ -142,6 +143,9 @@ export default class SubmitModal extends Component {
     })
       .catch(function (response) {
         console.log(response);
+        toast.error("Nominee submission unsuccessful. Missing mandatory fields!", {
+          position: toast.POSITION.TOP_LEFT
+        });
       });
     this.toggleModal()
   }
@@ -161,14 +165,14 @@ export default class SubmitModal extends Component {
             <h4><FieldGroup
               id="formControlsText"
               type="text"
-              label="Name"
+              label={"Name *"}
               placeholder="Enter the name of the person you wish to nominate."
               value={this.state.name}
               onChange={this.handleNameChange}
             /></h4>
 
             <FormGroup controlId="formControlsTextarea">
-              <h4><ControlLabel>Description</ControlLabel></h4>
+              <h4><ControlLabel>Description *</ControlLabel></h4>
               <FormControl componentClass="textarea" placeholder="Enter a description about the person you wish to nominate. (Max 400 characters)"
                 value={this.state.description}
                 onChange={this.handleDescChange}
@@ -196,7 +200,7 @@ export default class SubmitModal extends Component {
 
 
             <FormGroup controlId="formControlsSelect">
-              <h4><ControlLabel>Country</ControlLabel></h4>
+              <h4><ControlLabel>Country *</ControlLabel></h4>
               <FormControl componentClass="select" placeholder="select" value={this.state.country} onChange={this.handleCountryChange}>
                 <option value="Canada">Canada</option>
                 <option value="England">England</option>
@@ -206,7 +210,7 @@ export default class SubmitModal extends Component {
             </FormGroup>
 
             <FormGroup controlId="formControlsSelect">
-              <h4><ControlLabel>{this.state.active_prov_label}</ControlLabel></h4>
+              <h4><ControlLabel>{this.state.active_prov_label + " *"}</ControlLabel></h4>
               <FormControl componentClass="select" placeholder="select" value={this.state.province} onChange={this.handleProvinceChange}>
                 {this.state.active_prov.map(prov => <option value={prov}> {prov} </option>)}
               </FormControl>
