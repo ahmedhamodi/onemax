@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import axios from 'axios';
@@ -142,6 +143,9 @@ export default class SubmitModal extends Component {
     })
       .catch(function (response) {
         console.log(response);
+        toast.error("Nominee submission unsuccessful. Missing mandatory fields!", {
+          position: toast.POSITION.TOP_LEFT
+        });
       });
     this.toggleModal()
   }
@@ -161,14 +165,14 @@ export default class SubmitModal extends Component {
             <FieldGroup
               id="formControlsText"
               type="text"
-              label="Name"
+              label={"Name *"}
               placeholder="Enter the name of the person you wish to nominate."
               value={this.state.name}
               onChange={this.handleNameChange}
             />
 
             <FormGroup controlId="formControlsTextarea">
-              <ControlLabel>Description</ControlLabel>
+              <ControlLabel>Description *</ControlLabel>
               <FormControl componentClass="textarea" placeholder="Enter a description about the person you wish to nominate. (Max 400 characters)"
                 value={this.state.description}
                 onChange={this.handleDescChange}
@@ -196,7 +200,7 @@ export default class SubmitModal extends Component {
 
 
             <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Country</ControlLabel>
+              <ControlLabel>Country *</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.country} onChange={this.handleCountryChange}>
                 <option value="Canada">Canada</option>
                 <option value="England">England</option>
