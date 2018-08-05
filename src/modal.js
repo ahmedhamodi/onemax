@@ -188,6 +188,7 @@ export default class SubmitModal extends Component {
             </FormGroup>
 
             <Cropper
+              className="cropper"
               ref='cropper'
               src={this.state.image}
               style={{ 'max-height': 400, width: '100%' }}
@@ -196,7 +197,7 @@ export default class SubmitModal extends Component {
               guides={false}
               crop={this._crop.bind(this)} />
 
-            {this.state.croppedImg !== '' ? <div><h5><br/><br/><b>Preview:</b></h5> <img src={this.state.croppedImg} alt={this.state.image} style={{ height: 400 }} /></div> : null}
+            {this.state.croppedImg !== '' ? <div><h5><br/><br/><b>Preview:</b></h5> <img src={this.state.croppedImg} alt={this.state.image} style={{ height: 400 }} /><br/><br/></div> : null}
 
 
             <FormGroup controlId="formControlsSelect">
@@ -226,6 +227,7 @@ export default class SubmitModal extends Component {
             /></h4>
           </Modal.Body>
           <Modal.Footer>
+            <p className="required_field">All fields marked with <b>*</b> are required.</p>
             <button type="button" className="btn btn-danger" onClick={this.toggleModal}>Cancel</button>
             <button type="button" className="btn btn-success" onClick={this.submitNom}>Submit</button>
           </Modal.Footer>

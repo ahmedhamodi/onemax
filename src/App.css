@@ -72,6 +72,18 @@
   align-self: center;
 }
 
+.cropper {
+  align-self: center;
+}
+
+.required_field {
+  text-align: left;
+  float: left;
+  display: inline;
+  font-size: 12px;
+  font-style: italic;
+}
+
 .nominee_name {
   text-align: left;
   float: left;
