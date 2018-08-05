@@ -188,7 +188,6 @@ export default class SubmitModal extends Component {
             </FormGroup>
 
             <Cropper
-              className="cropper"
               ref='cropper'
               src={this.state.image}
               style={{ 'max-height': 400, width: '100%' }}
