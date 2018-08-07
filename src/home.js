@@ -12,8 +12,7 @@ class Home extends Component {
 
     this.state = {
       persons: [],
-      open: true,
-      page: 1
+      open: true
     };
   }
 
@@ -22,7 +21,7 @@ class Home extends Component {
   });
 
   componentDidMount() {
-    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + this.state.page)
+    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=1')
       .then(res => {
         const persons = res.data['nominations']
         this.setState({ persons });

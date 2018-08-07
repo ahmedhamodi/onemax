@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import person from './images/person.png';
 import { toast } from 'react-toastify';
 import Dua from './dua.js';
+import axios from 'axios';
 import canada_flag from './images/Canada.png';
 import america_flag from './images/America.png';
 import england_flag from './images/England.png';
@@ -12,7 +13,9 @@ import './index.css';
 export default class Nominees extends Component {
 
   state = {
-    showNoms: false
+    persons: [],
+    showNoms: false,
+    page: 2
   }
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
@@ -23,9 +26,20 @@ export default class Nominees extends Component {
     this.setState({ showNoms: true })
   }
 
+  displayMoreNoms = () => {
+    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + this.state.page)
+    .then(res => {
+      const newPersons = res.data['nominations']
+      console.log(newPersons)
+      this.setState({ persons: [...this.state.persons, ...newPersons] , page: this.state.page + 1});
+      console.log(this.state.persons)
+      console.log(this.state.page)
+    });
+  }
+
   displayViewButton = () => {
     if (this.props.nominees.length > 3) {
-      return (<button className="action-button">View More Nominees</button>)
+      return (<button className="action-button" onClick={this.displayMoreNoms}>View More Nominees</button>)
     } else {
       return null
     }
