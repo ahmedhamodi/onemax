@@ -12,7 +12,8 @@ class Home extends Component {
 
     this.state = {
       persons: [],
-      open: true
+      open: true,
+      page: 1
     };
   }
 
@@ -21,9 +22,9 @@ class Home extends Component {
   });
 
   componentDidMount() {
-    axios.get('https://fast-cove-41298.herokuapp.com/nominations')
+    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + this.state.page)
       .then(res => {
-        const persons = res.data
+        const persons = res.data['nominations']
         this.setState({ persons });
       });
   }
@@ -63,7 +64,7 @@ class Home extends Component {
           </Button>
         </Panel>
 
-        <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons} />
+        <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons} page={this.state.page} />
       </div>
     );
   }
