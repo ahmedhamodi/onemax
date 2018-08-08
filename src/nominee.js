@@ -23,12 +23,9 @@ export default class Nominees extends Component {
   });
 
   displayNoms = () => {
-    console.log(this.state.page)
     axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + this.state.page)
       .then(res => {
         const newPersons = res.data['nominations']
-        console.log(newPersons)
-        console.log(this.state.page)
         this.setState({ showNoms: true, page: res.data['nextPage'], persons: [...this.state.persons, ...newPersons] });
       });
   }
@@ -45,7 +42,6 @@ export default class Nominees extends Component {
     axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=1')
       .then(res => {
         const persons = res.data['nominations']
-        console.log(persons)
         this.setState({ persons });
       });
   }
