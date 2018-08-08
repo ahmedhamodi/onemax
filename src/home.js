@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Nominees from './nominee.js';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { Jumbotron, Button, Panel, Glyphicon } from 'react-bootstrap';
 import collage from './images/collage_of_words.gif';
 
@@ -19,14 +18,6 @@ class Home extends Component {
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
     position: toast.POSITION.TOP_LEFT
   });
-
-  componentDidMount() {
-    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=1')
-      .then(res => {
-        const persons = res.data['nominations']
-        this.setState({ persons });
-      });
-  }
 
   render() {
     return (
@@ -63,7 +54,7 @@ class Home extends Component {
           </Button>
         </Panel>
 
-        <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons} page={this.state.page} />
+        <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
       </div>
     );
   }

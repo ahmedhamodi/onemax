@@ -15,7 +15,7 @@ export default class Nominees extends Component {
   state = {
     persons: [],
     showNoms: false,
-    page: 2
+    page: 1
   }
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
@@ -23,36 +23,37 @@ export default class Nominees extends Component {
   });
 
   displayNoms = () => {
-    this.setState({ showNoms: true })
-  }
-
-  displayMoreNoms = () => {
-    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + this.state.page)
-    .then(res => {
-      const newPersons = res.data['nominations']
-      console.log(newPersons)
-      this.setState({ persons: [...this.state.persons, ...newPersons] , page: this.state.page + 1});
-      console.log(this.state.persons)
-      console.log(this.state.page)
-    });
+    this.setState({ showNoms: true, page: this.state.page+1 })
   }
 
   displayViewButton = () => {
-    if (this.props.nominees.length > 3) {
-      return (<button className="action-button" onClick={this.displayMoreNoms}>View More Nominees</button>)
+    if (this.state.persons.length > 3 + 18*(this.state.page-1)) {
+      return (<button className="action-button">View More Nominees</button>)
     } else {
       return null
     }
   }
 
+  componentDidMount() {
+    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + this.state.page)
+      .then(res => {
+        const persons = res.data['nominations']
+        console.log(persons)
+        this.setState({ persons });
+      });
+  }
+
   render() {
     return (
       <div className="pageBody">
-        {this.props.nominees.slice(0,3).map((x, i) =>
-          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} image={this.props.nominees.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
+        {this.state.persons.slice(0,3).map((x, i) =>
+          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i+1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
         
+        <div>
+          {this.state.showNoms ? <RestOfNoms userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(3, this.state.persons.length)} /> : null}
+        </div>
         <div onClick={this.displayNoms} >
-          {this.state.showNoms ? <RestOfNoms userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.props.nominees.slice(3, this.props.nominees.length)} /> : this.displayViewButton()}
+          {this.displayViewButton()}
         </div>
       </div>
     );
