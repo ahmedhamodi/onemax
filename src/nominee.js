@@ -15,7 +15,7 @@ export default class Nominees extends Component {
   state = {
     persons: [],
     showNoms: false,
-    page: 1
+    page: 2
   }
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
@@ -23,11 +23,18 @@ export default class Nominees extends Component {
   });
 
   displayNoms = () => {
-    this.setState({ showNoms: true, page: this.state.page+1 })
+    console.log(this.state.page)
+    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + this.state.page)
+      .then(res => {
+        const newPersons = res.data['nominations']
+        console.log(newPersons)
+        console.log(this.state.page)
+        this.setState({ showNoms: true, page: res.data['nextPage'], persons: [...this.state.persons, ...newPersons] });
+      });
   }
 
   displayViewButton = () => {
-    if (this.state.persons.length > 3 + 18*(this.state.page-1)) {
+    if (this.state.persons.length > 3 + 18*(this.state.page-2)) {
       return (<button className="action-button">View More Nominees</button>)
     } else {
       return null
@@ -35,7 +42,7 @@ export default class Nominees extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + this.state.page)
+    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=1')
       .then(res => {
         const persons = res.data['nominations']
         console.log(persons)
