@@ -25,7 +25,7 @@ class Person extends Component {
       data: bodyFormData
     })
       .then(res => {
-        const persons = res.data;
+        const persons = res.data['nominations'];
         if (res.data.length !== 0) {
           this.setState({ persons, found: true, search: name, allowSearch: false });
         } else {
