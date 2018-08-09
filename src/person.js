@@ -21,12 +21,12 @@ class Person extends Component {
     bodyFormData.set('tags', name)
     axios({
       method: 'post',
-      url: 'https://fast-cove-41298.herokuapp.com/search',
+      url: 'https://fast-cove-41298.herokuapp.com/search?page=1',
       data: bodyFormData
     })
       .then(res => {
         const persons = res.data['nominations'];
-        if (res.data.length !== 0) {
+        if (persons.length !== 0) {
           this.setState({ persons, found: true, search: name, allowSearch: false });
         } else {
           this.setState({ search: name, persons: [], found: false, allowSearch: false });
