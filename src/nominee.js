@@ -18,6 +18,7 @@ export default class Nominees extends Component {
 
   state = {
     persons: [],
+    next_persons: [],
     showNoms: false,
     page: 2
   }
@@ -27,15 +28,16 @@ export default class Nominees extends Component {
   });
 
   displayNoms = () => {
-    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + this.state.page)
+    this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
+    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1))
       .then(res => {
         const newPersons = res.data['nominations']
-        this.setState({ showNoms: true, page: res.data['nextPage'], persons: [...this.state.persons, ...newPersons] });
+        this.setState({ showNoms: true, next_persons: [...this.state.persons, ...newPersons] });
       });
   }
 
   displayViewButton = () => {
-    if (this.state.persons.length > 3 + 18*(this.state.page-2)) {
+    if (this.state.next_persons.length > 18*(this.state.page-1)) {
       return (<button className="action-button">View More Nominees</button>)
     } else {
       return null
@@ -46,18 +48,25 @@ export default class Nominees extends Component {
     axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=1')
       .then(res => {
         const persons = res.data['nominations']
-        this.setState({ persons });
+        const nextPage = res.data['nextPage']
+        this.setState({ page: nextPage, persons: persons });
+      });
+    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=2')
+      .then(res => {
+        const newPersons = res.data['nominations']
+        const nextPage = res.data['nextPage']
+        this.setState({ next_persons: [...this.state.persons, ...newPersons] });
       });
   }
 
   render() {
     return (
       <div className="pageBody">
-        {this.state.persons.slice(0,3).map((x, i) =>
+        {this.state.persons.map((x, i) =>
           <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i+1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
         
         <div>
-          {this.state.showNoms ? <RestOfNoms userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(3, this.state.persons.length)} /> : null}
+          {this.state.showNoms ? <RestOfNoms userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18*(this.state.page-1), this.state.persons.length)} /> : null}
         </div>
         <div onClick={this.displayNoms} >
           {this.displayViewButton()}
