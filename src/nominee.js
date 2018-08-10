@@ -33,7 +33,10 @@ export default class Nominees extends Component {
       .then(res => {
         const newPersons = res.data['nominations']
         this.setState({ showNoms: true, next_persons: [...this.state.persons, ...newPersons] });
-      });
+      })
+      .catch(function (response) {
+        console.error(response);
+      }); 
   }
 
   displayViewButton = () => {
@@ -45,18 +48,23 @@ export default class Nominees extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=1')
+    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations')
       .then(res => {
         const persons = res.data['nominations']
         const nextPage = res.data['nextPage']
         this.setState({ page: nextPage, persons: persons });
-      });
-    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=2')
-      .then(res => {
-        const newPersons = res.data['nominations']
-        const nextPage = res.data['nextPage']
-        this.setState({ next_persons: [...this.state.persons, ...newPersons] });
-      });
+        axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=2')
+          .then(res => {
+            const newPersons = res.data['nominations']
+            this.setState({ next_persons: [...persons, ...newPersons] });
+          })
+          .catch(function (response) {
+            console.error(response);
+          }); 
+      })
+      .catch(function (response) {
+        console.error(response);
+      }); 
   }
 
   render() {

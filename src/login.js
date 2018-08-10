@@ -24,7 +24,7 @@ export default class LoginAuthentication extends Component {
         picture: response.picture.data.url
       });
     } else {
-      console.log('facebook login cancelled!')
+      console.error('facebook login cancelled!')
     }
   }
 

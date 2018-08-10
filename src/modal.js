@@ -119,8 +119,6 @@ export default class SubmitModal extends Component {
   }
 
   _crop() {
-    // image in dataUrl
-    //console.log(this.refs.cropper.getCroppedCanvas().toDataURL()
     this.setState({
       croppedImg: this.refs.cropper.getCroppedCanvas().toDataURL()
     });
@@ -141,12 +139,12 @@ export default class SubmitModal extends Component {
       data: bodyFormData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } }
     })
-      .catch(function (response) {
-        console.log(response);
-        toast.error("Nominee submission unsuccessful. Missing mandatory fields!", {
-          position: toast.POSITION.TOP_LEFT
-        });
+    .catch(function (response) {
+      console.error(response);
+      toast.error("Nominee submission unsuccessful. Missing mandatory fields!", {
+        position: toast.POSITION.TOP_LEFT
       });
+    });
     this.toggleModal()
   }
 

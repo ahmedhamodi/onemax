@@ -19,14 +19,15 @@ class Person extends Component {
   processSearch(name) {
     var bodyFormData = new FormData();
     bodyFormData.set('tags', name)
+    bodyFormData.set('page', 1)
     axios({
       method: 'post',
       url: 'https://fast-cove-41298.herokuapp.com/search',
       data: bodyFormData
     })
       .then(res => {
-        const persons = res.data;
-        if (res.data.length !== 0) {
+        const persons = res.data['nominations'];
+        if (persons.length !== 0) {
           this.setState({ persons, found: true, search: name, allowSearch: false });
         } else {
           this.setState({ search: name, persons: [], found: false, allowSearch: false });
@@ -71,7 +72,7 @@ class Person extends Component {
           No nominees found when searching for <b>"{this.state.search}"</b>. Please try again!
         </h2>
         <div hidden={!this.state.found} className='container'>
-          <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons} />
+          <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
         </div>
         <Link to='/'>
           <button className="action-button" style={{
