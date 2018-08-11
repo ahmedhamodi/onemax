@@ -28,8 +28,15 @@ export default class Nominees extends Component {
   });
 
   displayNoms = () => {
+    let path = ''
+    if (this.props.search === true) {
+      path = 'http://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(' ', '%20') + '&page=' + (this.state.page+1)
+    } else {
+      path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1)
+    }
     this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
-    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1))
+    console.log(path)
+    axios.get(path)
       .then(res => {
         const newPersons = res.data['nominations']
         this.setState({ showNoms: true, next_persons: [...this.state.persons, ...newPersons] });
@@ -48,12 +55,21 @@ export default class Nominees extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations')
+    let path1 = ''
+    let path2 = ''
+    if (this.props.search === true) {
+      path1 = 'http://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(' ', '%20') + '&page=1'
+      path2 = 'http://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(' ', '%20') + '&page=2'
+    } else {
+      path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations'
+      path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=2'
+    }
+    axios.get(path1)
       .then(res => {
         const persons = res.data['nominations']
         const nextPage = res.data['nextPage']
         this.setState({ page: nextPage, persons: persons });
-        axios.get('https://fast-cove-41298.herokuapp.com/paged_nominations?page=2')
+        axios.get(path2)
           .then(res => {
             const newPersons = res.data['nominations']
             this.setState({ next_persons: [...persons, ...newPersons] });

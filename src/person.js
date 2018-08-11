@@ -72,7 +72,7 @@ class Person extends Component {
           No nominees found when searching for <b>"{this.state.search}"</b>. Please try again!
         </h2>
         <div hidden={!this.state.found} className='container'>
-          <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
+          <Nominees tags={this.props.params.match.params.name} search={true} userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
         </div>
         <Link to='/'>
           <button className="action-button" style={{
