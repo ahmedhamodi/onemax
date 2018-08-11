@@ -13,14 +13,13 @@ Check the render method of `Dua`. It was passed a child from Nominees. See https
 
 ### 2 FEATURES:
 - 2.1 Implement Google login
-- 2.2 Implement paged nominees view
-- 2.3 Create full infrastructure for approval and review process on each nominee
-- 2.4 Edit and delete functionality on the nominees a user ID submitted
-- 2.5 Landing page
-- 2.6 Sorting nominees on different critera (ie. country, new. trending, etc)
-- 2.7 Comments section (and maybe a new page that you can click on name to access with a longer description)
-- 2.8 About page (maybe in the footer of website)
-- 2.9 Add a startup tour to walk user through the app.
+- 2.2 Create full infrastructure for approval and review process on each nominee
+- 2.3 Edit and delete functionality on the nominees a user ID submitted
+- 2.4 Landing page
+- 2.5 Sorting nominees on different critera (ie. country, new. trending, etc)
+- 2.6 Comments section (and maybe a new page that you can click on name to access with a longer description)
+- 2.7 About page (maybe in the footer of website)
+- 2.8 Add a startup tour to walk user through the app.
 
 ### BONUS
 - 3.1 Add views per country

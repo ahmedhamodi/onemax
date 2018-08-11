@@ -10,10 +10,6 @@ import australia_flag from './images/Australia.png';
 import { Well } from 'react-bootstrap';
 import './index.css';
 
-{/* TO DO: Add a search tag to state which distinguishes between search query and nominees view on home page. This will result in different paged end points being used. */}
-{/* TO DO: Implement state updating in componentDidMount with the passed in props (stateResults or something similar). */}
-{/* TO DO: Access a different end point (paged search results) if this.state.search is set to True. */}
-
 export default class Nominees extends Component {
 
   state = {
@@ -35,7 +31,6 @@ export default class Nominees extends Component {
       path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1)
     }
     this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
-    console.log(path)
     axios.get(path)
       .then(res => {
         const newPersons = res.data['nominations']
