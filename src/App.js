@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
-import axios from 'axios';
 import NavBarNew from './navbarnew.js';
 import './App.css';
 
@@ -13,7 +12,6 @@ class App extends Component {
     this.promptForLogin = this.promptForLogin.bind(this);
 
     this.state = {
-      persons: [],
       name: 'old',
       isLoggedIn: false,
       userID: '',
@@ -35,15 +33,6 @@ class App extends Component {
     position: toast.POSITION.TOP_LEFT
   });
 
-  componentDidMount() {
-    this.setState({ run: true });
-    axios.get('https://fast-cove-41298.herokuapp.com/nominations')
-      .then(res => {
-        const persons = res.data
-        this.setState({ persons });
-      });
-  }
-
   render() {
     return (
       <div className="App">
@@ -52,7 +41,7 @@ class App extends Component {
             <ToastContainer autoClose={3000} />
 
             <div className='container'>
-              <NavBarNew persons={this.state.persons} isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />
+              <NavBarNew isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />
             </div>
 
           </div>
