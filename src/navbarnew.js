@@ -18,7 +18,8 @@ export default class NavbarNew extends Component {
     this.state = {
       loginString: '',
       profilePicture: this.props.picture,
-      searchValue: ''
+      searchValue: '',
+      searchPerformed: false
     };
   }
 
@@ -48,7 +49,40 @@ export default class NavbarNew extends Component {
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
     position: toast.POSITION.TOP_LEFT
-  });
+  })
+
+  searchBar = () => {
+    return (
+      <FormGroup bsSize="normal">
+        <InputGroup>
+          <FormControl type="text" placeholder="Search for Nominees" value={this.state.searchValue} onChange={this.handleSearchInput} onKeyPress={this.handleSearchEnterKey} />
+          <InputGroup.Button className="search">
+            <Link to={'/search/' + this.state.searchValue}>
+              <Button onClick={this.goSearch}><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
+            </Link>
+          </InputGroup.Button>
+        </InputGroup>
+      </FormGroup>
+    )
+  }
+
+  backHome = () => {
+    return (
+      <Link to='/'>
+        <button className="action-button" onClick={this.goBackHome}>
+          <Glyphicon glyph="glyphicon glyphicon-arrow-left" /> Back home
+        </button>
+      </Link>
+    )
+  }
+
+  goBackHome = () => {
+    this.setState({searchPerformed: false})
+  }
+
+  goSearch = () => {
+    this.setState({searchPerformed: true})
+  }
 
   render() {
     return (
@@ -72,21 +106,12 @@ export default class NavbarNew extends Component {
               paddingTop: '4px'
             }}>
               <Navbar.Form pullLeft>
-                <FormGroup bsSize="normal">
-                  <InputGroup>
-                    <FormControl type="text" placeholder="Search for Nominees" value={this.state.searchValue} onChange={this.handleSearchInput} onKeyPress={this.handleSearchEnterKey} />
-                    <InputGroup.Button className="search">
-                      <Link to={'/search/' + this.state.searchValue}>
-                        <Button><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
-                      </Link>
-                    </InputGroup.Button>
-                  </InputGroup>
-                </FormGroup>
+                {this.state.searchPerformed ? this.backHome() : this.searchBar()}
               </Navbar.Form>
 
               <Nav pullLeft style={{
                 paddingTop: '8px',
-                paddingLeft: '22px'
+                paddingLeft: '10px'
               }}>
                 <SubmitModal isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} userID={this.state.userID} />
               </Nav>
