@@ -26,7 +26,7 @@ export default class Nominees extends Component {
   displayNoms = () => {
     let path = ''
     if (this.props.search === true) {
-      path = 'http://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(' ', '%20') + '&page=' + (this.state.page+1)
+      path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(' ', '%20') + '&page=' + (this.state.page+1)
     } else {
       path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1)
     }
@@ -35,6 +35,8 @@ export default class Nominees extends Component {
       .then(res => {
         const newPersons = res.data['nominations']
         this.setState({ showNoms: true, next_persons: [...this.state.persons, ...newPersons] });
+        console.log(this.state.persons)
+        console.log(this.state.next_persons)
       })
       .catch(function (response) {
         console.error(response);
@@ -53,8 +55,8 @@ export default class Nominees extends Component {
     let path1 = ''
     let path2 = ''
     if (this.props.search === true) {
-      path1 = 'http://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(' ', '%20') + '&page=1'
-      path2 = 'http://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(' ', '%20') + '&page=2'
+      path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(' ', '%20') + '&page=1'
+      path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(' ', '%20') + '&page=2'
     } else {
       path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations'
       path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=2'
@@ -62,7 +64,7 @@ export default class Nominees extends Component {
     axios.get(path1)
       .then(res => {
         const persons = res.data['nominations']
-        const nextPage = res.data['nextPage']
+        const nextPage = 2
         this.setState({ page: nextPage, persons: persons });
         axios.get(path2)
           .then(res => {
@@ -85,7 +87,7 @@ export default class Nominees extends Component {
           <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i+1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
         
         <div>
-          {this.state.showNoms ? <RestOfNoms userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18*(this.state.page-1), this.state.persons.length)} /> : null}
+          {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18*(this.state.page-1), this.state.persons.length)} /> : null}
         </div>
         <div onClick={this.displayNoms} >
           {this.displayViewButton()}
@@ -100,7 +102,7 @@ class RestOfNoms extends Component {
     return (
       <div className="pageBody">
         {this.props.nominees.map((x, i) =>
-          <Nominee userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i+1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
+          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i+1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
       </div>
     )
   }

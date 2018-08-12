@@ -9,7 +9,6 @@ class Person extends Component {
     super(props);
 
     this.state = {
-      persons: [],
       search: '',
       found: false,
       allowSearch: true
@@ -28,14 +27,14 @@ class Person extends Component {
       .then(res => {
         const persons = res.data['nominations'];
         if (persons.length !== 0) {
-          this.setState({ persons, found: true, search: name, allowSearch: false });
+          this.setState({ found: true, search: name, allowSearch: false });
         } else {
-          this.setState({ search: name, persons: [], found: false, allowSearch: false });
+          this.setState({ search: name, found: false, allowSearch: false });
         }
       })
       .catch(error => {
         console.error('Error performing search: ', error);
-        this.setState({ search: '', persons: [], found: false, allowSearch: false })
+        this.setState({ search: '', found: false, allowSearch: false })
       });
       setTimeout(() => this.setState({ allowSearch: true }), 1000);
   }
@@ -77,7 +76,7 @@ class Person extends Component {
         <Link to='/'>
           <button className="action-button" style={{
             position: 'relative',
-            top: '120px'
+            top: '80px'
           }}>
             <Glyphicon glyph="glyphicon glyphicon-arrow-left" /> Back home
           </button>
