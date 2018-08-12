@@ -73,14 +73,6 @@ class Person extends Component {
         <div hidden={!this.state.found} className='container'>
           <Nominees tags={this.props.params.match.params.name} search={true} userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
         </div>
-        <Link to='/'>
-          <button className="action-button" style={{
-            position: 'relative',
-            top: '80px'
-          }}>
-            <Glyphicon glyph="glyphicon glyphicon-arrow-left" /> Back home
-          </button>
-        </Link>
       </div>
     );
   }
