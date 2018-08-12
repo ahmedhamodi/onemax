@@ -68,11 +68,13 @@ export default class NavbarNew extends Component {
 
   backHome = () => {
     return (
-      <Link to='/'>
-        <button className="action-button" onClick={this.goBackHome}>
-          <Glyphicon glyph="glyphicon glyphicon-arrow-left" /> Back home
-        </button>
-      </Link>
+      <Nav pullLeft>
+        <Link to='/'>
+          <button className="action-button" onClick={this.goBackHome}>
+            <Glyphicon glyph="glyphicon glyphicon-arrow-left"/> Back home
+          </button>
+        </Link>
+      </Nav>
     )
   }
 
@@ -111,7 +113,6 @@ export default class NavbarNew extends Component {
 
               <Nav pullLeft style={{
                 paddingTop: '8px',
-                paddingLeft: '10px'
               }}>
                 <SubmitModal isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} userID={this.state.userID} />
               </Nav>
