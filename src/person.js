@@ -16,14 +16,7 @@ class Person extends Component {
   }
 
   processSearch(name) {
-    var bodyFormData = new FormData();
-    bodyFormData.set('tags', name)
-    bodyFormData.set('page', 1)
-    axios({
-      method: 'post',
-      url: 'https://fast-cove-41298.herokuapp.com/search?page=1',
-      data: bodyFormData
-    })
+    axios.get('https://fast-cove-41298.herokuapp.com/search?tags=' + name.replace(/ /g, '%20') + '&page=1')
       .then(res => {
         const persons = res.data['nominations'];
         if (persons.length !== 0) {
