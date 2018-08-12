@@ -26,14 +26,24 @@ export default class NavbarNew extends Component {
     this.setState({ searchValue: event.target.value })
   }
 
-  onLogin = (response) => {
+  onFacebookLogin = (response) => {
     this.setState({
       isLoggedIn: true,
       name: response.name,
       userID: response.userID,
       picture: response.picture
     });
-    this.props.updateLogin(response);
+    this.props.updateFacebookLogin(response);
+  }
+
+  onGoogleLogin = (response) => {
+    this.setState({
+      isLoggedIn: true,
+      name: response.name,
+      userID: response.googleId,
+      picture: response.imageUrl
+    });
+    this.props.updateGoogleLogin(response);
   }
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
@@ -85,7 +95,7 @@ export default class NavbarNew extends Component {
             <Nav pullRight style={{
               paddingTop: '12px'
             }}>
-              <LoginAuthentication onLogin={this.onLogin} />
+              <LoginAuthentication onFacebookLogin={this.onFacebookLogin} onGoogleLogin={this.onGoogleLogin} />
             </Nav>
           </Navbar.Collapse>
         </Navbar>
