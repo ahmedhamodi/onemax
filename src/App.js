@@ -8,7 +8,8 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.updateLogin = this.updateLogin.bind(this);
+    this.updateFacebookLogin = this.updateFacebookLogin.bind(this);
+    this.updateGoogleLogin = this.updateGoogleLogin.bind(this);
     this.promptForLogin = this.promptForLogin.bind(this);
 
     this.state = {
@@ -20,12 +21,21 @@ class App extends Component {
     };
   }
 
-  updateLogin = (response) => {
+  updateFacebookLogin = (response) => {
     this.setState({
       isLoggedIn: true,
       name: response.name,
       userID: response.userID,
       picture: response.picture
+    });
+  }
+
+  updateGoogleLogin = (response) => {
+    this.setState({
+      isLoggedIn: true,
+      name: response.name,
+      userID: response.googleId,
+      picture: response.imageUrl
     });
   }
 
@@ -41,7 +51,7 @@ class App extends Component {
             <ToastContainer autoClose={3000} />
 
             <div className='container'>
-              <NavBarNew isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateLogin={this.updateLogin} />
+              <NavBarNew isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateFacebookLogin={this.updateFacebookLogin} updateGoogleLogin={this.updateGoogleLogin}/>
             </div>
 
           </div>
