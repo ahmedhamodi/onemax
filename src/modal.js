@@ -61,7 +61,6 @@ export default class SubmitModal extends Component {
   }
 
   handleDescChange = (e) => {
-
     this.setState({
       description: e.target.value,
       chars_left: max_description - e.target.value.length
@@ -156,9 +155,11 @@ export default class SubmitModal extends Component {
         </button>
 
         <Modal dialogClassName="submit_modal" show={this.state.show} onHide={this.handleClose}>
+          
           <Modal.Header closeButton>
             <Modal.Title><h3><b>Submit Nomination Form</b></h3></Modal.Title>
           </Modal.Header>
+
           <Modal.Body>
             <h4><FieldGroup
               id="formControlsText"
@@ -196,7 +197,6 @@ export default class SubmitModal extends Component {
 
             {this.state.croppedImg !== '' ? <div><h5><br/><br/><b>Preview:</b></h5> <img src={this.state.croppedImg} alt={this.state.image} style={{ height: 400 }} /><br/><br/></div> : null}
 
-
             <FormGroup controlId="formControlsSelect">
               <h4><ControlLabel>Country *</ControlLabel></h4>
               <FormControl componentClass="select" placeholder="select" value={this.state.country} onChange={this.handleCountryChange}>
@@ -223,11 +223,13 @@ export default class SubmitModal extends Component {
               onChange={this.handleTagsChange}
             /></h4>
           </Modal.Body>
+
           <Modal.Footer>
             <p className="required_field">All fields marked with <b>*</b> are required.</p>
             <button type="button" className="btn btn-danger" onClick={this.toggleModal}>Cancel</button>
             <button type="button" className="btn btn-success" onClick={this.submitNom}>Submit</button>
           </Modal.Footer>
+
         </Modal>
       </div>
     );

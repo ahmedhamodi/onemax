@@ -63,7 +63,7 @@ export default class NavbarNew extends Component {
           </InputGroup.Button>
         </InputGroup>
       </FormGroup>
-    )
+    );
   }
 
   backHome = () => {
@@ -75,7 +75,7 @@ export default class NavbarNew extends Component {
           </button>
         </Link>
       </Nav>
-    )
+    );
   }
 
   goBackHome = () => {

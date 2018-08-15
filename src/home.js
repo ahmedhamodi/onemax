@@ -28,9 +28,7 @@ class Home extends Component {
         }}>
           <Panel.Collapse>
             <Panel.Body>
-              <Jumbotron style={{
-                backgroundColor: "white"
-              }}>
+              <Jumbotron style={{ backgroundColor: "white" }}>
                 <p>
                   <img width="100%" alt="900x500" src={collage} />
                 </p>
@@ -53,7 +51,6 @@ class Home extends Component {
             {this.state.open === true ? <Glyphicon glyph="glyphicon glyphicon-chevron-up" /> : <Glyphicon glyph="glyphicon glyphicon-chevron-down" />}
           </Button>
         </Panel>
-
         <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
       </div>
     );

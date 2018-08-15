@@ -35,7 +35,6 @@ export default class Nominees extends Component {
       .then(res => {
         const newPersons = res.data['nominations']
         this.setState({ showNoms: true, next_persons: [...this.state.persons, ...newPersons] });
-
       })
       .catch(function (response) {
         console.error(response);
@@ -109,6 +108,7 @@ class RestOfNoms extends Component {
 class Nominee extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       flag: '',
       image: person
@@ -145,9 +145,7 @@ class Nominee extends Component {
 
   render() {
     return (
-      <div className="columns" style={{
-        position: 'relative'
-      }}>
+      <div className="columns" style={{ position: 'relative' }}>
         <ul className="person">
           <li className="header">
             <p className="nominee_name">{ this.props.name }</p>

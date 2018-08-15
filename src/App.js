@@ -49,15 +49,12 @@ class App extends Component {
         <Router>
           <div>
             <ToastContainer autoClose={3000} />
-
             <div className='container'>
               <NavBarNew isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateFacebookLogin={this.updateFacebookLogin} updateGoogleLogin={this.updateGoogleLogin}/>
             </div>
-
           </div>
         </Router>
-
-      </div >
+      </div>
     );
   }
 }
