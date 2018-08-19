@@ -5,7 +5,7 @@ import { Nav, Navbar, FormGroup, FormControl, Button, Glyphicon, InputGroup } fr
 import { Route } from 'react-router-dom';
 import LoginAuthentication from './login.js';
 import SubmitModal from './modal.js';
-import logonobg from './images/onemax-nobg.png';
+import onemaxlogo from './images/onemaxlogo.png';
 import Person from './person.js';
 import Home from './home.js';
 import 'react-toastify/dist/ReactToastify.css';
@@ -97,7 +97,7 @@ export default class NavbarNew extends Component {
           <Navbar.Header className='Main-Nav-Header'>
             <Link to="/">
               <Navbar.Brand>
-                <img src={logonobg} className="App-logo" alt="logo" />
+                <img src={onemaxlogo} className="App-logo" alt="logo" />
               </Navbar.Brand>
             </Link>
             <Navbar.Toggle />

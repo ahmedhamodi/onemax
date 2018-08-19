@@ -44,9 +44,11 @@
 }
 
 .App-logo {
-  height: 50px;
+  height: 40px;
   align-self: bottom;
   padding: 0;
+  margin-top: 2px;
+  padding-left: 30px;
   top: 5px;
 }
 
