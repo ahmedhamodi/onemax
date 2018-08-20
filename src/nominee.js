@@ -16,7 +16,9 @@ export default class Nominees extends Component {
     persons: [],
     next_persons: [],
     showNoms: false,
-    page: 2
+    page: 2,
+    sort: 'All',
+    filter: 'Votes'
   }
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
@@ -80,16 +82,35 @@ export default class Nominees extends Component {
 
   render() {
     return (
-      <div className="pageBody">
-        {this.state.persons.map((x, i) =>
-          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i+1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
+      <body>
         <div>
-          {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18*(this.state.page-1), this.state.persons.length)} /> : null}
+          <p className='align_left_text'>Sort By Country:</p>
+          <select className='align_left'>
+            <option value="all">All</option>
+            <option value="australia">Australia</option>
+            <option value="canada">Canada</option>
+            <option value="england">England</option>
+            <option value="unitedstates">United States</option>
+          </select>
+          <select className='align_right'>
+            <option value="votes">Votes</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            {/*<option value="trending">Trending</option>*/}
+          </select>
+          <p className='align_right_text'>Filter By:</p>
         </div>
-        <div onClick={this.displayNoms} >
-          {this.displayViewButton()}
+        <div className="pageBody">
+          {this.state.persons.map((x, i) =>
+            <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i+1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
+          <div>
+            {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18*(this.state.page-1), this.state.persons.length)} /> : null}
+          </div>
+          <div onClick={this.displayNoms} >
+            {this.displayViewButton()}
+          </div>
         </div>
-      </div>
+      </body>
     );
   }
 }
