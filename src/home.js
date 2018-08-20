@@ -3,6 +3,7 @@ import Nominees from './nominee.js';
 import { toast } from 'react-toastify';
 import { Jumbotron, Button, Panel, Glyphicon } from 'react-bootstrap';
 import collage from './images/collage_of_words.gif';
+import onemaxlogo from './images/divider.png';
 
 class Home extends Component {
   constructor(props) {
@@ -45,6 +46,21 @@ class Home extends Component {
             {this.state.open === true ? <Glyphicon glyph="glyphicon glyphicon-chevron-up" /> : <Glyphicon glyph="glyphicon glyphicon-chevron-down" />}
           </Button>
         </Panel>
+        <p className='align_left_text'>Sort By Country:</p>
+        <select className='align_left'>
+          <option value="all">All</option>
+          <option value="australia">Australia</option>
+          <option value="canada">Canada</option>
+          <option value="england">England</option>
+          <option value="unitedstates">United States</option>
+        </select>
+        <select className='align_right'>
+          <option value="dua_count">Dua Count</option>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          {/*<option value="trending">Trending</option>*/}
+        </select>
+        <p className='align_right_text'>Filter By:</p>
         <Nominees userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
       </div>
     );
