@@ -117,6 +117,59 @@
   display: inline;
 }
 
+.update_btn_left {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  background-color: transparent;
+  border-radius: 0.35em;
+  border: solid 3px #79589F;
+  color: #471e98 !important;
+  cursor: pointer;
+  margin-left: 10px;
+  float: left;
+  display: inline;
+  height: 25px;
+  font-size: 13px;
+}
+
+.update_btn_left:hover {
+  background-color: #5d407f;
+  color: white !important;
+}
+
+.update_btn_right {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  background-color: transparent;
+  border-radius: 0.35em;
+  border: solid 3px #79589F;
+  color: #471e98 !important;
+  cursor: pointer;
+  height: 30px;
+  margin-left: 10px;
+  float: right;
+  display: inline;
+  height: 25px;
+  font-size: 13px;
+}
+
+.update_btn_right:hover {
+  background-color: #5d407f;
+  color: white !important;
+}
+
 @media only screen and (min-width: 1000px) {
   .person-logo {
     padding-top: 20px;

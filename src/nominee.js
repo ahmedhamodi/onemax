@@ -17,8 +17,10 @@ export default class Nominees extends Component {
     next_persons: [],
     showNoms: false,
     page: 2,
-    sort: 'All',
-    filter: 'Votes'
+    sort: 'all',
+    sort_on: false,
+    filter: 'votes',
+    filter_on: false
   }
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
@@ -29,6 +31,8 @@ export default class Nominees extends Component {
     let path = ''
     if (this.props.search === true) {
       path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+    } else if (this.state.sort_on === true) {
+      path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort + '&page=' + (this.state.page+1)
     } else {
       path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1)
     }
@@ -51,12 +55,20 @@ export default class Nominees extends Component {
     }
   }
 
+  applySort = (e) => {
+    this.setState({sort: e.target.value, sort_on: true});
+    this.displayNoms()
+  }
+
   componentDidMount() {
     let path1 = ''
     let path2 = ''
     if (this.props.search === true) {
       path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=1'
       path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=2'
+    } else if (this.state.sort_on === true) {
+      path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort + '&page=1'
+      path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort + '&page=2'
     } else {
       path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations'
       path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=2'
@@ -85,13 +97,15 @@ export default class Nominees extends Component {
       <body>
         <div>
           <p className='align_left_text'>Sort By Country:</p>
-          <select className='align_left'>
+          <select className='align_left' onChange={this.applySort} value={this.state.sort}>
             <option value="all">All</option>
             <option value="australia">Australia</option>
             <option value="canada">Canada</option>
             <option value="england">England</option>
-            <option value="unitedstates">United States</option>
+            <option value="us">United States</option>
           </select>
+          <button className="update_btn_left">Update</button>
+          <button className="update_btn_right">Update</button>
           <select className='align_right'>
             <option value="votes">Votes</option>
             <option value="newest">Newest</option>
