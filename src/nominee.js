@@ -25,14 +25,12 @@ export default class Nominees extends Component {
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
     position: toast.POSITION.TOP_LEFT
-  });
+  })
 
   displayNoms = () => {
     let path = ''
     if (this.props.search === true) {
       path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
-    } else if (this.state.sort_on === true) {
-      path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort + '&page=' + (this.state.page+1)
     } else {
       path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1)
     }
@@ -47,6 +45,41 @@ export default class Nominees extends Component {
       }); 
   }
 
+  displaySortedNoms = () => {
+    let path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+    this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
+    axios.get(path)
+      .then(res => {
+        const newPersons = res.data['nominations']
+        this.setState({ showNoms: true, next_persons: [...this.state.persons, ...newPersons] });
+      })
+      .catch(function (response) {
+        console.error(response);
+      }); 
+  }
+
+  firstSortedNoms = () => {
+    let path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort.replace(/ /g, '%20') + '&page=1'
+    let path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort.replace(/ /g, '%20') + '&page=2'
+    axios.get(path1)
+      .then(res => {
+        const persons = res.data['nominations']
+        const nextPage = 2
+        this.setState({ page: nextPage, persons: persons });
+        axios.get(path2)
+          .then(res => {
+            const newPersons = res.data['nominations']
+            this.setState({ next_persons: [...persons, ...newPersons] });
+          })
+          .catch(function (response) {
+            console.error(response);
+          }); 
+      })
+      .catch(function (response) {
+        console.error(response);
+      });
+  }
+
   displayViewButton = () => {
     if (this.state.next_persons.length > 18*(this.state.page-1)) {
       return (<button className="action-button">View More Nominees</button>)
@@ -55,9 +88,18 @@ export default class Nominees extends Component {
     }
   }
 
+  sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
   applySort = (e) => {
     this.setState({sort: e.target.value, sort_on: true});
-    this.displayNoms()
+    this.sleep(500).then(() => {
+      console.log(this.state.sort_on)
+      console.log(this.state.sort)
+      this.firstSortedNoms()
+      this.displaySortedNoms()
+    })
   }
 
   componentDidMount() {
@@ -66,9 +108,6 @@ export default class Nominees extends Component {
     if (this.props.search === true) {
       path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=1'
       path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=2'
-    } else if (this.state.sort_on === true) {
-      path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort + '&page=1'
-      path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort + '&page=2'
     } else {
       path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations'
       path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=2'
@@ -102,10 +141,10 @@ export default class Nominees extends Component {
             <option value="australia">Australia</option>
             <option value="canada">Canada</option>
             <option value="england">England</option>
-            <option value="us">United States</option>
+            <option value="united states">United States</option>
           </select>
-          {/*<button className="update_btn_left">Update</button>
-          <button className="update_btn_right">Update</button>*/}
+          {/*<button className="update_btn_left" onClick={this.applySort}>Update</button>
+          <button className="update_btn_right" onClick={this.applySort}>Update</button>*/}
           <select className='align_right'>
             <option value="votes">Votes</option>
             <option value="newest">Newest</option>
