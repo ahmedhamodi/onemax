@@ -104,8 +104,8 @@ export default class Nominees extends Component {
             <option value="england">England</option>
             <option value="us">United States</option>
           </select>
-          <button className="update_btn_left">Update</button>
-          <button className="update_btn_right">Update</button>
+          {/*<button className="update_btn_left">Update</button>
+          <button className="update_btn_right">Update</button>*/}
           <select className='align_right'>
             <option value="votes">Votes</option>
             <option value="newest">Newest</option>
