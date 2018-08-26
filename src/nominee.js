@@ -55,7 +55,7 @@ export default class Nominees extends Component {
       })
       .catch(function (response) {
         console.error(response);
-      }); 
+      });
   }
 
   firstSortedNoms = () => {
@@ -73,7 +73,7 @@ export default class Nominees extends Component {
           })
           .catch(function (response) {
             console.error(response);
-          }); 
+          });
       })
       .catch(function (response) {
         console.error(response);
@@ -97,8 +97,10 @@ export default class Nominees extends Component {
     this.sleep(500).then(() => {
       console.log(this.state.sort_on)
       console.log(this.state.sort)
-      this.firstSortedNoms()
-      this.displaySortedNoms()
+      if (this.state.sort != "-1") {
+        this.firstSortedNoms()
+        this.displaySortedNoms()
+      }
     })
   }
 
@@ -128,7 +130,7 @@ export default class Nominees extends Component {
       })
       .catch(function (response) {
         console.error(response);
-      }); 
+      });
   }
 
   render() {
@@ -137,7 +139,7 @@ export default class Nominees extends Component {
         <div>
           <p className='align_left_text'>Sort By Country:</p>
           <select className='align_left' onChange={this.applySort} value={this.state.sort}>
-            <option value="all">All</option>
+            <option value="-1">Select...</option>
             <option value="australia">Australia</option>
             <option value="canada">Canada</option>
             <option value="england">England</option>
@@ -146,6 +148,7 @@ export default class Nominees extends Component {
           {/*<button className="update_btn_left" onClick={this.applySort}>Update</button>
           <button className="update_btn_right" onClick={this.applySort}>Update</button>*/}
           <select className='align_right'>
+            <option value="-1">Select...</option>
             <option value="votes">Votes</option>
             <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
