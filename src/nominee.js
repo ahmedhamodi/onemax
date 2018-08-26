@@ -66,6 +66,7 @@ export default class Nominees extends Component {
         const persons = res.data['nominations']
         const nextPage = 2
         this.setState({ page: nextPage, persons: persons });
+        console.log(this.state.persons)
         axios.get(path2)
           .then(res => {
             const newPersons = res.data['nominations']
@@ -158,7 +159,7 @@ export default class Nominees extends Component {
         </div>
         <div className="pageBody">
           {this.state.persons.map((x, i) =>
-            <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i+1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
+            <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i+1).map(person => <p>{person.name}</p>)} image={this.state.persons.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i+1).map(person => <p>{person.country}</p>)} description={this.state.persons.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i+1).map(person => <p>{person.id}</p>)} />)}
           <div>
             {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18*(this.state.page-1), this.state.persons.length)} /> : null}
           </div>
@@ -192,7 +193,7 @@ class Nominee extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillReceiveProps() {
     const country = this.props.country[0].props.children;
     if(country === "Australia") {
       this.setState({
