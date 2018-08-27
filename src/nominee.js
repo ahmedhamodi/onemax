@@ -135,7 +135,7 @@ export default class Nominees extends Component {
     return (
       <body>
         <div>
-          <p className='align_left_text'>Sort By Country:</p>
+          <p className='align_left_text'>Filter:</p>
           <select className='align_left' onChange={this.applySort} value={this.state.sort}>
             <option value="-1">Select...</option>
             <option value="australia">Australia</option>
@@ -151,7 +151,7 @@ export default class Nominees extends Component {
             {/*Future filter option - not implemented yet.
             <option value="trending">Trending</option>*/}
           </select>
-          <p className='align_right_text'>Filter By:</p>
+          <p className='align_right_text'>Sort:</p>
         </div>
         <div className="pageBody">
           {this.state.persons.map((x, i) =>
