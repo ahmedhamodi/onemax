@@ -143,14 +143,13 @@ export default class Nominees extends Component {
             <option value="england">England</option>
             <option value="united states">United States</option>
           </select>
-          {/*<button className="update_btn_left" onClick={this.applySort}>Update</button>
-          <button className="update_btn_right" onClick={this.applySort}>Update</button>*/}
           <select className='align_right'>
             <option value="-1">Select...</option>
             <option value="votes">Votes</option>
             <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
-            {/*<option value="trending">Trending</option>*/}
+            {/*Future filter option - not implemented yet.
+            <option value="trending">Trending</option>*/}
           </select>
           <p className='align_right_text'>Filter By:</p>
         </div>
@@ -214,6 +213,10 @@ class Nominee extends Component {
     if (image !== "") {
       this.setState({
         image: image
+      });
+    } else {
+      this.setState({
+        image: person
       });
     }
   }
