@@ -66,7 +66,6 @@ export default class Nominees extends Component {
         const persons = res.data['nominations']
         const nextPage = 2
         this.setState({ page: nextPage, persons: persons });
-        console.log(this.state.persons)
         axios.get(path2)
           .then(res => {
             const newPersons = res.data['nominations']
@@ -96,8 +95,6 @@ export default class Nominees extends Component {
   applySort = (e) => {
     this.setState({sort: e.target.value, sort_on: true});
     this.sleep(500).then(() => {
-      console.log(this.state.sort_on)
-      console.log(this.state.sort)
       if (this.state.sort != "-1") {
         this.firstSortedNoms()
         this.displaySortedNoms()
