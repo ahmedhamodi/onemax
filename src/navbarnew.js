@@ -8,6 +8,7 @@ import SubmitModal from './modal.js';
 import onemaxlogo from './images/onemaxlogo.png';
 import Person from './person.js';
 import Home from './home.js';
+import Approve from './approve.js'
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -91,6 +92,7 @@ export default class NavbarNew extends Component {
       <div>
         <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} />} />
         <Route exact path="/search" component={Home} />
+        <Route exact path="/approve" component={Approve} />
         <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} params={params} />} />
 
         <Navbar fixedTop className="Main-Nav">
