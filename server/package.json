@@ -1,0 +1,21 @@
+{
+  "name": "onemax",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\" ",
+    "dev-client": "npm start --prefix client",
+    "dev-server": "nodemon server.js"
+  },
+  "author": "Shehryar",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.12",
+    "nodemon": "^1.18.4",
+    "validator": "^10.7.0"
+  }
+}
