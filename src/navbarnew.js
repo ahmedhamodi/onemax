@@ -18,8 +18,7 @@ export default class NavbarNew extends Component {
     this.state = {
       loginString: '',
       profilePicture: this.props.picture,
-      searchValue: '',
-      searchPerformed: false
+      searchValue: ''
     };
   }
 
@@ -51,41 +50,6 @@ export default class NavbarNew extends Component {
     position: toast.POSITION.TOP_LEFT
   })
 
-  searchBar = () => {
-    return (
-      <FormGroup bsSize="normal">
-        <InputGroup>
-          <FormControl type="text" placeholder="Search for Nominees" value={this.state.searchValue} onChange={this.handleSearchInput} onKeyPress={this.handleSearchEnterKey} />
-          <InputGroup.Button className="search">
-            <Link to={'/search/' + this.state.searchValue}>
-              <Button onClick={this.goSearch}><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
-            </Link>
-          </InputGroup.Button>
-        </InputGroup>
-      </FormGroup>
-    );
-  }
-
-  backHome = () => {
-    return (
-      <Nav pullLeft>
-        <Link to='/'>
-          <button className="action-button" onClick={this.goBackHome}>
-            <Glyphicon glyph="glyphicon glyphicon-arrow-left"/> Back home
-          </button>
-        </Link>
-      </Nav>
-    );
-  }
-
-  goBackHome = () => {
-    this.setState({searchPerformed: false})
-  }
-
-  goSearch = () => {
-    this.setState({searchPerformed: true})
-  }
-
   render() {
     return (
       <div>
@@ -108,7 +72,16 @@ export default class NavbarNew extends Component {
               paddingTop: '4px'
             }}>
               <Navbar.Form pullLeft>
-                {this.state.searchPerformed ? this.backHome() : this.searchBar()}
+                <FormGroup bsSize="normal">
+                  <InputGroup>
+                    <FormControl type="text" placeholder="Search for Nominees" value={this.state.searchValue} onChange={this.handleSearchInput} onKeyPress={this.handleSearchEnterKey} />
+                    <InputGroup.Button className="search">
+                      <Link to={'/search/' + this.state.searchValue}>
+                        <Button><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
+                      </Link>
+                    </InputGroup.Button>
+                  </InputGroup>
+                </FormGroup>
               </Navbar.Form>
 
               <Nav pullLeft style={{
