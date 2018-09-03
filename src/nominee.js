@@ -175,7 +175,7 @@ export default class Nominees extends Component {
           <option value="australia">Australia</option>
           <option value="canada">Canada</option>
           <option value="england">England</option>
-          <option value="united states">United States</option>
+          <option value="united">United States</option>
         </select>
         <select className='align_right'>
           <option value="-1">Select...</option>
