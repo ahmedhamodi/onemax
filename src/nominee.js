@@ -7,7 +7,7 @@ import canada_flag from './images/Canada.png';
 import america_flag from './images/America.png';
 import england_flag from './images/England.png';
 import australia_flag from './images/Australia.png';
-import { Well, Glyphicon } from 'react-bootstrap';
+import { Well } from 'react-bootstrap';
 import './index.css';
 import Edit from './edit.js';
 
@@ -51,58 +51,39 @@ export default class Nominees extends Component {
   }
 
   componentDidMount() {
-    ////////////////////////////////
-    // NOT SURE IF THIS WORKS //////
-    ///////////START////////////////
-    if (this.props.approve === true) {
-      let path = 'https://fierce-everglades-88127.herokuapp.com/submitted_nominees'
-      let headers = {
-        'Content-Type': 'application/json',
-        'user': this.props.userId
-      }
-      axios.get(path, null, headers)
-        .then(res => {
-          console.log('testing for submitted_nominees fetch is complete!')
-        })
-      //////////////END////////////////
-      // NOT SURE IF THIS WORKS //////
-      ////////////////////////////////
+    let path1 = ''
+    let path2 = ''
+    if (this.props.search === true) {
+      path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=1'
+      path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=2'
     } else {
-      let path1 = ''
-      let path2 = ''
-      if (this.props.search === true) {
-        path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=1'
-        path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=2'
-      } else {
-        path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations'
-        path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=2'
-      }
-      axios.get(path1)
-        .then(res => {
-          const persons = res.data['nominations']
-          const nextPage = 2
-          this.setState({ page: nextPage, persons: persons });
-          axios.get(path2)
-            .then(res => {
-              const newPersons = res.data['nominations']
-              this.setState({ next_persons: [...persons, ...newPersons] });
-            })
-            .catch(function (response) {
-              console.error(response);
-            });
-        })
-        .catch(function (response) {
-          console.error(response);
-        });
+      path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations'
+      path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=2'
     }
-
+    axios.get(path1)
+      .then(res => {
+        const persons = res.data['nominations']
+        const nextPage = 2
+        this.setState({ page: nextPage, persons: persons });
+        axios.get(path2)
+          .then(res => {
+            const newPersons = res.data['nominations']
+            this.setState({ next_persons: [...persons, ...newPersons] });
+          })
+          .catch(function (response) {
+            console.error(response);
+          });
+      })
+      .catch(function (response) {
+        console.error(response);
+      });
   }
 
   render() {
     return (
       <div className="pageBody">
         {this.state.persons.map((x, i) =>
-          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)} />)}
+          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
         <div>
           {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18 * (this.state.page - 1), this.state.persons.length)} /> : null}
         </div>
@@ -119,7 +100,7 @@ class RestOfNoms extends Component {
     return (
       <div className="pageBody">
         {this.props.nominees.map((x, i) =>
-          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i + 1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i + 1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i + 1).map(person => <p>{person.country}</p>)} />)}
+          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i + 1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i + 1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
       </div>
     )
   }
@@ -172,21 +153,16 @@ class Nominee extends Component {
             <img className="nominee_flag" src={this.state.flag} alt="logo" />
           </li>
           <div className='person content'>
+            <Edit isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} userId={this.props.userId} id={this.props.id} name={this.props.name} country={this.props.country} province={this.props.province} description={this.props.description} image={this.props.image} tags={this.props.tags} />
             <img src={this.state.image} className="person-logo" alt="logo" />
             <Well bsSize="large" className="well">{this.props.description}</Well>
           </div>
           <li className="dua">
-            <Glyphicon glyph="glyphicon glyphicon-comment" style={{
-              fontSize: "50px",
-              color: "#79589F",
-              right: "40px"
-            }} />
             <div style={{
               display: 'inline-block'
             }}>
               <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
             </div>
-            <Edit isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} userId={this.props.userId} id={this.props.id} name={this.props.name} country={this.props.country} description={this.props.description} image={this.props.image} />
           </li>
         </ul>
       </div>
