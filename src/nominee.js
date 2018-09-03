@@ -17,10 +17,10 @@ export default class Nominees extends Component {
     next_persons: [],
     showNoms: false,
     page: 2,
-    sort: 'all',
-    sort_on: false,
-    filter: 'votes',
-    filter_on: false
+    filter: 'all',
+    filter_on: false,
+    sort: 'votes',
+    sort_on: false
   }
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
@@ -45,8 +45,10 @@ export default class Nominees extends Component {
       }); 
   }
 
-  displaySortedNoms = () => {
-    let path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+  displayFilteredNoms = () => {
+    // let path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+    let path = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+    console.log(path)
     this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
     axios.get(path)
       .then(res => {
@@ -58,9 +60,13 @@ export default class Nominees extends Component {
       });
   }
 
-  firstSortedNoms = () => {
-    let path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort.replace(/ /g, '%20') + '&page=1'
-    let path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.sort.replace(/ /g, '%20') + '&page=2'
+  firstFilteredNoms = () => {
+    // let path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
+    // let path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
+    let path1 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
+    let path2 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
+    console.log(path1)
+    console.log(path2)
     axios.get(path1)
       .then(res => {
         const persons = res.data['nominations']
@@ -92,12 +98,12 @@ export default class Nominees extends Component {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-  applySort = (e) => {
-    this.setState({sort: e.target.value, sort_on: true});
+  applyFilter = (e) => {
+    this.setState({filter: e.target.value, filter_on: true});
     this.sleep(500).then(() => {
-      if (this.state.sort != "-1") {
-        this.firstSortedNoms()
-        this.displaySortedNoms()
+      if (this.state.filter != "-1") {
+        this.firstFilteredNoms()
+        this.displayFilteredNoms()
       }
     })
   }
@@ -160,27 +166,35 @@ export default class Nominees extends Component {
       });
   }
 
+  show_sort_filter = () => {
+    return (
+      <div>
+        <p className='align_left_text'>Filter:</p>
+        <select className='align_left' onChange={this.applyFilter} value={this.state.filter}>
+          <option value="-1">Select...</option>
+          <option value="australia">Australia</option>
+          <option value="canada">Canada</option>
+          <option value="england">England</option>
+          <option value="united states">United States</option>
+        </select>
+        <select className='align_right'>
+          <option value="-1">Select...</option>
+          <option value="votes">Votes</option>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          {/*Future filter option - not implemented yet.
+          <option value="trending">Trending</option>*/}
+        </select>
+        <p className='align_right_text'>Sort:</p>
+      </div>
+    );
+  }
+
   render() {
     return (
       <body>
         <div>
-          <p className='align_left_text'>Filter:</p>
-          <select className='align_left' onChange={this.applySort} value={this.state.sort}>
-            <option value="-1">Select...</option>
-            <option value="australia">Australia</option>
-            <option value="canada">Canada</option>
-            <option value="england">England</option>
-            <option value="united states">United States</option>
-          </select>
-          <select className='align_right'>
-            <option value="-1">Select...</option>
-            <option value="votes">Votes</option>
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-            {/*Future filter option - not implemented yet.
-            <option value="trending">Trending</option>*/}
-          </select>
-          <p className='align_right_text'>Sort:</p>
+          {this.props.search ? this.show_sort_filter() : null}
         </div>
         <div className="pageBody">
           {this.state.persons.map((x, i) =>
