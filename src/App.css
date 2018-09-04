@@ -93,6 +93,30 @@
   display: inline;
 }
 
+.align_right {
+  margin-left: 10px;
+  width: 130px;
+  float: right;
+  display: inline;
+}
+
+.align_right_text {
+  float: right;
+  display: inline;
+}
+
+.align_left {
+  margin-left: 10px;
+  width: 130px;
+  float: left;
+  display: inline;
+}
+
+.align_left_text {
+  float: left;
+  display: inline;
+}
+
 @media only screen and (min-width: 1000px) {
   .person-logo {
     padding-top: 20px;
@@ -271,7 +295,7 @@
 
 /* Change the width of the three columns to 100% 
 (to stack horizontally on small screens) */
-@media only screen and (max-width: 769px) {
+@media only screen and (max-width: 1050px) {
   .columns {
     width: 100%;
   }

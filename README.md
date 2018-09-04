@@ -4,7 +4,7 @@
 At OneMAX, our goal is to create a fully immersive website for individuals to nominate other individuals in their respective communities for ourstanding work they are doing. This website has a goal of promoting social good and involvement in our local communities. We have a dua (prayer) voting system so other users of the website can give duas to these outstanding individuals.
 
 ### Technicals
-We are using React for our frontend and PostgreSQL for our backend. We are currently hosting the website using a Heroku App. It can be accessed at https://polar-falls-71863.herokuapp.com/ currently, but we hope to move to a custom domain name shortly.
+We are using React for our frontend and Ruby for our backend, running on top of a PostgreSQL database. We are currently hosting the website using a Heroku application. It can be accessed at https://polar-falls-71863.herokuapp.com/ currently, but we hope to move to a custom domain name shortly.
 
 ### Team
 We are all volunteers at MAXGala, a organization based in Toronto.
