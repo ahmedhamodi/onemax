@@ -41,6 +41,9 @@ export default class Edit extends Component {
       croppedImg: "",
       chars_left: max_description
     };
+
+    this.removeImage = this.removeImage.bind(this);
+
   }
 
   componentDidMount() {
@@ -177,13 +180,17 @@ export default class Edit extends Component {
     this.toggleModal()
   }
 
+  removeImage() {
+    this.setState({
+      croppedImg: 'REMOVED'
+    });
+  }
+
   deleteNom = () => {
     if (this.props.userId != null) {
-      // axios.delete('https://fast-cove-41298.herokuapp.com/nominations/' + this.props.id[0].props.children, { headers: {'Content-Type': 'application/x-www-form-urlencoded' }, params: { userId: this.props.userId } })
       axios({
         method: 'delete',
-        url: 'https://fast-cove-41298.herokuapp.com/nominations/' + this.props.id[0].props.children,
-        config: { params: { userId: this.props.userId } }
+        url: 'https://fast-cove-41298.herokuapp.com/nominations/' + this.props.id[0].props.children + '?userId=' + this.props.userId
       })
         .then(function (response) {
           toast.info("Nominee successfully deleted!", {
@@ -202,6 +209,7 @@ export default class Edit extends Component {
       });
     }
     this.handleDeleteClose()
+    this.resetDefaults()
   }
 
   editNom = () => {
@@ -212,13 +220,12 @@ export default class Edit extends Component {
       bodyFormData.set('country', this.state.country)
       bodyFormData.set('province', this.state.province)
       bodyFormData.set('tags', this.state.tags)
-      bodyFormData.set('userID', this.props.userID)
+      bodyFormData.set('userID', this.props.userId)
       bodyFormData.set('file', this.state.croppedImg)
       axios({
         method: 'put',
         url: 'https://fast-cove-41298.herokuapp.com/nominations/' + this.props.id[0].props.children,
-        data: bodyFormData,
-        config: { headers: { 'Content-Type': 'multipart/form-data', 'Access-Control-Allow-Origin': '*' } }
+        data: bodyFormData
       })
         .then(function (response) {
           toast.info("Nominee successfully updated!", {
@@ -297,6 +304,12 @@ export default class Edit extends Component {
                 <input type="file" onChange={this.addFile} />
               </ControlLabel>
             </FormGroup>
+
+            <button className="btn btn-danger" onClick={this.removeImage} style={{
+              float: "right"
+            }}>
+              Remove Image
+            </button>
 
             <Cropper
               ref='cropper'
