@@ -9,6 +9,7 @@ import england_flag from './images/England.png';
 import australia_flag from './images/Australia.png';
 import { Well } from 'react-bootstrap';
 import './index.css';
+import Edit from './edit.js';
 
 export default class Nominees extends Component {
 
@@ -30,11 +31,11 @@ export default class Nominees extends Component {
   displayNoms = () => {
     let path = ''
     if (this.props.search === true) {
-      path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+      path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=' + (this.state.page + 1)
     } else {
-      path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1)
+      path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page + 1)
     }
-    this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
+    this.setState({ persons: this.state.next_persons, page: this.state.page + 1 });
     axios.get(path)
       .then(res => {
         const newPersons = res.data['nominations']
@@ -42,25 +43,25 @@ export default class Nominees extends Component {
       })
       .catch(function (response) {
         console.error(response);
-      }); 
+      });
   }
 
   displayFilteredNoms = () => {
     let path = ''
-    if (this.props.tags != undefined) {
+    if (this.props.tags !== undefined) {
       if (this.state.filter === 'all') {
-        path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+        path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=' + (this.state.page + 1)
       } else {
-        path = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+        path = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page + 1)
       }
     } else {
       if (this.state.filter === 'all') {
-        path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1)
+        path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page + 1)
       } else {
-        path = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+        path = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page + 1)
       }
     }
-    this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
+    this.setState({ persons: this.state.next_persons, page: this.state.page + 1 });
     axios.get(path)
       .then(res => {
         const newPersons = res.data['nominations']
@@ -74,7 +75,7 @@ export default class Nominees extends Component {
   firstFilteredNoms = () => {
     let path1 = ''
     let path2 = ''
-    if (this.props.tags != undefined) {
+    if (this.props.tags !== undefined) {
       if (this.state.filter === 'all') {
         path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=1'
         path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=2'
@@ -113,8 +114,8 @@ export default class Nominees extends Component {
   displaySortedNoms = () => {
     let sort_method = this.state.sort.split('-')[0]
     let sort_type = this.state.sort.split('-')[1]
-    let path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?sort_by=' + sort_method + '&type=' + sort_type + '&page=' + (this.state.page+1)
-    this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
+    let path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?sort_by=' + sort_method + '&type=' + sort_type + '&page=' + (this.state.page + 1)
+    this.setState({ persons: this.state.next_persons, page: this.state.page + 1 });
     axios.get(path)
       .then(res => {
         const newPersons = res.data['nominations']
@@ -150,7 +151,7 @@ export default class Nominees extends Component {
   }
 
   displayViewButton = () => {
-    if (this.state.next_persons.length > 18*(this.state.page-1)) {
+    if (this.state.next_persons.length > 18 * (this.state.page - 1)) {
       return (<button className="action-button">View More Nominees</button>)
     } else {
       return null
@@ -162,7 +163,7 @@ export default class Nominees extends Component {
   }
 
   applyFilter = (e) => {
-    this.setState({filter: e.target.value, filter_on: true, sort: 'desc-duas', sort_on: false});
+    this.setState({ filter: e.target.value, filter_on: true, sort: 'desc-duas', sort_on: false });
     this.sleep(500).then(() => {
       this.firstFilteredNoms()
       this.displayFilteredNoms()
@@ -170,7 +171,7 @@ export default class Nominees extends Component {
   }
 
   applySort = (e) => {
-    this.setState({sort: e.target.value, sort_on: true, filter: 'all', filter_on: false});
+    this.setState({ sort: e.target.value, sort_on: true, filter: 'all', filter_on: false });
     this.sleep(500).then(() => {
       this.firstSortedNoms()
       this.displaySortedNoms()
@@ -238,7 +239,7 @@ export default class Nominees extends Component {
           })
           .catch(function (response) {
             console.error(response);
-          }); 
+          });
       })
       .catch(function (response) {
         console.error(response);
@@ -267,7 +268,7 @@ export default class Nominees extends Component {
           })
           .catch(function (response) {
             console.error(response);
-          }); 
+          });
       })
       .catch(function (response) {
         console.error(response);
@@ -282,9 +283,9 @@ export default class Nominees extends Component {
         </div>
         <div className="pageBody">
           {this.state.persons.map((x, i) =>
-            <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i+1).map(person => <p>{person.name}</p>)} image={this.state.persons.slice(i, i+1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i+1).map(person => <p>{person.country}</p>)} description={this.state.persons.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i+1).map(person => <p>{person.id}</p>)} />)}
+            <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
           <div>
-            {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18*(this.state.page-1), this.state.persons.length)} /> : null}
+            {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18 * (this.state.page - 1), this.state.persons.length)} /> : null}
           </div>
           <div onClick={this.displayNoms} >
             {this.displayViewButton()}
@@ -300,7 +301,7 @@ class RestOfNoms extends Component {
     return (
       <div className="pageBody">
         {this.props.nominees.map((x, i) =>
-          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i+1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i+1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i+1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i+1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i+1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i+1).map(person => <p>{person.country}</p>)} />)}
+          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i + 1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i + 1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
       </div>
     )
   }
@@ -318,7 +319,7 @@ class Nominee extends Component {
 
   componentWillReceiveProps() {
     const country = this.props.country[0].props.children;
-    if(country === "Australia") {
+    if (country === "Australia") {
       this.setState({
         flag: australia_flag
       });
@@ -353,15 +354,20 @@ class Nominee extends Component {
       <div className="columns" style={{ position: 'relative' }}>
         <ul className="person">
           <li className="header">
-            <p className="nominee_name">{ this.props.name }</p>
+            <p className="nominee_name">{this.props.name}</p>
             <img className="nominee_flag" src={this.state.flag} alt="logo" />
           </li>
           <div className='person content'>
+            <Edit isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} userId={this.props.userId} id={this.props.id} name={this.props.name} country={this.props.country} province={this.props.province} description={this.props.description} image={this.props.image} tags={this.props.tags} />
             <img src={this.state.image} className="person-logo" alt="logo" />
-            <Well bsSize="large" className="well">{ this.props.description }</Well>
+            <Well bsSize="large" className="well">{this.props.description}</Well>
           </div>
           <li className="dua">
-            <Dua duas = { this.props.duas } id = { this.props.id } isLoggedIn = {this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
+            <div style={{
+              display: 'inline-block'
+            }}>
+              <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
+            </div>
           </li>
         </ul>
       </div>

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Glyphicon } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import Nominees from './nominee.js';
 
 class Person extends Component {
