@@ -47,7 +47,12 @@ export default class Nominees extends Component {
 
   displayFilteredNoms = () => {
     // let path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
-    let path = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+    let path = ''
+    if (this.props.tags != undefined) {
+      path = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+    } else {
+      path = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+    }
     console.log(path)
     this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
     axios.get(path)
@@ -63,8 +68,61 @@ export default class Nominees extends Component {
   firstFilteredNoms = () => {
     // let path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
     // let path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
-    let path1 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
-    let path2 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
+    let path1 = ''
+    let path2 = ''
+    if (this.props.tags != undefined) {
+      path1 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
+      path2 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
+    } else {
+      path1 = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
+      path2 = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
+    }
+    console.log(path1)
+    console.log(path2)
+    axios.get(path1)
+      .then(res => {
+        const persons = res.data['nominations']
+        const nextPage = 2
+        this.setState({ page: nextPage, persons: persons });
+        axios.get(path2)
+          .then(res => {
+            const newPersons = res.data['nominations']
+            this.setState({ next_persons: [...persons, ...newPersons] });
+          })
+          .catch(function (response) {
+            console.error(response);
+          });
+      })
+      .catch(function (response) {
+        console.error(response);
+      });
+  }
+
+  displaySortedNoms = () => {
+    let sort_method = this.state.sort.split('-')[0]
+    let sort_type = this.state.sort.split('-')[1]
+    console.log(sort_method)
+    console.log(sort_type)
+    let path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?sort_by=' + sort_method + '&type=' + sort_type + '&page=' + (this.state.page+1)
+    console.log(path)
+    this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
+    axios.get(path)
+      .then(res => {
+        const newPersons = res.data['nominations']
+        this.setState({ showNoms: true, next_persons: [...this.state.persons, ...newPersons] });
+      })
+      .catch(function (response) {
+        console.error(response);
+      });
+  }
+
+  firstSortedNoms = () => {
+    let sort_method = this.state.sort.split('-')[0]
+    let sort_type = this.state.sort.split('-')[1]
+    console.log(sort_method)
+    console.log(sort_type)
+    let path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?sort_by=' + sort_method + '&type=' + sort_type + '&page=1'
+    let path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?sort_by=' + sort_method + '&type=' + sort_type + '&page=2'
     console.log(path1)
     console.log(path2)
     axios.get(path1)
@@ -106,6 +164,56 @@ export default class Nominees extends Component {
         this.displayFilteredNoms()
       }
     })
+  }
+
+  applySort = (e) => {
+    this.setState({sort: e.target.value, sort_on: true});
+    this.sleep(500).then(() => {
+      if (this.state.sort != "-1") {
+        this.firstSortedNoms()
+        this.displaySortedNoms()
+      }
+    })
+  }
+
+  home_sort_filter = () => {
+    return (
+      <div>
+        <p className='align_left_text'>Filter:</p>
+        <select className='align_left' onChange={this.applyFilter} value={this.state.filter}>
+          <option value="-1">Select...</option>
+          <option value="australia">Australia</option>
+          <option value="canada">Canada</option>
+          <option value="england">England</option>
+          <option value="united">United States</option>
+        </select>
+        <select className='align_right' onChange={this.applySort} value={this.state.sort}>
+          <option value="-1">Select...</option>
+          <option value="desc-duas">Most Duas</option>
+          <option value="asc-duas">Least Duas</option>
+          <option value="asc-updated_at">Newest</option>
+          <option value="desc-updated_at">Oldest</option>
+          {/*Future filter option - not implemented yet.
+          <option value="trending">Trending</option>*/}
+        </select>
+        <p className='align_right_text'>Sort:</p>
+      </div>
+    );
+  }
+
+  search_sort_filter = () => {
+    return (
+      <div>
+        <p className='align_left_text'>Filter:</p>
+        <select className='align_left' onChange={this.applyFilter} value={this.state.filter}>
+          <option value="-1">Select...</option>
+          <option value="australia">Australia</option>
+          <option value="canada">Canada</option>
+          <option value="england">England</option>
+          <option value="united">United States</option>
+        </select>
+      </div>
+    );
   }
 
   componentDidMount() {
@@ -166,35 +274,11 @@ export default class Nominees extends Component {
       });
   }
 
-  show_sort_filter = () => {
-    return (
-      <div>
-        <p className='align_left_text'>Filter:</p>
-        <select className='align_left' onChange={this.applyFilter} value={this.state.filter}>
-          <option value="-1">Select...</option>
-          <option value="australia">Australia</option>
-          <option value="canada">Canada</option>
-          <option value="england">England</option>
-          <option value="united">United States</option>
-        </select>
-        <select className='align_right'>
-          <option value="-1">Select...</option>
-          <option value="votes">Votes</option>
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          {/*Future filter option - not implemented yet.
-          <option value="trending">Trending</option>*/}
-        </select>
-        <p className='align_right_text'>Sort:</p>
-      </div>
-    );
-  }
-
   render() {
     return (
       <body>
         <div>
-          {this.props.search ? this.show_sort_filter() : null}
+          {this.props.search ? this.search_sort_filter() : this.home_sort_filter()}
         </div>
         <div className="pageBody">
           {this.state.persons.map((x, i) =>

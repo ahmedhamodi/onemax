@@ -295,7 +295,7 @@
 
 /* Change the width of the three columns to 100% 
 (to stack horizontally on small screens) */
-@media only screen and (max-width: 769px) {
+@media only screen and (max-width: 1050px) {
   .columns {
     width: 100%;
   }
