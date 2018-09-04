@@ -49,7 +49,7 @@ export default class Dua extends Component {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-  componentDidMount() {
+  componentWillReceiveProps() {
     this.sleep(500).then(() => {
       this.setState((prevState) => ({ duas: this.props.duas, id: this.props.id, userId: this.props.userId }));
     })
