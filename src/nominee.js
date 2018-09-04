@@ -46,14 +46,12 @@ export default class Nominees extends Component {
   }
 
   displayFilteredNoms = () => {
-    // let path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
     let path = ''
     if (this.props.tags != undefined) {
       path = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
     } else {
       path = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
     }
-    console.log(path)
     this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
     axios.get(path)
       .then(res => {
@@ -66,8 +64,6 @@ export default class Nominees extends Component {
   }
 
   firstFilteredNoms = () => {
-    // let path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
-    // let path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
     let path1 = ''
     let path2 = ''
     if (this.props.tags != undefined) {
@@ -77,8 +73,6 @@ export default class Nominees extends Component {
       path1 = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
       path2 = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
     }
-    console.log(path1)
-    console.log(path2)
     axios.get(path1)
       .then(res => {
         const persons = res.data['nominations']
@@ -101,10 +95,7 @@ export default class Nominees extends Component {
   displaySortedNoms = () => {
     let sort_method = this.state.sort.split('-')[0]
     let sort_type = this.state.sort.split('-')[1]
-    console.log(sort_method)
-    console.log(sort_type)
     let path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?sort_by=' + sort_method + '&type=' + sort_type + '&page=' + (this.state.page+1)
-    console.log(path)
     this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
     axios.get(path)
       .then(res => {
@@ -119,12 +110,8 @@ export default class Nominees extends Component {
   firstSortedNoms = () => {
     let sort_method = this.state.sort.split('-')[0]
     let sort_type = this.state.sort.split('-')[1]
-    console.log(sort_method)
-    console.log(sort_type)
     let path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?sort_by=' + sort_method + '&type=' + sort_type + '&page=1'
     let path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?sort_by=' + sort_method + '&type=' + sort_type + '&page=2'
-    console.log(path1)
-    console.log(path2)
     axios.get(path1)
       .then(res => {
         const persons = res.data['nominations']
