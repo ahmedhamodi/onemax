@@ -19,7 +19,7 @@ export default class Nominees extends Component {
     page: 2,
     filter: 'all',
     filter_on: false,
-    sort: 'votes',
+    sort: 'desc-duas',
     sort_on: false
   }
 
@@ -48,9 +48,17 @@ export default class Nominees extends Component {
   displayFilteredNoms = () => {
     let path = ''
     if (this.props.tags != undefined) {
-      path = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+      if (this.state.filter === 'all') {
+        path = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+      } else {
+        path = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+      }
     } else {
-      path = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+      if (this.state.filter === 'all') {
+        path = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=' + (this.state.page+1)
+      } else {
+        path = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=' + (this.state.page+1)
+      }
     }
     this.setState({ persons: this.state.next_persons, page: this.state.page+1 });
     axios.get(path)
@@ -67,11 +75,21 @@ export default class Nominees extends Component {
     let path1 = ''
     let path2 = ''
     if (this.props.tags != undefined) {
-      path1 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
-      path2 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
+      if (this.state.filter === 'all') {
+        path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=1'
+        path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=2'
+      } else {
+        path1 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
+        path2 = 'https://fast-cove-41298.herokuapp.com/filter?search=' + this.props.tags.replace(/ /g, '%20') + '&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
+      }
     } else {
-      path1 = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
-      path2 = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
+      if (this.state.filter === 'all') {
+        path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations'
+        path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=2'
+      } else {
+        path1 = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=1'
+        path2 = 'https://fast-cove-41298.herokuapp.com/filter?search=&filter=' + this.state.filter.replace(/ /g, '%20') + '&page=2'
+      }
     }
     axios.get(path1)
       .then(res => {
@@ -144,22 +162,18 @@ export default class Nominees extends Component {
   }
 
   applyFilter = (e) => {
-    this.setState({filter: e.target.value, filter_on: true});
+    this.setState({filter: e.target.value, filter_on: true, sort: 'desc-duas', sort_on: false});
     this.sleep(500).then(() => {
-      if (this.state.filter != "-1") {
-        this.firstFilteredNoms()
-        this.displayFilteredNoms()
-      }
+      this.firstFilteredNoms()
+      this.displayFilteredNoms()
     })
   }
 
   applySort = (e) => {
-    this.setState({sort: e.target.value, sort_on: true});
+    this.setState({sort: e.target.value, sort_on: true, filter: 'all', filter_on: false});
     this.sleep(500).then(() => {
-      if (this.state.sort != "-1") {
-        this.firstSortedNoms()
-        this.displaySortedNoms()
-      }
+      this.firstSortedNoms()
+      this.displaySortedNoms()
     })
   }
 
@@ -168,14 +182,13 @@ export default class Nominees extends Component {
       <div>
         <p className='align_left_text'>Filter:</p>
         <select className='align_left' onChange={this.applyFilter} value={this.state.filter}>
-          <option value="-1">Select...</option>
+          <option value="all">All Countries</option>
           <option value="australia">Australia</option>
           <option value="canada">Canada</option>
           <option value="england">England</option>
           <option value="united">United States</option>
         </select>
         <select className='align_right' onChange={this.applySort} value={this.state.sort}>
-          <option value="-1">Select...</option>
           <option value="desc-duas">Most Duas</option>
           <option value="asc-duas">Least Duas</option>
           <option value="asc-updated_at">Newest</option>
@@ -193,7 +206,7 @@ export default class Nominees extends Component {
       <div>
         <p className='align_left_text'>Filter:</p>
         <select className='align_left' onChange={this.applyFilter} value={this.state.filter}>
-          <option value="-1">Select...</option>
+          <option value="all">All Countries</option>
           <option value="australia">Australia</option>
           <option value="canada">Canada</option>
           <option value="england">England</option>
