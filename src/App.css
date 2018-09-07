@@ -43,6 +43,35 @@
   margin-top: 5px;
 }
 
+.gray-background {
+  background-color: #D8D8D8;
+  margin-left: -75px;
+  margin-right: -75px;
+  margin-bottom: -20px;
+}
+
+@media only screen and (max-width: 766px) {
+  .gray-background {
+    margin-left: -30px;
+    margin-right: -30px;
+    margin-bottom: -20px;
+  }
+}
+
+.white-background {
+  margin-left: -75px;
+  margin-right: -75px;
+  margin-bottom: -20px;
+}
+
+@media only screen and (max-width: 766px) {
+  .white-background {
+    margin-left: -30px;
+    margin-right: -30px;
+    margin-bottom: -20px;
+  }
+}
+
 .App-logo {
   height: 40px;
   align-self: bottom;
@@ -231,6 +260,23 @@
   padding-top: 13px;
   padding-left: 9px;
   padding-right: 9px;
+}
+
+.landing_page_icon {
+  display: inline-block;
+  height: 20%;
+  width: 20%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.landing_page_icon_text {
+  display: inline-block;
+  color: #015C89;
+  font-size: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 20%;
 }
 
 /* List items */
