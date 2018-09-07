@@ -131,6 +131,7 @@ export default class SubmitModal extends Component {
     bodyFormData.set('province', this.state.province)
     bodyFormData.set('tags', this.state.tags)
     bodyFormData.set('userID', this.props.userID)
+    bodyFormData.set('userName', this.props.userName)
     bodyFormData.set('file', this.state.croppedImg)
     axios({
       method: 'post',

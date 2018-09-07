@@ -53,9 +53,9 @@ export default class NavbarNew extends Component {
   render() {
     return (
       <div>
-        <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} />} />
+        <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} userName={this.state.name} />} />
         <Route exact path="/search" component={Home} />
-        <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} params={params} />} />
+        <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} userName={this.state.name} params={params} />} />
 
         <Navbar fixedTop className="Main-Nav">
           <Navbar.Header className='Main-Nav-Header'>
@@ -87,7 +87,7 @@ export default class NavbarNew extends Component {
               <Nav pullLeft style={{
                 paddingTop: '8px',
               }}>
-                <SubmitModal isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} userID={this.state.userID} />
+                <SubmitModal isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} userID={this.state.userID} userName={this.state.name}/>
               </Nav>
             </Nav>
 
