@@ -221,7 +221,11 @@ export default class Edit extends Component {
       bodyFormData.set('province', this.state.province)
       bodyFormData.set('tags', this.state.tags)
       bodyFormData.set('userID', this.props.userId)
+      if (this.state.croppedImg.substring(0, 4) === "http") {
+        bodyFormData.set('file', "")
+      } else {
       bodyFormData.set('file', this.state.croppedImg)
+      }
       axios({
         method: 'put',
         url: 'https://fast-cove-41298.herokuapp.com/nominations/' + this.props.id[0].props.children,
