@@ -262,6 +262,23 @@
   padding-right: 9px;
 }
 
+.landing_page_icon {
+  display: inline-block;
+  height: 20%;
+  width: 20%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.landing_page_icon_text {
+  display: inline-block;
+  color: #015C89;
+  font-size: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 20%;
+}
+
 /* List items */
 .person li {
   border-bottom: 1px solid #eee;
