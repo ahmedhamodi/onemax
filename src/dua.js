@@ -23,6 +23,7 @@ export default class Dua extends Component {
       var duaRequest = new FormData();
       duaRequest.set('nominee_id', this.state.id[0].props.children)
       duaRequest.set('nominated_by', this.props.userId)
+      duaRequest.set('userName', this.props.userName)
       axios({
         method: 'post',
         url: 'https://fast-cove-41298.herokuapp.com/dua',

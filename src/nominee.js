@@ -283,7 +283,7 @@ export default class Nominees extends Component {
         </div>
         <div className="pageBody">
           {this.state.persons.map((x, i) =>
-            <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
+            <Nominee userId={this.props.userId} userName={this.props.userName} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
           <div>
             {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18 * (this.state.page - 1), this.state.persons.length)} /> : null}
           </div>
@@ -301,7 +301,7 @@ class RestOfNoms extends Component {
     return (
       <div className="pageBody">
         {this.props.nominees.map((x, i) =>
-          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i + 1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i + 1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
+          <Nominee userId={this.props.userId} userName={this.props.userName} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i + 1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i + 1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
       </div>
     )
   }
@@ -366,7 +366,7 @@ class Nominee extends Component {
             <div style={{
               display: 'inline-block'
             }}>
-              <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
+              <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} userName={this.props.userName} />
             </div>
           </li>
         </ul>
