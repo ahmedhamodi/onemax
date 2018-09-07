@@ -62,7 +62,10 @@ export default class NavbarNew extends Component {
 
   logout() {
     this.setState({
-      isLoggedIn: false
+      isLoggedIn: false,
+      name: "",
+      userID: "",
+      picture: ""
     })
   }
 
@@ -75,7 +78,7 @@ export default class NavbarNew extends Component {
       <div>
         <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} userName={this.state.name} />} />
         <Route exact path="/search" component={Home} />
-        <Route exact path="/approve" component={Approve} />
+        <Route exact path="/approve" component={(params) => <Approve isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} userName={this.state.name} params={params} />} />
         <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} userName={this.state.name} params={params} />} />
 
         <Navbar fixedTop className="Main-Nav">

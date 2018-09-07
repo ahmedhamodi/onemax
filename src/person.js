@@ -35,21 +35,9 @@ class Person extends Component {
     this.processSearch(name);
   }
 
-  componentDidUpdate() {
-    let name = this.props.params.match.params.name;
-    this.processSearch(name);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if(nextProps.params.match.params.name !== null) {
-      if (this.state.search !== nextProps.params.match.params.name && this.state.allowSearch === true) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
+  componentWillReceiveProps() {
+    const newSearch = this.props.params.match.params.name;
+    this.processSearch(newSearch);
   }
 
   render() {

@@ -97,7 +97,12 @@ export default class LoginAuthentication extends Component {
               width: '35px'
             }} />
           </div>
-          <button className="btn btn-primary" onClick={this.logout}>Logout</button>
+          <div style={{
+            display: 'inline-block',
+            paddingLeft: "2px"
+          }}>
+          <button className="btn btn-default" onClick={this.logout}>Logout</button>
+          </div>
         </div>
       )
     } else {

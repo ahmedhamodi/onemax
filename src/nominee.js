@@ -218,7 +218,7 @@ export default class Nominees extends Component {
   }
 
   componentDidMount() {
-    let user = localStorage.getItem('userId');
+    let user = this.props.userId;
     if (this.props.approve === true) {
       let path = 'https://fierce-everglades-88127.herokuapp.com/submitted_nominees'
       let self = this;
@@ -261,23 +261,6 @@ export default class Nominees extends Component {
           console.error(response);
         });
     }
-    axios.get(path1)
-      .then(res => {
-        const persons = res.data['nominations']
-        const nextPage = 2
-        this.setState({ page: nextPage, persons: persons });
-        axios.get(path2)
-          .then(res => {
-            const newPersons = res.data['nominations']
-            this.setState({ next_persons: [...persons, ...newPersons] });
-          })
-          .catch(function (response) {
-            console.error(response);
-          });
-      })
-      .catch(function (response) {
-        console.error(response);
-      });
   }
 
   componentWillReceiveProps() {
@@ -312,32 +295,31 @@ export default class Nominees extends Component {
   render() {
     return (
       <body>
-        <div>
-          {this.props.search ? this.search_sort_filter() : this.home_sort_filter()}
+        <div>{this.props.approve ? <div></div> : this.props.search ? this.search_sort_filter() : this.home_sort_filter() }
         </div>
         <div className="pageBody">
           {this.state.persons.map((x, i) =>
-            <Nominee 
-              userId={this.props.userId} 
-              userName={this.props.userName} 
-              isLoggedIn={this.props.isLoggedIn} 
-              promptForLogin={this.promptForLogin} 
-              name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)} 
-              description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)} 
-              duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)} 
-              id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)} 
-              image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)} 
-              country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)} 
-              province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} 
-              tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} 
+            <Nominee
+              userId={this.props.userId}
+              userName={this.props.userName}
+              isLoggedIn={this.props.isLoggedIn}
+              promptForLogin={this.promptForLogin}
+              name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)}
+              description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)}
+              duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)}
+              id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)}
+              image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)}
+              country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)}
+              province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)}
+              tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)}
               approve={this.props.approve}
-              />)}
+            />)}
           <div>
-            {this.state.showNoms ? <RestOfNoms 
-            userId={this.props.userId} 
-            isLoggedIn={this.props.isLoggedIn} 
-            promptForLogin={this.promptForLogin} 
-            nominees={this.state.persons.slice(18 * (this.state.page - 1), this.state.persons.length)} /> : null}
+            {this.state.showNoms ? <RestOfNoms
+              userId={this.props.userId}
+              isLoggedIn={this.props.isLoggedIn}
+              promptForLogin={this.promptForLogin}
+              nominees={this.state.persons.slice(18 * (this.state.page - 1), this.state.persons.length)} /> : null}
           </div>
           <div onClick={this.displayNoms} >
             {this.displayViewButton()}
@@ -371,6 +353,38 @@ class Nominee extends Component {
     }
     this.approveNominee = this.approveNominee.bind(this);
     this.rejectNominee = this.rejectNominee.bind(this);
+  }
+
+  componentDidMount() {
+    const country = this.props.country[0].props.children;
+    if (country === "Australia") {
+      this.setState({
+        flag: australia_flag
+      });
+    } else if (country === "United States") {
+      this.setState({
+        flag: america_flag
+      });
+    } else if (country === "England") {
+      this.setState({
+        flag: england_flag
+      });
+    } else {
+      this.setState({
+        flag: canada_flag
+      });
+    }
+
+    const image = this.props.image[0].props.children
+    if (image !== "") {
+      this.setState({
+        image: image
+      });
+    } else {
+      this.setState({
+        image: person
+      });
+    }
   }
 
   componentWillReceiveProps() {
@@ -408,7 +422,7 @@ class Nominee extends Component {
   approveNominee() {
     let self = this;
     let id = this.props.id[0].props.children;
-    let user = localStorage.getItem('userId');
+    let user = this.props.userId
     console.log(id);
     let path = 'https://fierce-everglades-88127.herokuapp.com/approve_nominee/' + id
     axios.post(path, null, { headers: { user: user } })
@@ -429,7 +443,7 @@ class Nominee extends Component {
   rejectNominee() {
     let self = this;
     let id = this.props.id[0].props.children
-    let user = localStorage.getItem('userId');
+    let user = this.props.userId
     console.log(id);
     let path = 'https://fierce-everglades-88127.herokuapp.com/reject_nominee/' + id
     axios.post(path, null, { headers: { user: user } })
