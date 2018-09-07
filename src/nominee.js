@@ -7,7 +7,7 @@ import canada_flag from './images/Canada.png';
 import america_flag from './images/America.png';
 import england_flag from './images/England.png';
 import australia_flag from './images/Australia.png';
-import { Well } from 'react-bootstrap';
+import { Well, Glyphicon } from 'react-bootstrap';
 import './index.css';
 import Edit from './edit.js';
 
@@ -218,32 +218,49 @@ export default class Nominees extends Component {
   }
 
   componentDidMount() {
-    let path1 = ''
-    let path2 = ''
-    if (this.props.search === true) {
-      path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=1'
-      path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=2'
-    } else {
-      path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations'
-      path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=2'
-    }
-    axios.get(path1)
-      .then(res => {
-        const persons = res.data['nominations']
-        const nextPage = 2
-        this.setState({ page: nextPage, persons: persons });
-        axios.get(path2)
-          .then(res => {
-            const newPersons = res.data['nominations']
-            this.setState({ next_persons: [...persons, ...newPersons] });
-          })
-          .catch(function (response) {
-            console.error(response);
+    let user = this.props.userId;
+    if (this.props.approve === true) {
+      let path = 'https://fierce-everglades-88127.herokuapp.com/submitted_nominees'
+      let self = this;
+      axios.get(path, { headers: { user: user } })
+        .then(function (response) {
+          const persons = response.data;
+          self.setState({ persons: persons });
+        })
+        .catch(function (response) {
+          console.error(response);
+          toast.error("Submitted Nominees failed!", {
+            position: toast.POSITION.TOP_LEFT
           });
-      })
-      .catch(function (response) {
-        console.error(response);
-      });
+        });
+    } else {
+      let path1 = ''
+      let path2 = ''
+      if (this.props.search === true) {
+        path1 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=1'
+        path2 = 'https://fast-cove-41298.herokuapp.com/search?tags=' + this.props.tags.replace(/ /g, '%20') + '&page=2'
+      } else {
+        path1 = 'https://fast-cove-41298.herokuapp.com/paged_nominations'
+        path2 = 'https://fast-cove-41298.herokuapp.com/paged_nominations?page=2'
+      }
+      axios.get(path1)
+        .then(res => {
+          const persons = res.data['nominations']
+          const nextPage = 2
+          this.setState({ page: nextPage, persons: persons });
+          axios.get(path2)
+            .then(res => {
+              const newPersons = res.data['nominations']
+              this.setState({ next_persons: [...persons, ...newPersons] });
+            })
+            .catch(function (response) {
+              console.error(response);
+            });
+        })
+        .catch(function (response) {
+          console.error(response);
+        });
+    }
   }
 
   componentWillReceiveProps() {
@@ -278,14 +295,31 @@ export default class Nominees extends Component {
   render() {
     return (
       <body>
-        <div>
-          {this.props.search ? this.search_sort_filter() : this.home_sort_filter()}
+        <div>{this.props.approve ? <div></div> : this.props.search ? this.search_sort_filter() : this.home_sort_filter() }
         </div>
         <div className="pageBody">
           {this.state.persons.map((x, i) =>
-            <Nominee userId={this.props.userId} userName={this.props.userName} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
+            <Nominee
+              userId={this.props.userId}
+              userName={this.props.userName}
+              isLoggedIn={this.props.isLoggedIn}
+              promptForLogin={this.promptForLogin}
+              name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)}
+              description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)}
+              duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)}
+              id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)}
+              image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)}
+              country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)}
+              province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)}
+              tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)}
+              approve={this.props.approve}
+            />)}
           <div>
-            {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18 * (this.state.page - 1), this.state.persons.length)} /> : null}
+            {this.state.showNoms ? <RestOfNoms
+              userId={this.props.userId}
+              isLoggedIn={this.props.isLoggedIn}
+              promptForLogin={this.promptForLogin}
+              nominees={this.state.persons.slice(18 * (this.state.page - 1), this.state.persons.length)} /> : null}
           </div>
           <div onClick={this.displayNoms} >
             {this.displayViewButton()}
@@ -313,7 +347,43 @@ class Nominee extends Component {
 
     this.state = {
       flag: '',
-      image: person
+      image: person,
+      approved: false,
+      rejected: false
+    }
+    this.approveNominee = this.approveNominee.bind(this);
+    this.rejectNominee = this.rejectNominee.bind(this);
+  }
+
+  componentDidMount() {
+    const country = this.props.country[0].props.children;
+    if (country === "Australia") {
+      this.setState({
+        flag: australia_flag
+      });
+    } else if (country === "United States") {
+      this.setState({
+        flag: america_flag
+      });
+    } else if (country === "England") {
+      this.setState({
+        flag: england_flag
+      });
+    } else {
+      this.setState({
+        flag: canada_flag
+      });
+    }
+
+    const image = this.props.image[0].props.children
+    if (image !== "") {
+      this.setState({
+        image: image
+      });
+    } else {
+      this.setState({
+        image: person
+      });
     }
   }
 
@@ -349,6 +419,48 @@ class Nominee extends Component {
     }
   }
 
+  approveNominee() {
+    let self = this;
+    let id = this.props.id[0].props.children;
+    let user = this.props.userId
+    console.log(id);
+    let path = 'https://fierce-everglades-88127.herokuapp.com/approve_nominee/' + id
+    axios.post(path, null, { headers: { user: user } })
+      .then(function (response) {
+        toast.info("Nominee successfully approved!", {
+          position: toast.POSITION.TOP_LEFT
+        })
+        self.setState({ approved: true })
+      })
+      .catch(function (response) {
+        console.error(response);
+        toast.error("Nominee approval failed!", {
+          position: toast.POSITION.TOP_LEFT
+        });
+      });
+  }
+
+  rejectNominee() {
+    let self = this;
+    let id = this.props.id[0].props.children
+    let user = this.props.userId
+    console.log(id);
+    let path = 'https://fierce-everglades-88127.herokuapp.com/reject_nominee/' + id
+    axios.post(path, null, { headers: { user: user } })
+      .then(function (response) {
+        toast.info("Nominee successfully rejected!", {
+          position: toast.POSITION.TOP_LEFT
+        })
+        self.setState({ rejected: true })
+      })
+      .catch(function (response) {
+        console.error(response);
+        toast.error("Nominee rejection failed!", {
+          position: toast.POSITION.TOP_LEFT
+        });
+      });
+  }
+
   render() {
     return (
       <div className="columns" style={{ position: 'relative' }}>
@@ -363,11 +475,20 @@ class Nominee extends Component {
             <Well bsSize="large" className="well">{this.props.description}</Well>
           </div>
           <li className="dua">
-            <div style={{
-              display: 'inline-block'
-            }}>
-              <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} userName={this.props.userName} />
-            </div>
+            {this.state.approved || this.state.rejected ? <Glyphicon className="btn btn-primary" glyph="glyphicon glyphicon-ok-circle" style={{
+              fontSize: "75x"
+            }} /> :
+              this.props.approve ?
+                <div>
+                  <button className="btn btn-success" onClick={this.approveNominee}>
+                    <Glyphicon glyph="glyphicon glyphicon-ok" /> APPROVE
+                  </button>
+                  <button className="btn btn-danger" onClick={this.rejectNominee}>
+                    <Glyphicon glyph="glyphicon glyphicon-remove" /> REJECT
+                </button>
+                </div> :
+                <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
+            }
           </li>
         </ul>
       </div>
