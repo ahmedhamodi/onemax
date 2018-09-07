@@ -229,9 +229,6 @@ export default class Nominees extends Component {
         })
         .catch(function (response) {
           console.error(response);
-          toast.error("Submitted Nominees failed!", {
-            position: toast.POSITION.TOP_LEFT
-          });
         });
     } else {
       let path1 = ''
