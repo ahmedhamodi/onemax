@@ -22,6 +22,19 @@ export default class NavbarNew extends Component {
       searchValue: '',
       searchPerformed: false
     };
+    this.logout = this.logout.bind(this);
+  }
+
+  componentDidMount() {
+    let userId = localStorage.getItem('userId')
+    if (userId !== null) {
+      this.setState({
+        isLoggedIn: true,
+        userID: userId,
+        name: localStorage.getItem('userName'),
+        picture: localStorage.getItem('picture')
+      })
+    }
   }
 
   handleSearchInput = (event) => {
@@ -46,6 +59,12 @@ export default class NavbarNew extends Component {
       picture: response.imageUrl
     });
     this.props.updateGoogleLogin(response);
+  }
+
+  logout() {
+    this.setState({
+      isLoggedIn: false
+    })
   }
 
   promptForLogin = () => toast.error("Login to submit nominations and give Duas!", {
@@ -123,7 +142,7 @@ export default class NavbarNew extends Component {
             <Nav pullRight style={{
               paddingTop: '12px'
             }}>
-              <LoginAuthentication onFacebookLogin={this.onFacebookLogin} onGoogleLogin={this.onGoogleLogin} />
+              <LoginAuthentication onFacebookLogin={this.onFacebookLogin} onGoogleLogin={this.onGoogleLogin} logout={this.logout} />
             </Nav>
           </Navbar.Collapse>
         </Navbar>

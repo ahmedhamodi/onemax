@@ -13,6 +13,19 @@ export default class LoginAuthentication extends Component {
     this.state = {
       name: ''
     };
+    this.logout = this.logout.bind(this);
+  }
+
+  componentDidMount() {
+    let userId = localStorage.getItem('userId')
+    if (userId !== null) {
+      this.setState({
+        isLoggedIn: true,
+        userID: userId,
+        name: localStorage.getItem('userName'),
+        picture: localStorage.getItem('picture')
+      })
+    }
   }
 
   responseFacebook = response => {
@@ -26,6 +39,10 @@ export default class LoginAuthentication extends Component {
         email: response.email,
         picture: response.picture.data.url
       });
+      localStorage.setItem('userId', this.state.userID)
+      localStorage.setItem('userName', this.state.name)
+      localStorage.setItem('picture', this.state.picture)
+      localStorage.setItem('email', this.state.email)
     } else {
       console.error('facebook login cancelled!')
     }
@@ -42,10 +59,22 @@ export default class LoginAuthentication extends Component {
       email: resp.email,
       picture: resp.imageUrl
     });
+    localStorage.setItem('userId', this.state.userID)
+    localStorage.setItem('userName', this.state.name)
+    localStorage.setItem('picture', this.state.picture)
+    localStorage.setItem('email', this.state.email)
   }
 
   responseGoogleFailure = response => {
     console.error('Google login failed with error: ' + response.error)
+  }
+
+  logout() {
+    localStorage.clear();
+    this.setState({
+      isLoggedIn: false
+    })
+    this.props.logout();
   }
 
   render() {
@@ -66,6 +95,7 @@ export default class LoginAuthentication extends Component {
           }}>
             <Image src={this.state.picture} alt={this.state.name} circle style={{ width: '35px' }}/>
           </div>
+          <button className="btn btn-primary" onClick={this.logout}>Logout</button>
         </div>
       )
     } else {

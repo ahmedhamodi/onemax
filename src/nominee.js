@@ -7,7 +7,7 @@ import canada_flag from './images/Canada.png';
 import america_flag from './images/America.png';
 import england_flag from './images/England.png';
 import australia_flag from './images/Australia.png';
-import { Well } from 'react-bootstrap';
+import { Well, Glyphicon } from 'react-bootstrap';
 import './index.css';
 
 export default class Nominees extends Component {
@@ -50,22 +50,21 @@ export default class Nominees extends Component {
   }
 
   componentDidMount() {
-    ////////////////////////////////
-    // NOT SURE IF THIS WORKS //////
-    ///////////START////////////////
+    let user = localStorage.getItem('userId');
     if (this.props.approve === true) {
       let path = 'https://fierce-everglades-88127.herokuapp.com/submitted_nominees'
-      let headers = {
-        'Content-Type': 'application/json',
-        'user': this.props.userId
-      }
-      axios.get(path, null, headers)
-        .then(res => {
-          console.log('testing for submitted_nominees fetch is complete!')
+      let self = this;
+      axios.get(path, { headers: { user: user } })
+        .then(function (response) {
+          const persons = response.data;
+          self.setState({ persons: persons });
         })
-      //////////////END////////////////
-      // NOT SURE IF THIS WORKS //////
-      ////////////////////////////////
+        .catch(function (response) {
+          console.error(response);
+          toast.error("Submitted Nominees failed!", {
+            position: toast.POSITION.TOP_LEFT
+          });
+        });
     } else {
       let path1 = ''
       let path2 = ''
@@ -94,14 +93,13 @@ export default class Nominees extends Component {
           console.error(response);
         });
     }
-
   }
 
   render() {
     return (
       <div className="pageBody">
         {this.state.persons.map((x, i) =>
-          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)} />)}
+          <Nominee userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} name={this.state.persons.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.state.persons.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.state.persons.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.state.persons.slice(i, i + 1).map(person => <p>{person.id}</p>)} image={this.state.persons.slice(i, i + 1).map(person => <p>{person.image}</p>)} country={this.state.persons.slice(i, i + 1).map(person => <p>{person.country}</p>)} approve={this.props.approve} />)}
         <div>
           {this.state.showNoms ? <RestOfNoms userId={this.props.userId} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} nominees={this.state.persons.slice(18 * (this.state.page - 1), this.state.persons.length)} /> : null}
         </div>
@@ -130,8 +128,12 @@ class Nominee extends Component {
 
     this.state = {
       flag: '',
-      image: person
+      image: person,
+      approved: false,
+      rejected: false
     }
+    this.approveNominee = this.approveNominee.bind(this);
+    this.rejectNominee = this.rejectNominee.bind(this);
   }
 
   componentDidMount() {
@@ -162,20 +164,75 @@ class Nominee extends Component {
     }
   }
 
+  approveNominee() {
+    let self = this;
+    let id = this.props.id[0].props.children;
+    let user = localStorage.getItem('userId');
+    console.log(id);
+    let path = 'https://fierce-everglades-88127.herokuapp.com/approve_nominee/' + id
+    axios.post(path, null, { headers: { user: user } })
+      .then(function (response) {
+        toast.info("Nominee successfully approved!", {
+          position: toast.POSITION.TOP_LEFT
+        })
+        self.setState({ approved: true })
+      })
+      .catch(function (response) {
+        console.error(response);
+        toast.error("Nominee approval failed!", {
+          position: toast.POSITION.TOP_LEFT
+        });
+      });
+  }
+
+  rejectNominee() {
+    let self = this;
+    let id = this.props.id[0].props.children
+    let user = localStorage.getItem('userId');
+    console.log(id);
+    let path = 'https://fierce-everglades-88127.herokuapp.com/reject_nominee/' + id
+    axios.post(path, null, { headers: { user: user } })
+      .then(function (response) {
+        toast.info("Nominee successfully rejected!", {
+          position: toast.POSITION.TOP_LEFT
+        })
+        self.setState({ rejected: true })
+      })
+      .catch(function (response) {
+        console.error(response);
+        toast.error("Nominee rejection failed!", {
+          position: toast.POSITION.TOP_LEFT
+        });
+      });
+  }
+
   render() {
     return (
       <div className="columns" style={{ position: 'relative' }}>
         <ul className="person">
           <li className="header">
-            <p className="nominee_name">{ this.props.name }</p>
+            <p className="nominee_name">{this.props.name}</p>
             <img className="nominee_flag" src={this.state.flag} alt="logo" />
           </li>
           <div className='person content'>
             <img src={this.state.image} className="person-logo" alt="logo" />
-            <Well bsSize="large" className="well">{ this.props.description }</Well>
+            <Well bsSize="large" className="well">{this.props.description}</Well>
           </div>
           <li className="dua">
-            <Dua duas = { this.props.duas } id = { this.props.id } isLoggedIn = {this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
+            {this.state.approved || this.state.rejected ? <Glyphicon className="btn btn-primary" glyph="glyphicon glyphicon-ok-circle" style={{
+              fontSize: "75x"
+            }} /> :
+              this.props.approve ?
+                <div>
+                  <button className="btn btn-success" onClick={this.approveNominee}>
+                    <Glyphicon glyph="glyphicon glyphicon-ok" /> APPROVE
+                  </button>
+                  <button className="btn btn-danger" onClick={this.rejectNominee}>
+                    <Glyphicon glyph="glyphicon glyphicon-remove" /> REJECT
+                </button>
+                </div> :
+                <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
+            }
           </li>
         </ul>
       </div>

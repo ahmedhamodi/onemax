@@ -18,6 +18,9 @@ class Approve extends Component {
   render() {
     return (
       <div className='container'>
+        <h1 style={{
+          paddingTop: "30px"
+        }}>Approve Nominees</h1>
         <Nominees approve={true} userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
       </div>
     );
