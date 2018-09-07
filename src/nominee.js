@@ -7,7 +7,14 @@ import canada_flag from './images/Canada.png';
 import america_flag from './images/America.png';
 import england_flag from './images/England.png';
 import australia_flag from './images/Australia.png';
-import { Well, Glyphicon } from 'react-bootstrap';
+import {
+  Button,
+  Well,
+  Modal,
+  FormGroup,
+  FormControl,
+  Glyphicon
+} from "react-bootstrap";
 import './index.css';
 import Edit from './edit.js';
 
@@ -292,7 +299,7 @@ export default class Nominees extends Component {
   render() {
     return (
       <body>
-        <div>{this.props.approve ? <div></div> : this.props.search ? this.search_sort_filter() : this.home_sort_filter() }
+        <div>{this.props.approve ? <div></div> : this.props.search ? this.search_sort_filter() : this.home_sort_filter()}
         </div>
         <div className="pageBody">
           {this.state.persons.map((x, i) =>
@@ -346,10 +353,16 @@ class Nominee extends Component {
       flag: '',
       image: person,
       approved: false,
-      rejected: false
+      rejected: false,
+      commentModalOpen: false,
+      commentText: "",
+      comments: []
     }
     this.approveNominee = this.approveNominee.bind(this);
     this.rejectNominee = this.rejectNominee.bind(this);
+    this.showCommentModal = this.showCommentModal.bind(this);
+    this.getComments = this.getComments.bind(this);
+    this.addComment = this.addComment.bind(this);
   }
 
   componentDidMount() {
@@ -420,7 +433,6 @@ class Nominee extends Component {
     let self = this;
     let id = this.props.id[0].props.children;
     let user = this.props.userId
-    console.log(id);
     let path = 'https://fierce-everglades-88127.herokuapp.com/approve_nominee/' + id
     axios.post(path, null, { headers: { user: user } })
       .then(function (response) {
@@ -441,7 +453,6 @@ class Nominee extends Component {
     let self = this;
     let id = this.props.id[0].props.children
     let user = this.props.userId
-    console.log(id);
     let path = 'https://fierce-everglades-88127.herokuapp.com/reject_nominee/' + id
     axios.post(path, null, { headers: { user: user } })
       .then(function (response) {
@@ -456,6 +467,78 @@ class Nominee extends Component {
           position: toast.POSITION.TOP_LEFT
         });
       });
+  }
+
+  getComments = () => {
+    let path = 'https://fierce-everglades-88127.herokuapp.com/comments/' + this.props.id[0].props.children
+    let self = this;
+    axios.get(path)
+      .then(function (response) {
+        let comments = response.data.map((comment) =>
+          <div>
+            <p>
+              <i>{comment.Createdat.split(".")[0]}</i>
+            </p>
+            <p>
+              <b>{comment.Username}: </b> {comment.Content}.
+            </p>
+            <hr />
+          </div>)
+        self.setState({ comments: comments });
+      })
+      .catch(function (response) {
+        console.error(response);
+      });
+  }
+
+  showCommentModal = () => {
+    if (this.props.isLoggedIn !== true) {
+      toast.error("Please login to view and add comments!", {
+        position: toast.POSITION.TOP_LEFT
+      })
+    } else {
+      this.getComments()
+      this.setState({
+        commentModalOpen: true
+      });
+    }
+
+  };
+
+  hideCommentModal = () => {
+    this.setState({
+      commentModalOpen: false
+    });
+  };
+
+  handleCommentChange = e => {
+    this.setState({
+      commentText: e.target.value
+    });
+  };
+
+  fetchCommentList = () => {
+    return (
+      this.state.comments
+    );
+  };
+
+  addComment = () => {
+    let self = this;
+    let user = this.props.userName
+    let id = this.props.id[0].props.children
+    let path = 'https://fierce-everglades-88127.herokuapp.com/comments/' + id
+    axios.post(path, this.state.commentText, { headers: { username: user } })
+      .then(function (response) {
+        self.getComments()
+      })
+      .catch(function (response) {
+        console.error(response);
+        toast.error("Comment failed!", {
+          position: toast.POSITION.TOP_LEFT
+        });
+      });
+
   }
 
   render() {
@@ -484,7 +567,43 @@ class Nominee extends Component {
                     <Glyphicon glyph="glyphicon glyphicon-remove" /> REJECT
                 </button>
                 </div> :
-                <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
+                <div>
+                  <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
+                  <button className="action-button" onClick={this.showCommentModal}>
+                    <Glyphicon glyph="glyphicon glyphicon-comment" /> COMMENT
+                  </button>
+                  <Modal show={this.state.commentModalOpen} >
+                    <Modal.Header>
+                      <Modal.Title>Comments</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <form>
+                        <FormGroup controlId="formControlsTextarea">
+                          <div class="comment-container">
+                            <div class="comment-input">
+                              <FormControl
+                                type="text"
+                                value={this.state.commentText}
+                                componentClass="textarea"
+                                placeholder="Enter comment"
+                                onChange={this.handleCommentChange}
+                              />
+                            </div>
+                            <div className="comment-submit">
+                              <Button className="action-button" onClick={this.addComment}>Comment</Button>
+                            </div>
+                            <br />
+                          </div>
+                          <FormControl.Feedback />
+                        </FormGroup>
+                      </form>
+                      {this.fetchCommentList()}
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button onClick={this.hideCommentModal}>Close</Button>
+                    </Modal.Footer>
+                  </Modal>
+                </div>
             }
           </li>
         </ul>
