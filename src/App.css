@@ -43,6 +43,35 @@
   margin-top: 5px;
 }
 
+.gray-background {
+  background-color: #D8D8D8;
+  margin-left: -75px;
+  margin-right: -75px;
+  margin-bottom: -20px;
+}
+
+@media only screen and (max-width: 766px) {
+  .gray-background {
+    margin-left: -30px;
+    margin-right: -30px;
+    margin-bottom: -20px;
+  }
+}
+
+.white-background {
+  margin-left: -75px;
+  margin-right: -75px;
+  margin-bottom: -20px;
+}
+
+@media only screen and (max-width: 766px) {
+  .white-background {
+    margin-left: -30px;
+    margin-right: -30px;
+    margin-bottom: -20px;
+  }
+}
+
 .App-logo {
   height: 40px;
   align-self: bottom;
