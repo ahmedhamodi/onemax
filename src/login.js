@@ -93,7 +93,9 @@ export default class LoginAuthentication extends Component {
           <div style={{
             display: 'inline-block'
           }}>
-            <Image src={this.state.picture} alt={this.state.name} circle style={{ width: '35px' }}/>
+            <Image src={this.state.picture} alt={this.state.name} circle style={{
+              width: '35px'
+            }} />
           </div>
           <button className="btn btn-primary" onClick={this.logout}>Logout</button>
         </div>
@@ -135,6 +137,6 @@ export default class LoginAuthentication extends Component {
       <div>
         {fbContent}
       </div>
-    );
+    )
   }
 }

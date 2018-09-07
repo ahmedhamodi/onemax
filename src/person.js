@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Glyphicon } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import Nominees from './nominee.js';
 
 class Person extends Component {
@@ -64,7 +62,7 @@ class Person extends Component {
           No nominees found when searching for <b>"{this.state.search}"</b>. Please try again!
         </h2>
         <div hidden={!this.state.found} className='container'>
-          <Nominees tags={this.props.params.match.params.name} search={true} userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
+          <Nominees tags={this.props.params.match.params.name} search={true} userId={this.props.userID} userName={this.props.userName} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
         </div>
       </div>
     );

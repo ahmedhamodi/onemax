@@ -19,8 +19,7 @@ export default class NavbarNew extends Component {
     this.state = {
       loginString: '',
       profilePicture: this.props.picture,
-      searchValue: '',
-      searchPerformed: false
+      searchValue: ''
     };
     this.logout = this.logout.bind(this);
   }
@@ -71,48 +70,13 @@ export default class NavbarNew extends Component {
     position: toast.POSITION.TOP_LEFT
   })
 
-  searchBar = () => {
-    return (
-      <FormGroup bsSize="normal">
-        <InputGroup>
-          <FormControl type="text" placeholder="Search for Nominees" value={this.state.searchValue} onChange={this.handleSearchInput} onKeyPress={this.handleSearchEnterKey} />
-          <InputGroup.Button className="search">
-            <Link to={'/search/' + this.state.searchValue}>
-              <Button onClick={this.goSearch}><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
-            </Link>
-          </InputGroup.Button>
-        </InputGroup>
-      </FormGroup>
-    );
-  }
-
-  backHome = () => {
-    return (
-      <Nav pullLeft>
-        <Link to='/'>
-          <button className="action-button" onClick={this.goBackHome}>
-            <Glyphicon glyph="glyphicon glyphicon-arrow-left"/> Back home
-          </button>
-        </Link>
-      </Nav>
-    );
-  }
-
-  goBackHome = () => {
-    this.setState({searchPerformed: false})
-  }
-
-  goSearch = () => {
-    this.setState({searchPerformed: true})
-  }
-
   render() {
     return (
       <div>
-        <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} />} />
+        <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} userName={this.state.name} />} />
         <Route exact path="/search" component={Home} />
         <Route exact path="/approve" component={Approve} />
-        <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} params={params} />} />
+        <Route path="/search/:name" render={(params) => <Person isLoggedIn={this.state.isLoggedIn} userID={this.state.userID} userName={this.state.name} params={params} />} />
 
         <Navbar fixedTop className="Main-Nav">
           <Navbar.Header className='Main-Nav-Header'>
@@ -129,13 +93,22 @@ export default class NavbarNew extends Component {
               paddingTop: '4px'
             }}>
               <Navbar.Form pullLeft>
-                {this.state.searchPerformed ? this.backHome() : this.searchBar()}
+                <FormGroup bsSize="normal">
+                  <InputGroup>
+                    <FormControl type="text" placeholder="Search for Nominees" value={this.state.searchValue} onChange={this.handleSearchInput} onKeyPress={this.handleSearchEnterKey} />
+                    <InputGroup.Button className="search">
+                      <Link to={'/search/' + this.state.searchValue}>
+                        <Button><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
+                      </Link>
+                    </InputGroup.Button>
+                  </InputGroup>
+                </FormGroup>
               </Navbar.Form>
 
               <Nav pullLeft style={{
                 paddingTop: '8px',
               }}>
-                <SubmitModal isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} userID={this.state.userID} />
+                <SubmitModal isLoggedIn={this.state.isLoggedIn} promptForLogin={this.promptForLogin} userID={this.state.userID} userName={this.state.name}/>
               </Nav>
             </Nav>
 
