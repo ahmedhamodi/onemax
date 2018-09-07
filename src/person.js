@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Glyphicon } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import Nominees from './nominee.js';
 
 class Person extends Component {
@@ -37,21 +35,9 @@ class Person extends Component {
     this.processSearch(name);
   }
 
-  componentDidUpdate() {
-    let name = this.props.params.match.params.name;
-    this.processSearch(name);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if(nextProps.params.match.params.name !== null) {
-      if (this.state.search !== nextProps.params.match.params.name && this.state.allowSearch === true) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
+  componentWillReceiveProps() {
+    const newSearch = this.props.params.match.params.name;
+    this.processSearch(newSearch);
   }
 
   render() {
@@ -64,7 +50,7 @@ class Person extends Component {
           No nominees found when searching for <b>"{this.state.search}"</b>. Please try again!
         </h2>
         <div hidden={!this.state.found} className='container'>
-          <Nominees tags={this.props.params.match.params.name} search={true} userId={this.props.userID} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
+          <Nominees tags={this.props.params.match.params.name} search={true} userId={this.props.userID} userName={this.props.userName} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} />
         </div>
       </div>
     );
