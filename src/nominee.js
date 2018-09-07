@@ -317,6 +317,7 @@ export default class Nominees extends Component {
               province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)}
               tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)}
               approve={this.props.approve}
+              accessId={this.state.persons.slice(i, i + 1).map(person => <p>{person.user_id}</p>)}
             />)}
           <div>
             {this.state.showNoms ? <RestOfNoms
@@ -339,7 +340,20 @@ class RestOfNoms extends Component {
     return (
       <div className="pageBody">
         {this.props.nominees.map((x, i) =>
-          <Nominee userId={this.props.userId} userName={this.props.userName} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} image={this.props.nominees.slice(i, i + 1).map(person => <p>{person.image}</p>)} name={this.props.nominees.slice(i, i + 1).map(person => <p>{person.name}</p>)} description={this.props.nominees.slice(i, i + 1).map(person => <p>{person.description}</p>)} duas={this.props.nominees.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i + 1).map(person => <p>{person.id}</p>)} country={this.props.nominees.slice(i, i + 1).map(person => <p>{person.country}</p>)} province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)} />)}
+          <Nominee 
+            userId={this.props.userId} 
+            userName={this.props.userName} 
+            isLoggedIn={this.props.isLoggedIn} 
+            promptForLogin={this.props.promptForLogin} 
+            image={this.props.nominees.slice(i, i + 1).map(person => <p>{person.image}</p>)} 
+            name={this.props.nominees.slice(i, i + 1).map(person => <p>{person.name}</p>)} 
+            description={this.props.nominees.slice(i, i + 1).map(person => <p>{person.description}</p>)} 
+            duas={this.props.nominees.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i + 1).map(person => <p>{person.id}</p>)} 
+            country={this.props.nominees.slice(i, i + 1).map(person => <p>{person.country}</p>)} 
+            province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} 
+            tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)}
+            accessId={this.state.persons.slice(i, i + 1).map(person => <p>{person.user_id}</p>)}
+          />)}
       </div>
     )
   }
@@ -550,7 +564,9 @@ class Nominee extends Component {
             <img className="nominee_flag" src={this.state.flag} alt="logo" />
           </li>
           <div className='person content'>
-            <Edit isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} userId={this.props.userId} id={this.props.id} name={this.props.name} country={this.props.country} province={this.props.province} description={this.props.description} image={this.props.image} tags={this.props.tags} />
+            <div hidden={this.props.userId != this.props.accessId[0].props.children}>
+              <Edit isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} userId={this.props.userId} id={this.props.id} name={this.props.name} country={this.props.country} province={this.props.province} description={this.props.description} image={this.props.image} tags={this.props.tags} />
+            </div>
             <img src={this.state.image} className="person-logo" alt="logo" />
             <Well bsSize="large" className="well">{this.props.description}</Well>
           </div>
@@ -570,7 +586,7 @@ class Nominee extends Component {
                 <div>
                   <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
                   <button className="action-button" onClick={this.showCommentModal}>
-                    <Glyphicon glyph="glyphicon glyphicon-comment" /> COMMENT
+                    <Glyphicon glyph="glyphicon glyphicon-comment" /> COMMENTS
                   </button>
                   <Modal show={this.state.commentModalOpen} >
                     <Modal.Header>
