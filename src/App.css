@@ -8,8 +8,9 @@
 }
 
 .well {
-  background-color: white;
-  border-width: 0px;
+  background-color: #D8D8D8;
+  border-width: 0px solid #D8D8D8;
+  border-style: none;
 }
 
 .App {
@@ -48,6 +49,10 @@
   margin-left: -75px;
   margin-right: -75px;
   margin-bottom: -20px;
+}
+
+.gray {
+  background-color: #D8D8D8;
 }
 
 @media only screen and (max-width: 766px) {
@@ -96,11 +101,17 @@
 }
 
 .person-logo {
-  margin-top: 15px;
+  border: 1px solid #979797;
+  border-radius: 100%;
+  background-color: #D8D8D8;
+  margin-top: -120px;
   margin-bottom: 15px;
   height: 200px;
   width: 200px;
-  align-self: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  float: center;
 }
 
 .required_field {
@@ -112,14 +123,29 @@
 }
 
 .nominee_name {
-  text-align: left;
   float: left;
+}
+
+.dua_number {
+  float: right;
   display: inline;
+  font-size: 20px;
+  padding-left: 5px;
+  padding-top: 20px;
+}
+
+.dua_button {
+  margin-left: 10px;
+  margin-top: 5px;
 }
 
 .nominee_flag {
+  width: 60px;
+  height: 30px;
   float: right;
   display: inline;
+  margin-top: 20px;
+  margin-right: 20px;
 }
 
 .align_right {
@@ -148,8 +174,9 @@
 
 @media only screen and (min-width: 1000px) {
   .person-logo {
-    padding-top: 20px;
-    align-self: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -192,6 +219,7 @@
 
 /* Create three columns of equal width */
 .columns {
+  margin-top: 120px;
   float: left;
   width: 33.3%;
   padding: 8px;
@@ -237,7 +265,6 @@
 /* Style the list */
 .person {
   list-style-type: none;
-  border: 1px solid #eee5f8;
   margin: 0;
   padding: 0;
   -webkit-transition: 0.3s;
@@ -248,18 +275,6 @@
 /* Add shadows on hover */
 .person:hover {
   box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
-}
-
-/* Person header */
-.person .header {
-  height: 60px;
-  background-color: white;
-  color: black;
-  font-size: 20px;
-  text-align: 'left';
-  padding-top: 13px;
-  padding-left: 9px;
-  padding-right: 9px;
 }
 
 .landing_page_icon {
@@ -293,10 +308,16 @@
   border-color: #eee5f8;
 }
 
-.person.content {
-  background-color: white;
+.person .content {
+  background-color: #D8D8D8;
   height: 500px;
-  clear:both
+  clear:both;
+}
+
+.person .footer {
+  background-color: #D8D8D8;
+  height: 100px;
+  clear:both;
 }
 
 /* The "Sign Up" button */
@@ -305,6 +326,8 @@
   text-align: center;
   text-decoration: none;
   font-size: 14px;
+  float: left;
+  display: inline;
 }
 
 .action-button {
@@ -318,8 +341,8 @@
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   background-color: transparent;
   border-radius: 0.35em;
-  border: solid 3px #79589F;
-  color: #471e98 !important;
+  border: solid 3px #015C89;
+  color: #015C89 !important;
   cursor: pointer;
   display: inline-block;
   font-weight: 400;
@@ -334,6 +357,39 @@
   width: 212px;
 }
 
+.comment-button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  background-color: transparent;
+  border-radius: 0.35em;
+  border: 1px solid #ffffff;
+  color: #000000 !important;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  height: 2.5em;
+  height: calc(2em + 6px);
+  line-height: 2em;
+  min-width: 10em;
+  padding: 0 1.5em;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  width: 150px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.comment-button:hover {
+  border: 1px solid #000000;
+}
+
 .edit-button {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -343,15 +399,20 @@
   -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-  color: #79589F !important;
+  color: #015C89 !important;
+  width: 25px;
+  height: 25px;
+  float: right;
+  display: inline;
 }
 
 .edit-button:hover {
   color: black !important;
+  background-color: #0470A5;
 }
 
 .action-button:hover {
-  background-color: #5d407f;
+  background-color: #0470A5;
   color: white !important;
 }
 

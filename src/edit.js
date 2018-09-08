@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
+import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import Cropper from 'react-cropper';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import edit_button from './images/edit.png'
 
 const max_description = 400
 
@@ -260,9 +261,7 @@ export default class Edit extends Component {
           paddingTop: '5px'
         }} >
           <a className="edit-button" onClick={this.toggleModal}>
-            <Glyphicon glyph="glyphicon glyphicon-edit" style={{
-              fontSize: "25px",
-            }} />
+            <img src={edit_button} className="edit-button" alt="logo" />
           </a>
         </div>
 
