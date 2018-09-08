@@ -516,7 +516,6 @@ class Nominee extends Component {
         commentModalOpen: true
       });
     }
-    console.log(this.state.image)
   };
 
   hideCommentModal = () => {
@@ -562,12 +561,12 @@ class Nominee extends Component {
           <div className='person content'>
             <br/>
             <img src={this.state.image} className="person-logo" alt="logo" />
-            <div hidden={this.props.userId != this.props.accessId[0].props.children}>
+            <div hidden={this.props.userId !== this.props.accessId[0].props.children}>
               <Edit isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} userId={this.props.userId} id={this.props.id} name={this.props.name} country={this.props.country} province={this.props.province} description={this.props.description} image={this.props.image} tags={this.props.tags} />
             </div>
             <p style={{
-              'color': '#015C89',
-              'font-size': '20px'
+              color: '#015C89',
+              fontSize: '20px'
             }}>{this.props.name}</p>
             <Well bsSize="large" className="well">{this.props.description}</Well>
           </div>

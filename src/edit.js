@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
+import { Modal, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import Cropper from 'react-cropper';
 import axios from 'axios';
 import { toast } from 'react-toastify';
