@@ -27,7 +27,7 @@ export default class Nominees extends Component {
     page: 2,
     filter: 'all',
     filter_on: false,
-    sort: 'desc-duas',
+    sort: 'asc-updated_at',
     sort_on: false
   }
 
@@ -170,7 +170,7 @@ export default class Nominees extends Component {
   }
 
   applyFilter = (e) => {
-    this.setState({ filter: e.target.value, filter_on: true, sort: 'desc-duas', sort_on: false });
+    this.setState({ filter: e.target.value, filter_on: true, sort: 'asc-updated_at', sort_on: false });
     this.sleep(500).then(() => {
       this.firstFilteredNoms()
       this.displayFilteredNoms()
