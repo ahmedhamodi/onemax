@@ -196,7 +196,7 @@ export default class SubmitModal extends Component {
               guides={false}
               crop={this._crop.bind(this)} />
 
-            {this.state.croppedImg !== '' ? <div><h5><br/><br/><b>Preview:</b></h5> <img src={this.state.croppedImg} alt={this.state.image} style={{ height: 400 }} /><br/><br/></div> : null}
+            {this.state.croppedImg !== '' ? <div><h5><br/><br/><b>Preview:</b></h5> <img src={this.state.croppedImg} alt={this.state.image} style={{ height: 400, 'border-radius': '100%', border: '1px solid #979797' }} /><br/><br/></div> : null}
 
             <FormGroup controlId="formControlsSelect">
               <h4><ControlLabel>Country *</ControlLabel></h4>
