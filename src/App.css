@@ -341,8 +341,8 @@
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   background-color: transparent;
   border-radius: 0.35em;
-  border: solid 3px #79589F;
-  color: #471e98 !important;
+  border: solid 3px #015C89;
+  color: #015C89 !important;
   cursor: pointer;
   display: inline-block;
   font-weight: 400;
@@ -383,6 +383,7 @@
   white-space: nowrap;
   width: 150px;
   margin-top: 30px;
+  margin-bottom: 15px;
 }
 
 .comment-button:hover {
@@ -398,7 +399,7 @@
   -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-  color: #79589F !important;
+  color: #015C89 !important;
   width: 25px;
   height: 25px;
   float: right;
@@ -407,10 +408,11 @@
 
 .edit-button:hover {
   color: black !important;
+  background-color: #0470A5;
 }
 
 .action-button:hover {
-  background-color: #5d407f;
+  background-color: #0470A5;
   color: white !important;
 }
 
