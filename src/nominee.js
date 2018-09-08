@@ -516,7 +516,7 @@ class Nominee extends Component {
         commentModalOpen: true
       });
     }
-
+    console.log(this.state.image)
   };
 
   hideCommentModal = () => {
@@ -559,69 +559,74 @@ class Nominee extends Component {
     return (
       <div className="columns" style={{ position: 'relative' }}>
         <ul className="person">
-          <li className="header">
-            <p className="nominee_name">{this.props.name}</p>
-            <img className="nominee_flag" src={this.state.flag} alt="logo" />
-          </li>
           <div className='person content'>
+            <br/>
+            <img src={this.state.image} className="person-logo" alt="logo" />
             <div hidden={this.props.userId != this.props.accessId[0].props.children}>
               <Edit isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} userId={this.props.userId} id={this.props.id} name={this.props.name} country={this.props.country} province={this.props.province} description={this.props.description} image={this.props.image} tags={this.props.tags} />
             </div>
-            <img src={this.state.image} className="person-logo" alt="logo" />
+            <p style={{
+              'color': '#015C89',
+              'font-size': '20px'
+            }}>{this.props.name}</p>
             <Well bsSize="large" className="well">{this.props.description}</Well>
           </div>
-          <li className="dua">
-            {this.state.approved || this.state.rejected ? <Glyphicon className="btn btn-primary" glyph="glyphicon glyphicon-ok-circle" style={{
-              fontSize: "75x"
-            }} /> :
-              this.props.approve ?
-                <div>
-                  <button className="btn btn-success" onClick={this.approveNominee}>
-                    <Glyphicon glyph="glyphicon glyphicon-ok" /> APPROVE
+          <div className='person footer'>
+            <li className="dua">
+              {this.state.approved || this.state.rejected ? <Glyphicon className="btn btn-primary" glyph="glyphicon glyphicon-ok-circle" style={{
+                fontSize: "75x"
+              }} /> :
+                this.props.approve ?
+                  <div>
+                    <button className="btn btn-success" onClick={this.approveNominee}>
+                      <Glyphicon glyph="glyphicon glyphicon-ok" /> APPROVE
+                    </button>
+                    <button className="btn btn-danger" onClick={this.rejectNominee}>
+                      <Glyphicon glyph="glyphicon glyphicon-remove" /> REJECT
                   </button>
-                  <button className="btn btn-danger" onClick={this.rejectNominee}>
-                    <Glyphicon glyph="glyphicon glyphicon-remove" /> REJECT
-                </button>
-                </div> :
-                <div>
-                  <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
-                  <button className="action-button" onClick={this.showCommentModal}>
-                    <Glyphicon glyph="glyphicon glyphicon-comment" /> COMMENTS
-                  </button>
-                  <Modal show={this.state.commentModalOpen} >
-                    <Modal.Header>
-                      <Modal.Title>Comments</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <form>
-                        <FormGroup controlId="formControlsTextarea">
-                          <div class="comment-container">
-                            <div class="comment-input">
-                              <FormControl
-                                type="text"
-                                value={this.state.commentText}
-                                componentClass="textarea"
-                                placeholder="Enter comment"
-                                onChange={this.handleCommentChange}
-                              />
+                  </div> :
+                  <div className="gray">
+                    <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
+                    <img className="nominee_flag" src={this.state.flag} alt="logo" />
+                    <br/>
+                    <button className="comment-button" onClick={this.showCommentModal}>
+                      <Glyphicon glyph="glyphicon glyphicon-comment" /> COMMENTS
+                    </button>
+                    <Modal show={this.state.commentModalOpen} >
+                      <Modal.Header>
+                        <Modal.Title>Comments</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <form>
+                          <FormGroup controlId="formControlsTextarea">
+                            <div class="comment-container">
+                              <div class="comment-input">
+                                <FormControl
+                                  type="text"
+                                  value={this.state.commentText}
+                                  componentClass="textarea"
+                                  placeholder="Enter comment"
+                                  onChange={this.handleCommentChange}
+                                />
+                              </div>
+                              <div className="comment-submit">
+                                <Button className="action-button" onClick={this.addComment}>Comment</Button>
+                              </div>
+                              <br />
                             </div>
-                            <div className="comment-submit">
-                              <Button className="action-button" onClick={this.addComment}>Comment</Button>
-                            </div>
-                            <br />
-                          </div>
-                          <FormControl.Feedback />
-                        </FormGroup>
-                      </form>
-                      {this.fetchCommentList()}
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button onClick={this.hideCommentModal}>Close</Button>
-                    </Modal.Footer>
-                  </Modal>
-                </div>
-            }
-          </li>
+                            <FormControl.Feedback />
+                          </FormGroup>
+                        </form>
+                        {this.fetchCommentList()}
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button onClick={this.hideCommentModal}>Close</Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </div>
+              }
+            </li>
+          </div>
         </ul>
       </div>
     );
