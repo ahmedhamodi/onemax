@@ -139,6 +139,11 @@
   margin-top: 5px;
 }
 
+.dua_button:hover {
+  border: 2px solid #ffffff;
+  border-radius: 100%;
+}
+
 .nominee_flag {
   width: 60px;
   height: 30px;
