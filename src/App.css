@@ -102,7 +102,8 @@
 
 .person-logo {
   border: 1px solid #979797;
-  border-radius: 25px;
+  border-radius: 100%;
+  background-color: #D8D8D8;
   margin-top: -120px;
   margin-bottom: 15px;
   height: 200px;
@@ -264,7 +265,6 @@
 /* Style the list */
 .person {
   list-style-type: none;
-  border: 1px solid #979797;
   margin: 0;
   padding: 0;
   -webkit-transition: 0.3s;
