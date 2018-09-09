@@ -98,7 +98,7 @@ export default class NavbarNew extends Component {
               <Navbar.Form pullLeft>
                 <FormGroup bsSize="normal">
                   <InputGroup>
-                    <FormControl type="text" placeholder="Search for Nominees" value={this.state.searchValue} onChange={this.handleSearchInput} onKeyPress={this.handleSearchEnterKey} />
+                    <FormControl type="text" placeholder="Search for Hero" value={this.state.searchValue} onChange={this.handleSearchInput} onKeyPress={this.handleSearchEnterKey} />
                     <InputGroup.Button className="search">
                       <Link to={'/search/' + this.state.searchValue}>
                         <Button><Glyphicon glyph="glyphicon glyphicon-search" /></Button>
