@@ -27,7 +27,7 @@ export default class Nominees extends Component {
     page: 2,
     filter: 'all',
     filter_on: false,
-    sort: 'asc-updated_at',
+    sort: 'desc-created_at',
     sort_on: false
   }
 
@@ -170,7 +170,7 @@ export default class Nominees extends Component {
   }
 
   applyFilter = (e) => {
-    this.setState({ filter: e.target.value, filter_on: true, sort: 'asc-updated_at', sort_on: false });
+    this.setState({ filter: e.target.value, filter_on: true, sort: 'desc-created_at', sort_on: false });
     this.sleep(500).then(() => {
       this.firstFilteredNoms()
       this.displayFilteredNoms()
@@ -199,8 +199,8 @@ export default class Nominees extends Component {
         <select className='align_right' onChange={this.applySort} value={this.state.sort}>
           <option value="desc-duas">Most Duas</option>
           <option value="asc-duas">Least Duas</option>
-          <option value="asc-updated_at">Newest</option>
-          <option value="desc-updated_at">Oldest</option>
+          <option value="desc-created_at">Newest</option>
+          <option value="asc-created_at">Oldest</option>
           {/*Future filter option - not implemented yet.
           <option value="trending">Trending</option>*/}
         </select>
