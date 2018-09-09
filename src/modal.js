@@ -139,6 +139,11 @@ export default class SubmitModal extends Component {
       data: bodyFormData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } }
     })
+    .then(function(response) {
+      toast.info("Nominee successfully submitted!", {
+        position: toast.POSITION.TOP_LEFT
+      })
+    })
     .catch(function (response) {
       console.error(response);
       toast.error("Nominee submission unsuccessful. Missing mandatory fields!", {
