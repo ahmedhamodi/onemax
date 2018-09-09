@@ -340,17 +340,17 @@ class RestOfNoms extends Component {
     return (
       <div className="pageBody">
         {this.props.nominees.map((x, i) =>
-          <Nominee 
-            userId={this.props.userId} 
-            userName={this.props.userName} 
-            isLoggedIn={this.props.isLoggedIn} 
-            promptForLogin={this.props.promptForLogin} 
-            image={this.props.nominees.slice(i, i + 1).map(person => <p>{person.image}</p>)} 
-            name={this.props.nominees.slice(i, i + 1).map(person => <p>{person.name}</p>)} 
-            description={this.props.nominees.slice(i, i + 1).map(person => <p>{person.description}</p>)} 
-            duas={this.props.nominees.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i + 1).map(person => <p>{person.id}</p>)} 
-            country={this.props.nominees.slice(i, i + 1).map(person => <p>{person.country}</p>)} 
-            province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)} 
+          <Nominee
+            userId={this.props.userId}
+            userName={this.props.userName}
+            isLoggedIn={this.props.isLoggedIn}
+            promptForLogin={this.props.promptForLogin}
+            image={this.props.nominees.slice(i, i + 1).map(person => <p>{person.image}</p>)}
+            name={this.props.nominees.slice(i, i + 1).map(person => <p>{person.name}</p>)}
+            description={this.props.nominees.slice(i, i + 1).map(person => <p>{person.description}</p>)}
+            duas={this.props.nominees.slice(i, i + 1).map(person => <p>{person.duas}</p>)} id={this.props.nominees.slice(i, i + 1).map(person => <p>{person.id}</p>)}
+            country={this.props.nominees.slice(i, i + 1).map(person => <p>{person.country}</p>)}
+            province={this.state.persons.slice(i, i + 1).map(person => <p>{person.province}</p>)}
             tags={this.state.persons.slice(i, i + 1).map(person => <p>{person.tags}</p>)}
             accessId={this.state.persons.slice(i, i + 1).map(person => <p>{person.user_id}</p>)}
           />)}
@@ -493,8 +493,10 @@ class Nominee extends Component {
             <p>
               <i>{comment.Createdat.split(".")[0]}</i>
             </p>
-            <p>
-              <b>{comment.Username}: </b> {comment.Content}.
+            <p style={{
+              overflowWrap: "break-word"
+            }}>
+              <b>{comment.Username}: </b> {comment.Content}
             </p>
             <hr />
           </div>)
@@ -537,21 +539,23 @@ class Nominee extends Component {
   };
 
   addComment = () => {
-    let self = this;
-    let user = this.props.userName
-    let id = this.props.id[0].props.children
-    let path = 'https://fierce-everglades-88127.herokuapp.com/comments/' + id
-    axios.post(path, this.state.commentText, { headers: { username: user } })
-      .then(function (response) {
-        self.getComments()
-      })
-      .catch(function (response) {
-        console.error(response);
-        toast.error("Comment failed!", {
-          position: toast.POSITION.TOP_LEFT
+    if (this.state.commentText != "") {
+      let self = this;
+      let user = this.props.userName
+      let id = this.props.id[0].props.children
+      let path = 'https://fierce-everglades-88127.herokuapp.com/comments/' + id
+      axios.post(path, this.state.commentText, { headers: { username: user } })
+        .then(function (response) {
+          self.getComments()
+          self.setState({ commentText: "" })
+        })
+        .catch(function (response) {
+          console.error(response);
+          toast.error("Comment failed!", {
+            position: toast.POSITION.TOP_LEFT
+          });
         });
-      });
-
+    }
   }
 
   render() {
@@ -559,7 +563,7 @@ class Nominee extends Component {
       <div className="columns" style={{ position: 'relative' }}>
         <ul className="person">
           <div className='person content'>
-            <br/>
+            <br />
             <img src={this.state.image} className="person-logo" alt="logo" />
             <div hidden={this.props.userId != this.props.accessId[0].props.children}>
               <Edit isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} userId={this.props.userId} id={this.props.id} name={this.props.name} country={this.props.country} province={this.props.province} description={this.props.description} image={this.props.image} tags={this.props.tags} />
@@ -587,7 +591,7 @@ class Nominee extends Component {
                   <div className="gray">
                     <Dua duas={this.props.duas} id={this.props.id} isLoggedIn={this.props.isLoggedIn} promptForLogin={this.props.promptForLogin} userId={this.props.userId} />
                     <img className="nominee_flag" src={this.state.flag} alt="logo" />
-                    <br/>
+                    <br />
                     <button className="comment-button" onClick={this.showCommentModal}>
                       <Glyphicon glyph="glyphicon glyphicon-comment" /> COMMENTS
                     </button>
@@ -616,7 +620,9 @@ class Nominee extends Component {
                             <FormControl.Feedback />
                           </FormGroup>
                         </form>
-                        {this.fetchCommentList()}
+                        <div>
+                          {this.fetchCommentList()}
+                        </div>
                       </Modal.Body>
                       <Modal.Footer>
                         <Button onClick={this.hideCommentModal}>Close</Button>
