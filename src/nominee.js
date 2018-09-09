@@ -159,7 +159,7 @@ export default class Nominees extends Component {
 
   displayViewButton = () => {
     if (this.state.next_persons.length > 18 * (this.state.page - 1)) {
-      return (<button className="action-button">View More Nominees</button>)
+      return (<button className="view-more-button">View More Nominees</button>)
     } else {
       return null
     }

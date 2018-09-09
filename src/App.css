@@ -139,6 +139,11 @@
   margin-top: 5px;
 }
 
+.dua_button:hover {
+  border: 2px solid #ffffff;
+  border-radius: 100%;
+}
+
 .nominee_flag {
   width: 60px;
   height: 30px;
@@ -355,6 +360,34 @@
   text-decoration: none;
   white-space: nowrap;
   width: 212px;
+}
+
+.view-more-button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  background-color: transparent;
+  border-radius: 0.35em;
+  border: solid 3px #015C89;
+  color: #015C89 !important;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  height: calc(2em + 6px);
+  line-height: 2em;
+  min-width: 10em;
+  padding: 0 1.5em;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  width: 50%;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .comment-button {
