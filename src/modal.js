@@ -39,7 +39,8 @@ export default class SubmitModal extends Component {
         aspect: 1 / 1
       },
       croppedImg: "",
-      chars_left: max_description
+      chars_left: max_description,
+      provinces_valid: true
     };
   }
 
@@ -70,13 +71,15 @@ export default class SubmitModal extends Component {
   handleCountryChange = (e) => {
     this.setState({ country: e.target.value });
     if (e.target.value === "Canada") {
-      this.setState({ active_prov: this.state.can_prov, active_prov_label: "Provinces", province: "Alberta" })
+      this.setState({ active_prov: this.state.can_prov, active_prov_label: "Provinces", province: "Alberta", provinces_valid: true })
     } else if (e.target.value === "United States") {
-      this.setState({ active_prov: this.state.us_prov, active_prov_label: "States", province: "Alabama" })
+      this.setState({ active_prov: this.state.us_prov, active_prov_label: "States", province: "Alabama", provinces_valid: true })
     } else if (e.target.value === "England") {
-      this.setState({ active_prov: this.state.eng_prov, active_prov_label: "Provinces", province: "East Midlands" })
+      this.setState({ active_prov: this.state.eng_prov, active_prov_label: "Provinces", province: "East Midlands", provinces_valid: true })
+    } else if (e.target.value === "Australia") {
+      this.setState({ active_prov: this.state.aus_prov, active_prov_label: "Provinces", province: "Central Australia", provinces_valid: true })
     } else {
-      this.setState({ active_prov: this.state.aus_prov, active_prov_label: "Provinces", province: "Central Australia" })
+      this.setState({ provinces_valid: false, province: '' })
     }
   }
 
@@ -210,15 +213,16 @@ export default class SubmitModal extends Component {
                 <option value="England">England</option>
                 <option value="United States">United States</option>
                 <option value="Australia">Australia</option>
+                <option value="Other">Other Country</option>
               </FormControl>
             </FormGroup>
 
-            <FormGroup controlId="formControlsSelect">
+            {this.state.provinces_valid ? <FormGroup controlId="formControlsSelect">
               <h4><ControlLabel>{this.state.active_prov_label + " *"}</ControlLabel></h4>
               <FormControl componentClass="select" placeholder="select" value={this.state.province} onChange={this.handleProvinceChange}>
                 {this.state.active_prov.map(prov => <option value={prov}> {prov} </option>)}
               </FormControl>
-            </FormGroup>
+            </FormGroup> : null}
 
             <h4><FieldGroup
               id="formControlsText"

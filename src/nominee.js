@@ -7,6 +7,7 @@ import canada_flag from './images/Canada.png';
 import america_flag from './images/America.png';
 import england_flag from './images/England.png';
 import australia_flag from './images/Australia.png';
+import generic_flag from './images/generic_flag.png';
 import {
   Button,
   Well,
@@ -393,9 +394,13 @@ class Nominee extends Component {
       this.setState({
         flag: england_flag
       });
-    } else {
+    } else if (country === "Canada") {
       this.setState({
         flag: canada_flag
+      });
+    } else {
+      this.setState({
+        flag: generic_flag
       });
     }
 
@@ -425,9 +430,13 @@ class Nominee extends Component {
       this.setState({
         flag: england_flag
       });
-    } else {
+    } else if (country === "Canada") {
       this.setState({
         flag: canada_flag
+      });
+    } else {
+      this.setState({
+        flag: generic_flag
       });
     }
 
