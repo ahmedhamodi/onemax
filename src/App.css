@@ -130,13 +130,15 @@
   float: right;
   display: inline;
   font-size: 20px;
-  padding-left: 5px;
-  padding-top: 20px;
+  padding-left: 3px;
+  padding-top: 15px;
 }
 
 .dua_button {
-  margin-left: 10px;
+  margin-left: 5px;
   margin-top: 5px;
+  width: 50px;
+  height: 50px;
 }
 
 .dua_button:hover {
@@ -150,7 +152,7 @@
   float: right;
   display: inline;
   margin-top: 20px;
-  margin-right: 20px;
+  margin-right: 5px;
 }
 
 .align_right {
@@ -406,11 +408,9 @@
   cursor: pointer;
   display: inline-block;
   font-weight: 400;
-  height: 2.5em;
   height: calc(2em + 6px);
-  line-height: 2em;
-  min-width: 10em;
-  padding: 0 1.5em;
+  line-height: 1.5em;
+  min-width: 8em;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;

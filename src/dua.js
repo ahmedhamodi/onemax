@@ -59,10 +59,10 @@ export default class Dua extends Component {
     return (
       <div>
         {this.props.isLoggedIn ? <a className="button">
-          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.increaseDuas} />
+          <img src={dua} alt="Give Dua" className="dua_button" onClick={this.increaseDuas} />
           <p className="dua_number"> {this.state.duas} </p>
         </a> : <div className="button">
-          <img src={dua} alt="Give Dua" height="60" width="60" className="dua_button" onClick={this.props.promptForLogin} />
+          <img src={dua} alt="Give Dua" className="dua_button" onClick={this.props.promptForLogin} />
           <p className="dua_number"> {this.state.duas} </p>
         </div>}
       </div>
