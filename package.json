@@ -48,7 +48,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {
-    "eslint": "^5.5.0"
-  }
+  "devDependencies": {}
 }
