@@ -548,7 +548,6 @@ class Nominee extends Component {
   };
 
   addComment = () => {
-    // eslint-disable-next-line
     if (this.state.commentText != "") {
       let self = this;
       let user = this.props.userName
@@ -575,9 +574,7 @@ class Nominee extends Component {
           <div className='person content'>
             <br />
             <img src={this.state.image} className="person-logo" alt="logo" />
-            <div hidden={
-              // eslint-disable-next-line
-              this.props.userId != this.props.accessId[0].props.children}>
+            <div hidden={this.props.userId != this.props.accessId[0].props.children}>
               <Edit isLoggedIn={this.props.isLoggedIn} promptForLogin={this.promptForLogin} userId={this.props.userId} id={this.props.id} name={this.props.name} country={this.props.country} province={this.props.province} description={this.props.description} image={this.props.image} tags={this.props.tags} />
             </div>
             <p style={{
