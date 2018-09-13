@@ -73,6 +73,10 @@ export default class NavbarNew extends Component {
     position: toast.POSITION.TOP_LEFT
   })
 
+  scrollToTop() {
+    window.scrollTo(0, 0)
+  }
+
   render() {
     return (
       <div>
@@ -85,7 +89,7 @@ export default class NavbarNew extends Component {
           <Navbar.Header className='Main-Nav-Header'>
             <Link to="/">
               <Navbar.Brand>
-                <img src={onemaxlogo} className="App-logo" alt="logo" />
+                <img src={onemaxlogo} className="App-logo" alt="logo" onClick={this.scrollToTop}/>
               </Navbar.Brand>
             </Link>
             <Navbar.Toggle />
