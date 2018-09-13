@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import NavBarNew from './navbarnew.js';
+import HttpsRedirect from 'react-https-redirect';
 import './App.css';
 
 class App extends Component {
@@ -46,48 +47,50 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Router>
-          <div>
-            <ToastContainer autoClose={3000} />
-            <div className='container'>
-              <NavBarNew isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateFacebookLogin={this.updateFacebookLogin} updateGoogleLogin={this.updateGoogleLogin} />
-            </div>
-            <div style={{
-              paddingTop: "60px"
-            }}>
-              <Navbar fixedBottom style={{
-                backgroundColor: '#015C89',
-                fontSize: '14px'
-              }}>
-                <Navbar.Header>
-                  <Navbar.Toggle />
-                </Navbar.Header>
-                <Navbar.Collapse>
-                  <Nav>
-                    <NavItem eventKey={1} href="mailto:onemaxapp@gmail.com">
-                      <div style={{
-                        color: '#D8D8D8'
-                      }}>
-                        Contact Us
+        <HttpsRedirect>
+          <div className="App">
+            <Router>
+              <div>
+                <ToastContainer autoClose={3000} />
+                <div className='container'>
+                  <NavBarNew isLoggedIn={this.state.isLoggedIn} name={this.state.name} updateFacebookLogin={this.updateFacebookLogin} updateGoogleLogin={this.updateGoogleLogin} />
+                </div>
+                <div style={{
+                  paddingTop: "60px"
+                }}>
+                  <Navbar fixedBottom style={{
+                    backgroundColor: '#015C89',
+                    fontSize: '14px'
+                  }}>
+                    <Navbar.Header>
+                      <Navbar.Toggle />
+                    </Navbar.Header>
+                    <Navbar.Collapse>
+                      <Nav>
+                        <NavItem eventKey={1} href="mailto:onemaxapp@gmail.com">
+                          <div style={{
+                            color: '#D8D8D8'
+                          }}>
+                            Contact Us
                       </div>
-                    </NavItem>
-                    {/* Leaving this here so that we remember how to add further*/}
-                    {/* <NavItem>
+                        </NavItem>
+                        {/* Leaving this here so that we remember how to add further*/}
+                        {/* <NavItem>
                       <Link to='/FAQ'>
                         FAQ
                       </Link>
                     </NavItem> */}
-                  </Nav>
-                  <Navbar.Text pullRight style={{
-                      color: '#D8D8D8'
-                    }}>© Copyright 2018 OneMAX | All Rights Reserved</Navbar.Text>
-                </Navbar.Collapse>
-              </Navbar>
-            </div>
+                      </Nav>
+                      <Navbar.Text pullRight style={{
+                        color: '#D8D8D8'
+                      }}>© Copyright 2018 OneMAX | All Rights Reserved</Navbar.Text>
+                    </Navbar.Collapse>
+                  </Navbar>
+                </div>
+              </div>
+            </Router>
           </div>
-        </Router>
-      </div>
+        </HttpsRedirect>
     );
   }
 }
