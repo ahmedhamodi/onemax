@@ -60,6 +60,9 @@ class App extends Component {
                 backgroundColor: '#015C89',
                 fontSize: '14px'
               }}>
+                <Navbar.Header>
+                  <Navbar.Toggle />
+                </Navbar.Header>
                 <Navbar.Collapse>
                   <Nav>
                     <NavItem eventKey={1} href="mailto:onemaxapp@gmail.com">
